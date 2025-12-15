@@ -1,0 +1,73 @@
+{
+    "id": "13afc7d5-8c52-4392-b7db-a577ef0d6557",
+    "sceneType": "PREFAB",
+    "settings": {
+        "snapEnabled": true,
+        "exportClass": true,
+        "autoImport": true,
+        "importFileExtension": true,
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "type": "Text",
+            "id": "bc81ff37-1fb9-41cf-a078-a2b36a1c182b",
+            "label": "text_1",
+            "hitArea.shape": "RECTANGLE",
+            "hitArea.width": 541,
+            "hitArea.height": 165,
+            "x": 683,
+            "y": 418,
+            "originX": 0.5,
+            "originY": 0.5,
+            "text": "START",
+            "align": "center",
+            "fontFamily": "Jersey15-Regular",
+            "fontSize": "180px",
+            "color": "#f7c700ff",
+            "stroke": "#000000ff",
+            "strokeThickness": 13,
+            "shadow.offsetX": 9,
+            "shadow.offsetY": 10,
+            "shadow.stroke": true,
+            "shadow.fill": true,
+            "list": [
+                {
+                    "prefabId": "7e57dc4b-3f41-476b-8431-f03ca75083fd",
+                    "id": "04e87493-dfd2-4cb2-927e-861f88f8da60",
+                    "unlock": [
+                        "eventName",
+                        "eventEmitter"
+                    ],
+                    "label": "onEvent",
+                    "eventName": "pointerdown",
+                    "eventEmitter": "gameObject",
+                    "list": [
+                        {
+                            "prefabId": "fde543dc-2fcd-4de9-9c2e-76a1e3d62023",
+                            "id": "1cbc36ea-20a4-4a2d-8541-ad12eff6878d",
+                            "unlock": [
+                                "eventName",
+                                "eventEmitter"
+                            ],
+                            "label": "onEventEmit",
+                            "eventName": "onGameStart",
+                            "eventEmitter": "scene.events"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}

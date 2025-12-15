@@ -1,0 +1,185 @@
+{
+    "id": "9631c2eb-b648-48df-877c-5f9bb35c2b26",
+    "sceneType": "PREFAB",
+    "settings": {
+        "snapEnabled": true,
+        "snapWidth": 256,
+        "snapHeight": 256,
+        "exportClass": true,
+        "autoImport": true,
+        "importFileExtension": true,
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "type": "Container",
+            "id": "3a229b60-606f-4c63-bfd0-fce257c8cfc9",
+            "label": "container_1",
+            "blendMode": -1,
+            "hitArea.shape": "RECTANGLE",
+            "hitArea.width": 50,
+            "hitArea.height": 50,
+            "ArcadeComponent.active": true,
+            "moves": false,
+            "allowGravity": false,
+            "allowDrag": false,
+            "allowRotation": false,
+            "pushable": false,
+            "body.width": 50,
+            "body.height": 50,
+            "list": [
+                {
+                    "type": "Container",
+                    "id": "b60c0164-632c-48ea-ab3e-148514f073ca",
+                    "label": "VisualContainer",
+                    "scope": "CLASS",
+                    "blendMode": -1,
+                    "list": [
+                        {
+                            "type": "NineSlice",
+                            "id": "aefa8e87-772a-4160-889d-f863baf673aa",
+                            "label": "nineslice",
+                            "texture": {
+                                "key": "Btn_OtherButton_Square08"
+                            },
+                            "y": 2,
+                            "scaleX": 0.5,
+                            "scaleY": 0.5,
+                            "originX": 0,
+                            "originY": 0,
+                            "tint": "#000000",
+                            "leftWidth": 17,
+                            "width": 100,
+                            "height": 100
+                        },
+                        {
+                            "type": "NineSlice",
+                            "id": "bcf92e09-ef7e-447d-a0db-0ecf7404a302",
+                            "label": "ColorBlock",
+                            "scope": "CLASS",
+                            "texture": {
+                                "key": "Btn_OtherButton_Square09"
+                            },
+                            "scaleX": 0.5,
+                            "scaleY": 0.5,
+                            "originX": 0,
+                            "originY": 0,
+                            "tint": "#38afff",
+                            "leftWidth": 17,
+                            "rightWidth": 18,
+                            "topHeight": 17,
+                            "bottomHeight": 20,
+                            "width": 100,
+                            "height": 100
+                        },
+                        {
+                            "type": "Image",
+                            "id": "cf570da1-12f2-475e-ae8e-609cc04c379b",
+                            "label": "manBody",
+                            "scope": "CLASS",
+                            "texture": {
+                                "key": "ManBody"
+                            },
+                            "y": -12,
+                            "scaleX": 0.5,
+                            "scaleY": 0.5,
+                            "originX": 0,
+                            "originY": 0,
+                            "tintTopLeft": "#f5f4f4",
+                            "tintBottomLeft": "#ea9fff",
+                            "tintBottomRight": "#ea9fff"
+                        },
+                        {
+                            "prefabId": "5808bdef-eecc-4f18-8dac-52f3f5da875f",
+                            "id": "ceac5c62-b197-49d5-8311-92196d769499",
+                            "unlock": [
+                                "x",
+                                "y",
+                                "text",
+                                "fontSize",
+                                "shadow.offsetX",
+                                "shadow.offsetY",
+                                "resolution",
+                                "strokeThickness",
+                                "tintBottomLeft",
+                                "tintBottomRight"
+                            ],
+                            "label": "healthText",
+                            "scope": "CLASS",
+                            "x": 25,
+                            "y": 25,
+                            "tintBottomLeft": "#ffffff",
+                            "tintBottomRight": "#ffffff",
+                            "text": "1",
+                            "resolution": 2,
+                            "fontSize": "35px",
+                            "strokeThickness": 3,
+                            "shadow.offsetX": 0,
+                            "shadow.offsetY": 4
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    },
+    "prefabProperties": [
+        {
+            "name": "colors",
+            "label": "Colors",
+            "tooltip": "",
+            "defValue": "#78ecffff",
+            "customDefinition": false,
+            "type": {
+                "id": "option",
+                "options": [
+                    "#78ecffff",
+                    "#ffb978ff",
+                    "#78ff9eff",
+                    "#ff7878ff",
+                    "#d478ffff"
+                ]
+            }
+        },
+        {
+            "name": "property",
+            "label": "Property",
+            "tooltip": "",
+            "defValue": "#d478ffff",
+            "customDefinition": false,
+            "type": {
+                "id": "color"
+            }
+        },
+        {
+            "name": "hitSound",
+            "label": "HitSound",
+            "tooltip": "",
+            "defValue": "Boop_01",
+            "customDefinition": false,
+            "type": {
+                "id": "audio-key"
+            }
+        },
+        {
+            "name": "breakSound",
+            "label": "BreakSound",
+            "tooltip": "",
+            "defValue": "Boop_01",
+            "customDefinition": false,
+            "type": {
+                "id": "audio-key"
+            }
+        }
+    ]
+}

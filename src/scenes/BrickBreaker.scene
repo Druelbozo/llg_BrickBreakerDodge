@@ -1,0 +1,87 @@
+{
+    "id": "0f7d750f-946a-411d-9cd0-908fa7dcfba0",
+    "sceneType": "SCENE",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "importFileExtension": true,
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "BrickBreaker",
+        "borderWidth": 700,
+        "borderHeight": 1280
+    },
+    "displayList": [
+        {
+            "prefabId": "3a44f4fa-51ff-4064-9fa5-c9f56cea975f",
+            "id": "cd6b42d8-e058-4bc4-a9ff-d07bb439a5a3",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY"
+            ],
+            "label": "padel",
+            "x": 347,
+            "y": 1092,
+            "scaleX": 3,
+            "scaleY": 0.5
+        },
+        {
+            "prefabId": "da434c50-26d0-4f7c-b9ef-665e251c9573",
+            "id": "86354c7b-301c-48c8-bb42-958c0ae80610",
+            "unlock": [
+                "brickHeight",
+                "lines"
+            ],
+            "label": "brickGroup",
+            "lines": 6,
+            "brickHeight": 1
+        },
+        {
+            "prefabId": "8c084b7a-35bc-4845-8400-6c2c33e4f436",
+            "id": "fe3568ac-72a7-4ec0-979b-19d30e50ba4b",
+            "unlock": [
+                "x",
+                "y",
+                "body.velocity.x",
+                "body.velocity.y",
+                "scaleX",
+                "scaleY"
+            ],
+            "label": "ball",
+            "x": 364,
+            "y": 1021,
+            "scaleX": 0.35,
+            "scaleY": 0.35,
+            "body.velocity.x": -1000,
+            "body.velocity.y": -1000
+        }
+    ],
+    "plainObjects": [
+        {
+            "id": "0c4a9b1a-6755-4f49-ad4e-1f40223995bd",
+            "type": "Collider",
+            "label": "collider",
+            "scope": "LOCAL",
+            "object1": "ball",
+            "object2": "padel"
+        },
+        {
+            "id": "be9e7c3d-f2a5-4e85-b4ae-b9448ac11525",
+            "type": "Collider",
+            "label": "collider_1",
+            "scope": "LOCAL",
+            "object1": "ball",
+            "object2": "brickGroup.group",
+            "collideCallback": "this.hitBrick",
+            "callbackContext": "this"
+        }
+    ],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}

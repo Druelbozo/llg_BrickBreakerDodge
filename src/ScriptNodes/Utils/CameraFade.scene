@@ -1,0 +1,84 @@
+{
+    "id": "0fcd2c3c-1158-4c96-9288-60720903784b",
+    "sceneType": "PREFAB",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "importFileExtension": true,
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "borderWidth": 700,
+        "borderHeight": 1280
+    },
+    "displayList": [
+        {
+            "type": "ScriptNode",
+            "id": "121f1ed2-05fe-4d95-8385-9de8c798394f",
+            "label": "scriptnode_1"
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    },
+    "prefabProperties": [
+        {
+            "name": "duration",
+            "label": "Duration",
+            "tooltip": "",
+            "defValue": 1000,
+            "customDefinition": false,
+            "type": {
+                "id": "number"
+            }
+        },
+        {
+            "name": "fadeDirection",
+            "label": "FadeDirection",
+            "tooltip": "",
+            "defValue": "In",
+            "customDefinition": false,
+            "type": {
+                "id": "option",
+                "options": [
+                    "In",
+                    "Out"
+                ]
+            }
+        },
+        {
+            "name": "r",
+            "label": "R",
+            "tooltip": "",
+            "defValue": 255,
+            "customDefinition": false,
+            "type": {
+                "id": "number"
+            }
+        },
+        {
+            "name": "g",
+            "label": "G",
+            "tooltip": "",
+            "defValue": 255,
+            "customDefinition": false,
+            "type": {
+                "id": "number"
+            }
+        },
+        {
+            "name": "b",
+            "label": "B",
+            "tooltip": "",
+            "defValue": 255,
+            "customDefinition": false,
+            "type": {
+                "id": "number"
+            }
+        }
+    ]
+}

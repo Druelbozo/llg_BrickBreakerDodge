@@ -1,0 +1,50 @@
+{
+    "id": "6130c74b-2e90-4ac7-8915-c2aac33a6acb",
+    "sceneType": "PREFAB",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "importFileExtension": true,
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "borderWidth": 700,
+        "borderHeight": 1280
+    },
+    "displayList": [
+        {
+            "prefabId": "3f93e4b6-5473-46a5-9457-fb997e83afab",
+            "id": "c82fb55f-9952-4c21-b6fa-8f975ca2d589",
+            "label": "nodeScriptWithTarget"
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    },
+    "prefabProperties": [
+        {
+            "name": "numberOfFlashes",
+            "label": "numberOfFlashes",
+            "tooltip": "",
+            "defValue": 6,
+            "customDefinition": false,
+            "type": {
+                "id": "number"
+            }
+        },
+        {
+            "name": "timeBetweenFlashes",
+            "label": "TimeBetweenFlashes",
+            "tooltip": "",
+            "defValue": 1000,
+            "customDefinition": false,
+            "type": {
+                "id": "number"
+            }
+        }
+    ]
+}

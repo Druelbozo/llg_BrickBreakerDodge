@@ -1,0 +1,1430 @@
+{
+    "id": "01aefa93-6044-4159-8358-7e91310aa05f",
+    "sceneType": "SCENE",
+    "settings": {
+        "snapEnabled": true,
+        "snapWidth": 10,
+        "snapHeight": 10,
+        "exportClass": true,
+        "autoImport": true,
+        "importFileExtension": true,
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "Level",
+        "borderWidth": 700,
+        "borderHeight": 1280
+    },
+    "displayList": [
+        {
+            "type": "Image",
+            "id": "c63794ee-5884-4703-82b9-227e96394666",
+            "label": "BG",
+            "scope": "CLASS",
+            "texture": {
+                "key": "SoccarField"
+            },
+            "x": -30,
+            "scaleX": 0.957533067724055,
+            "scaleY": 0.957533067724055,
+            "angle": 90,
+            "originX": 0,
+            "originY": 1
+        },
+        {
+            "type": "Container",
+            "id": "781ab4ce-046e-4e4b-89c7-abdb011bbd50",
+            "label": "wallsContainer",
+            "scope": "CLASS",
+            "blendMode": -1,
+            "list": [
+                {
+                    "type": "ArcadeImage",
+                    "id": "f2ee1e93-97a4-4eaa-8d56-658ce616baf5",
+                    "label": "wall",
+                    "texture": {},
+                    "scaleX": 22,
+                    "scaleY": 3,
+                    "originX": 0,
+                    "originY": 0,
+                    "visible": false,
+                    "moves": false,
+                    "allowGravity": false,
+                    "allowDrag": false,
+                    "allowRotation": false,
+                    "pushable": false,
+                    "body.width": 32,
+                    "body.height": 32
+                }
+            ]
+        },
+        {
+            "type": "Layer",
+            "id": "724d31d1-611a-4ae3-a279-c366625942bb",
+            "label": "gameObjects",
+            "blendMode": -1,
+            "list": [
+                {
+                    "prefabId": "30720624-0733-449f-9b07-11bf68507037",
+                    "id": "0f01aa7e-9c09-4da4-af9d-d59f9b4725dd",
+                    "unlock": [
+                        "alpha",
+                        "x",
+                        "y"
+                    ],
+                    "label": "brickSpawner",
+                    "x": 0,
+                    "y": 200,
+                    "alpha": 1
+                },
+                {
+                    "prefabId": "390c4ec9-9695-47e4-96dc-7762fe106066",
+                    "id": "a18e743a-520a-4f10-bd43-9f163d73ad19",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "ballLauncher",
+                    "scope": "CLASS",
+                    "x": 350,
+                    "y": 1050
+                }
+            ]
+        },
+        {
+            "type": "Layer",
+            "id": "b18b29cd-2aaf-4555-a218-ecf2e0c3edd8",
+            "label": "UI",
+            "blendMode": -1,
+            "list": [
+                {
+                    "prefabId": "5808bdef-eecc-4f18-8dac-52f3f5da875f",
+                    "id": "f7c671c9-7a2b-41b8-a585-5ed8b1997465",
+                    "unlock": [
+                        "x",
+                        "y",
+                        "text",
+                        "fontSize",
+                        "strokeThickness",
+                        "shadow.offsetX",
+                        "shadow.offsetY",
+                        "color",
+                        "hitArea.shape",
+                        "hitArea.x",
+                        "hitArea.y",
+                        "hitArea.width",
+                        "hitArea.height",
+                        "hitArea.radius",
+                        "hitArea.points",
+                        "hitArea.alphaTolerance"
+                    ],
+                    "label": "startButton",
+                    "useGameObjectName": true,
+                    "scope": "CLASS",
+                    "hitArea.shape": "RECTANGLE",
+                    "hitArea.x": 0,
+                    "hitArea.y": 0,
+                    "hitArea.width": 679,
+                    "hitArea.height": 295.96875,
+                    "x": 350,
+                    "y": -270,
+                    "text": "START",
+                    "fontSize": "216px",
+                    "color": "#ffffffff",
+                    "strokeThickness": 25,
+                    "shadow.offsetX": 0,
+                    "shadow.offsetY": 21,
+                    "list": [
+                        {
+                            "prefabId": "7e57dc4b-3f41-476b-8431-f03ca75083fd",
+                            "id": "c6dea4d8-78b5-4956-8d27-ca9a09103204",
+                            "unlock": [
+                                "eventName",
+                                "once"
+                            ],
+                            "label": "onEvent",
+                            "eventName": "pointerdown",
+                            "once": true,
+                            "list": [
+                                {
+                                    "prefabId": "6130c74b-2e90-4ac7-8915-c2aac33a6acb",
+                                    "id": "96dcee88-f274-4755-89cf-9b687ea5e1ba",
+                                    "unlock": [
+                                        "numberOfFlashes",
+                                        "timeBetweenFlashes",
+                                        "targetGameObject"
+                                    ],
+                                    "label": "flashObject",
+                                    "targetGameObject": "startButton",
+                                    "numberOfFlashes": 14,
+                                    "timeBetweenFlashes": 50,
+                                    "list": [
+                                        {
+                                            "prefabId": "fde543dc-2fcd-4de9-9c2e-76a1e3d62023",
+                                            "id": "b62c014d-8d15-4181-ab8d-77dcb9af83d7",
+                                            "unlock": [
+                                                "eventName",
+                                                "eventEmitter"
+                                            ],
+                                            "label": "onEventEmit",
+                                            "eventName": "onStartButtonPressed",
+                                            "eventEmitter": "scene.events"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "NineSlice",
+                    "id": "ff75ddd9-93bb-4768-a193-9316cb896253",
+                    "label": "nineslice_1",
+                    "texture": {
+                        "key": "Btn_OtherButton_Square03_Purple"
+                    },
+                    "originX": 0,
+                    "originY": 0,
+                    "leftWidth": 20,
+                    "rightWidth": 20,
+                    "topHeight": 23,
+                    "bottomHeight": 31,
+                    "width": 700,
+                    "height": 100
+                },
+                {
+                    "prefabId": "b5b1bf0d-b97b-466c-86be-ceb49dd58872",
+                    "id": "146dcec5-e5e2-477f-af86-8ea9b6619f75",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "scoreManager",
+                    "x": 350,
+                    "y": -10
+                },
+                {
+                    "prefabId": "5808bdef-eecc-4f18-8dac-52f3f5da875f",
+                    "id": "2faf3ccb-e5d7-4e36-be12-32945c3791df",
+                    "unlock": [
+                        "x",
+                        "y",
+                        "text",
+                        "fontSize",
+                        "strokeThickness",
+                        "shadow.offsetX",
+                        "shadow.offsetY",
+                        "color",
+                        "scaleX",
+                        "scaleY"
+                    ],
+                    "label": "CountDown_1",
+                    "scope": "CLASS",
+                    "x": 350,
+                    "y": 640,
+                    "scaleX": 0,
+                    "scaleY": 0,
+                    "text": "1",
+                    "fontSize": "527px",
+                    "color": "#ffffffff",
+                    "strokeThickness": 39,
+                    "shadow.offsetX": 0,
+                    "shadow.offsetY": 21
+                },
+                {
+                    "prefabId": "5808bdef-eecc-4f18-8dac-52f3f5da875f",
+                    "id": "b627549d-032b-4cac-8edd-f6afe4370705",
+                    "unlock": [
+                        "x",
+                        "y",
+                        "text",
+                        "fontSize",
+                        "strokeThickness",
+                        "shadow.offsetX",
+                        "shadow.offsetY",
+                        "color",
+                        "scaleX",
+                        "scaleY"
+                    ],
+                    "label": "CountDown_2",
+                    "scope": "CLASS",
+                    "x": 350,
+                    "y": 640,
+                    "scaleX": 0,
+                    "scaleY": 0,
+                    "text": "2",
+                    "fontSize": "527px",
+                    "color": "#ffffffff",
+                    "strokeThickness": 39,
+                    "shadow.offsetX": 0,
+                    "shadow.offsetY": 21
+                },
+                {
+                    "prefabId": "5808bdef-eecc-4f18-8dac-52f3f5da875f",
+                    "id": "a8be7f25-09a1-4cc6-8c61-61b02e512e86",
+                    "unlock": [
+                        "x",
+                        "y",
+                        "text",
+                        "fontSize",
+                        "strokeThickness",
+                        "shadow.offsetX",
+                        "shadow.offsetY",
+                        "color",
+                        "scaleX",
+                        "scaleY"
+                    ],
+                    "label": "CountDown_3",
+                    "scope": "CLASS",
+                    "x": 350,
+                    "y": 640,
+                    "scaleX": 0,
+                    "scaleY": 0,
+                    "text": "3",
+                    "fontSize": "527px",
+                    "color": "#ffffffff",
+                    "strokeThickness": 39,
+                    "shadow.offsetX": 0,
+                    "shadow.offsetY": 21
+                },
+                {
+                    "prefabId": "5808bdef-eecc-4f18-8dac-52f3f5da875f",
+                    "id": "e96f9092-7fc3-46fe-8f1d-59c411becc8b",
+                    "unlock": [
+                        "x",
+                        "y",
+                        "fontSize",
+                        "strokeThickness",
+                        "shadow.offsetX",
+                        "shadow.offsetY",
+                        "text",
+                        "color",
+                        "scaleX",
+                        "scaleY"
+                    ],
+                    "label": "CountDown",
+                    "scope": "CLASS",
+                    "x": 350,
+                    "y": 640,
+                    "scaleX": 0,
+                    "scaleY": 0,
+                    "text": "GO",
+                    "fontSize": "538px",
+                    "color": "#ffffffff",
+                    "strokeThickness": 41,
+                    "shadow.offsetX": 0,
+                    "shadow.offsetY": 22
+                },
+                {
+                    "prefabId": "5808bdef-eecc-4f18-8dac-52f3f5da875f",
+                    "id": "8f8d5fa7-e930-40c4-9604-e002a5d6066c",
+                    "unlock": [
+                        "x",
+                        "y",
+                        "angle",
+                        "text",
+                        "color",
+                        "fontSize",
+                        "strokeThickness",
+                        "shadow.offsetX",
+                        "shadow.offsetY",
+                        "scaleX",
+                        "scaleY"
+                    ],
+                    "label": "GameOverText",
+                    "scope": "CLASS",
+                    "x": 350,
+                    "y": 650,
+                    "scaleX": 0,
+                    "scaleY": 0,
+                    "angle": -10,
+                    "text": "GAME OVER",
+                    "fontSize": "109px",
+                    "color": "#ffffffff",
+                    "strokeThickness": 20,
+                    "shadow.offsetX": 0,
+                    "shadow.offsetY": 10
+                },
+                {
+                    "type": "Text",
+                    "id": "ca43b247-cda3-47aa-8bfd-878d80e4c81e",
+                    "label": "Pause",
+                    "useGameObjectName": true,
+                    "scope": "CLASS",
+                    "padding": 1,
+                    "hitArea.shape": "RECTANGLE",
+                    "hitArea.x": -14,
+                    "hitArea.width": 60,
+                    "hitArea.height": 70,
+                    "x": 640,
+                    "y": 40,
+                    "originX": 0.5,
+                    "originY": 0.5,
+                    "text": "II",
+                    "fontFamily": "Jersey15-Regular",
+                    "fontSize": "70px",
+                    "color": "#ffffffff",
+                    "stroke": "#000000ff",
+                    "strokeThickness": 6,
+                    "shadow.offsetX": 3,
+                    "shadow.offsetY": 2,
+                    "shadow.stroke": true,
+                    "shadow.fill": true,
+                    "list": [
+                        {
+                            "prefabId": "7e57dc4b-3f41-476b-8431-f03ca75083fd",
+                            "id": "75f7a716-0e68-45e9-8391-4062f41fe45a",
+                            "unlock": [
+                                "eventName"
+                            ],
+                            "label": "onEvent_2",
+                            "eventName": "pointerdown",
+                            "list": [
+                                {
+                                    "prefabId": "39e579e4-b53a-4b28-8b9b-bd69e69771f4",
+                                    "id": "4015d5a5-ca2e-4efd-983c-64850669fe1d",
+                                    "label": "pause"
+                                },
+                                {
+                                    "prefabId": "d5346a74-b394-4a82-9980-896140193b77",
+                                    "id": "ebfd23cf-640c-4ce0-b7eb-44d3a8350114",
+                                    "unlock": [
+                                        "targetGameObject",
+                                        "show"
+                                    ],
+                                    "label": "setVisable_1",
+                                    "targetGameObject": "pausePanel",
+                                    "show": true
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "prefabId": "5808bdef-eecc-4f18-8dac-52f3f5da875f",
+                    "id": "157191dc-2f51-4a32-a7b4-cfabfbaec057",
+                    "unlock": [
+                        "x",
+                        "y",
+                        "text",
+                        "fontSize"
+                    ],
+                    "label": "Timer",
+                    "useGameObjectName": true,
+                    "scope": "CLASS",
+                    "x": 80,
+                    "y": 40,
+                    "text": "0:00",
+                    "fontSize": "60px",
+                    "list": [
+                        {
+                            "prefabId": "7e57dc4b-3f41-476b-8431-f03ca75083fd",
+                            "id": "67fd65d4-d142-4076-a42e-d438a70e7dc0",
+                            "unlock": [
+                                "eventName",
+                                "eventEmitter",
+                                "once"
+                            ],
+                            "label": "onGameStartTimer",
+                            "eventName": "onGameStart",
+                            "eventEmitter": "scene.events",
+                            "once": true,
+                            "list": [
+                                {
+                                    "prefabId": "42bfff01-9aea-4202-acc5-8ecad9941f06",
+                                    "id": "a1d7ac71-3c8b-4874-896c-ef14df4c151a",
+                                    "unlock": [
+                                        "timerLength"
+                                    ],
+                                    "label": "timer_1",
+                                    "timerLength": 360,
+                                    "list": [
+                                        {
+                                            "prefabId": "fde543dc-2fcd-4de9-9c2e-76a1e3d62023",
+                                            "id": "b055ae99-8eba-4846-930c-504bca768d32",
+                                            "unlock": [
+                                                "eventName",
+                                                "eventEmitter"
+                                            ],
+                                            "label": "onGameOverTimerEvent",
+                                            "eventName": "onGameOver",
+                                            "eventEmitter": "scene.events"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Container",
+                    "id": "386a50b7-b231-41fc-be72-6f99ea805833",
+                    "label": "PointsMessageDisplay",
+                    "blendMode": -1,
+                    "x": 360,
+                    "y": 640,
+                    "alpha": 0,
+                    "list": [
+                        {
+                            "prefabId": "5808bdef-eecc-4f18-8dac-52f3f5da875f",
+                            "id": "586cab46-c171-40ae-95be-cd842a8524e4",
+                            "unlock": [
+                                "x",
+                                "y",
+                                "angle",
+                                "fontSize",
+                                "text",
+                                "strokeThickness"
+                            ],
+                            "label": "PointsGainsMessage_String",
+                            "scope": "CLASS",
+                            "x": -10,
+                            "y": 10,
+                            "angle": -6,
+                            "text": "POINTS!",
+                            "fontSize": "135px",
+                            "strokeThickness": 19
+                        },
+                        {
+                            "prefabId": "5808bdef-eecc-4f18-8dac-52f3f5da875f",
+                            "id": "4075d0ea-b387-46d5-a0e1-8758ee8ffb0c",
+                            "unlock": [
+                                "x",
+                                "y",
+                                "fontSize",
+                                "text",
+                                "angle",
+                                "strokeThickness"
+                            ],
+                            "label": "PointsGainedMessage_Number",
+                            "scope": "CLASS",
+                            "x": -30,
+                            "y": -140,
+                            "angle": -5,
+                            "text": "100",
+                            "fontSize": "274px",
+                            "strokeThickness": 21
+                        },
+                        {
+                            "prefabId": "71ebda8f-2849-4c13-a2e7-0a68d79ca99e",
+                            "id": "e769024d-4dd0-4e13-8f5a-26376f4ad1e8",
+                            "unlock": [
+                                "textObject",
+                                "messageEvent"
+                            ],
+                            "label": "messageDisplay_1",
+                            "textObject": "pointsGainedMessage_Number",
+                            "messageEvent": "onDisplayPoints",
+                            "list": [
+                                {
+                                    "prefabId": "1500c08b-a94b-4283-8e2a-4f79791d6bbd",
+                                    "id": "51b22a36-9244-448b-b1e5-8aab5796c893",
+                                    "unlock": [
+                                        "fromX",
+                                        "fromY",
+                                        "x",
+                                        "y",
+                                        "duration",
+                                        "ease",
+                                        "targetGameObject"
+                                    ],
+                                    "label": "moveTween_1",
+                                    "targetGameObject": "pointsGainedMessage_Number",
+                                    "fromX": -650,
+                                    "fromY": -140,
+                                    "x": -30,
+                                    "y": -140,
+                                    "duration": 500,
+                                    "ease": "Back.easeOut",
+                                    "list": [
+                                        {
+                                            "prefabId": "21280d98-709c-42bb-a93b-ffcc896ba469",
+                                            "id": "bff3ad16-dcab-4420-a1d9-ed000fb7061d",
+                                            "unlock": [
+                                                "duration",
+                                                "fromAlpha",
+                                                "alpha",
+                                                "targetGameObject"
+                                            ],
+                                            "label": "alphaTween_5",
+                                            "targetGameObject": "pointsMessageDisplay",
+                                            "fromAlpha": 1,
+                                            "alpha": 0,
+                                            "duration": 1000
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prefabId": "1500c08b-a94b-4283-8e2a-4f79791d6bbd",
+                                    "id": "2855b7a4-b237-4d43-98ba-145f179a88da",
+                                    "unlock": [
+                                        "fromX",
+                                        "fromY",
+                                        "x",
+                                        "y",
+                                        "duration",
+                                        "ease",
+                                        "targetGameObject"
+                                    ],
+                                    "label": "moveTween_2",
+                                    "targetGameObject": "pointsGainsMessage_String",
+                                    "fromX": 650,
+                                    "fromY": 10,
+                                    "x": -30,
+                                    "y": 10,
+                                    "duration": 500,
+                                    "ease": "Back.easeOut"
+                                },
+                                {
+                                    "prefabId": "21280d98-709c-42bb-a93b-ffcc896ba469",
+                                    "id": "438299ff-9014-4dbd-b24f-b22c2aad0d62",
+                                    "unlock": [
+                                        "fromAlpha",
+                                        "alpha",
+                                        "duration",
+                                        "targetGameObject"
+                                    ],
+                                    "label": "alphaTween_4",
+                                    "targetGameObject": "pointsMessageDisplay",
+                                    "fromAlpha": 0,
+                                    "alpha": 1,
+                                    "duration": 200
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Container",
+                    "id": "79202562-9eae-4bcf-92e7-90fbbb7b6ed8",
+                    "label": "BricksMessageDisplay",
+                    "blendMode": -1,
+                    "x": 360,
+                    "y": 640,
+                    "alpha": 0,
+                    "list": [
+                        {
+                            "prefabId": "5808bdef-eecc-4f18-8dac-52f3f5da875f",
+                            "id": "deaade25-0034-4a8e-a684-19d7327cf060",
+                            "unlock": [
+                                "x",
+                                "y",
+                                "angle",
+                                "fontSize",
+                                "text",
+                                "strokeThickness"
+                            ],
+                            "label": "BricksMessage_String",
+                            "scope": "CLASS",
+                            "x": 10,
+                            "y": 10,
+                            "angle": -8,
+                            "text": "ELIMINATED!",
+                            "fontSize": "145px",
+                            "strokeThickness": 16
+                        },
+                        {
+                            "prefabId": "5808bdef-eecc-4f18-8dac-52f3f5da875f",
+                            "id": "2dc2a31e-5b72-417c-9835-b841b9f43028",
+                            "unlock": [
+                                "x",
+                                "y",
+                                "text",
+                                "fontSize",
+                                "strokeThickness",
+                                "angle"
+                            ],
+                            "label": "BricksMessage_Number",
+                            "scope": "CLASS",
+                            "x": -30,
+                            "y": -140,
+                            "angle": -8,
+                            "text": "5",
+                            "fontSize": "270px",
+                            "strokeThickness": 15
+                        },
+                        {
+                            "prefabId": "71ebda8f-2849-4c13-a2e7-0a68d79ca99e",
+                            "id": "cd35d4ac-adbd-4eb1-a597-dc93bfc18966",
+                            "unlock": [
+                                "textObject",
+                                "messageEvent"
+                            ],
+                            "label": "messageDisplay_2",
+                            "textObject": "bricksMessage_Number",
+                            "messageEvent": "onDisplayBricks",
+                            "list": [
+                                {
+                                    "prefabId": "1500c08b-a94b-4283-8e2a-4f79791d6bbd",
+                                    "id": "ba62ad0d-a26c-4861-81aa-ba1224f0919d",
+                                    "unlock": [
+                                        "fromX",
+                                        "fromY",
+                                        "x",
+                                        "y",
+                                        "duration",
+                                        "ease",
+                                        "targetGameObject"
+                                    ],
+                                    "label": "moveTween_3",
+                                    "targetGameObject": "bricksMessage_Number",
+                                    "fromX": -650,
+                                    "fromY": -140,
+                                    "x": -30,
+                                    "y": -140,
+                                    "duration": 500,
+                                    "ease": "Back.easeOut",
+                                    "list": [
+                                        {
+                                            "prefabId": "21280d98-709c-42bb-a93b-ffcc896ba469",
+                                            "id": "31f43e1e-0a7c-4dad-ba0f-2a0eb155244d",
+                                            "unlock": [
+                                                "duration",
+                                                "fromAlpha",
+                                                "alpha",
+                                                "targetGameObject"
+                                            ],
+                                            "label": "alphaTween_6",
+                                            "targetGameObject": "bricksMessageDisplay",
+                                            "fromAlpha": 1,
+                                            "alpha": 0,
+                                            "duration": 1000
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prefabId": "1500c08b-a94b-4283-8e2a-4f79791d6bbd",
+                                    "id": "872827ed-2a8a-403c-8307-921cc613a263",
+                                    "unlock": [
+                                        "fromX",
+                                        "fromY",
+                                        "x",
+                                        "y",
+                                        "duration",
+                                        "ease",
+                                        "targetGameObject"
+                                    ],
+                                    "label": "moveTween_4",
+                                    "targetGameObject": "bricksMessage_String",
+                                    "fromX": 650,
+                                    "fromY": 10,
+                                    "x": -30,
+                                    "y": 10,
+                                    "duration": 500,
+                                    "ease": "Back.easeOut"
+                                },
+                                {
+                                    "prefabId": "21280d98-709c-42bb-a93b-ffcc896ba469",
+                                    "id": "04dc9328-f6a4-459c-9ad6-9a8558d6faf4",
+                                    "unlock": [
+                                        "fromAlpha",
+                                        "alpha",
+                                        "duration",
+                                        "targetGameObject"
+                                    ],
+                                    "label": "alphaTween_7",
+                                    "targetGameObject": "bricksMessageDisplay",
+                                    "fromAlpha": 0,
+                                    "alpha": 1,
+                                    "duration": 200
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Image",
+                    "id": "71274b79-03ef-4ac7-b5d9-456873b10bec",
+                    "label": "icon_musicOn_128",
+                    "hitArea.shape": "RECTANGLE",
+                    "hitArea.width": 128,
+                    "hitArea.height": 128,
+                    "texture": {
+                        "key": "icon_musicOn_128"
+                    },
+                    "x": 560,
+                    "y": 40,
+                    "scaleX": 0.5,
+                    "scaleY": 0.5,
+                    "list": [
+                        {
+                            "prefabId": "7e57dc4b-3f41-476b-8431-f03ca75083fd",
+                            "id": "35eb7dd4-433b-49f8-b395-84a2d0a51dd6",
+                            "unlock": [
+                                "eventName"
+                            ],
+                            "label": "onEvent_4",
+                            "eventName": "pointerdown",
+                            "list": [
+                                {
+                                    "prefabId": "973f4a76-e8cf-4991-89da-90452104e807",
+                                    "id": "714bebd7-51a8-443b-9a1a-7a87fd290ee0",
+                                    "unlock": [
+                                        "onImage",
+                                        "offImage",
+                                        "imageObject"
+                                    ],
+                                    "label": "toggleImage",
+                                    "onImage": "icon_musicOn_128",
+                                    "offImage": "icon_musicOff_128",
+                                    "imageObject": "icon_musicOn_128"
+                                },
+                                {
+                                    "prefabId": "b99ba9cc-0e6c-4d0f-873b-cd45997d6bf8",
+                                    "id": "4e340c4e-155f-494b-a048-002fe6248c23",
+                                    "unlock": [
+                                        "toggle"
+                                    ],
+                                    "label": "toggleSound",
+                                    "toggle": true
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Container",
+            "id": "02b2aae6-0d49-4d55-bf98-15a31c33630b",
+            "label": "onSceneStart",
+            "blendMode": -1,
+            "list": [
+                {
+                    "prefabId": "c0625a56-ee9d-4d1e-bd39-1293f2a0cadb",
+                    "id": "d906c941-2816-4bc3-a7f9-5cb0ff6d2368",
+                    "label": "onAwake",
+                    "list": [
+                        {
+                            "prefabId": "1500c08b-a94b-4283-8e2a-4f79791d6bbd",
+                            "id": "95dcfaae-008c-494e-b8b4-c37dfde29f69",
+                            "unlock": [
+                                "targetGameObject",
+                                "x",
+                                "y",
+                                "duration",
+                                "ease",
+                                "fromX",
+                                "fromY"
+                            ],
+                            "label": "moveTween",
+                            "targetGameObject": "startButton",
+                            "fromX": 350,
+                            "fromY": -100,
+                            "x": 350,
+                            "y": 630,
+                            "duration": 1000,
+                            "ease": "Bounce.easeOut"
+                        },
+                        {
+                            "prefabId": "0fcd2c3c-1158-4c96-9288-60720903784b",
+                            "id": "00cc6c58-4655-4743-a420-ba877ed948fd",
+                            "unlock": [
+                                "color"
+                            ],
+                            "label": "cameraFadeIn"
+                        }
+                    ]
+                },
+                {
+                    "prefabId": "7e57dc4b-3f41-476b-8431-f03ca75083fd",
+                    "id": "506cd41a-d8ae-4ff9-bd7d-3dabdd327043",
+                    "unlock": [
+                        "eventName",
+                        "eventEmitter"
+                    ],
+                    "label": "onStartButtonPressed",
+                    "eventName": "onStartButtonPressed",
+                    "eventEmitter": "scene.events",
+                    "list": [
+                        {
+                            "prefabId": "21280d98-709c-42bb-a93b-ffcc896ba469",
+                            "id": "73b83a81-9c09-42a7-90cc-4d1dde6424fc",
+                            "unlock": [
+                                "targetGameObject",
+                                "alpha",
+                                "duration",
+                                "ease",
+                                "fromAlpha"
+                            ],
+                            "label": "alphaTween",
+                            "targetGameObject": "countDown_3",
+                            "fromAlpha": 1,
+                            "alpha": 0,
+                            "duration": 1000,
+                            "ease": "Linear"
+                        },
+                        {
+                            "prefabId": "aaadc41f-aaa5-44a6-912d-714e4c9e62d8",
+                            "id": "bf3acfc9-b0af-4429-8a1c-7d91887e9ffb",
+                            "unlock": [
+                                "y",
+                                "x",
+                                "duration",
+                                "ease",
+                                "targetGameObject"
+                            ],
+                            "label": "scaleTween",
+                            "targetGameObject": "countDown_3",
+                            "x": 1,
+                            "y": 1,
+                            "duration": 1000,
+                            "ease": "Quad.easeOut",
+                            "list": [
+                                {
+                                    "prefabId": "21280d98-709c-42bb-a93b-ffcc896ba469",
+                                    "id": "caa11c59-2cfb-4b8f-8d26-d37b53283d48",
+                                    "unlock": [
+                                        "targetGameObject",
+                                        "alpha",
+                                        "duration",
+                                        "ease",
+                                        "fromAlpha"
+                                    ],
+                                    "label": "alphaTween_1",
+                                    "targetGameObject": "countDown_2",
+                                    "fromAlpha": 1,
+                                    "alpha": 0,
+                                    "duration": 1000,
+                                    "ease": "Linear"
+                                },
+                                {
+                                    "prefabId": "aaadc41f-aaa5-44a6-912d-714e4c9e62d8",
+                                    "id": "47769c7e-8dd9-452a-9b91-d47406de4afb",
+                                    "unlock": [
+                                        "y",
+                                        "x",
+                                        "duration",
+                                        "ease",
+                                        "targetGameObject"
+                                    ],
+                                    "label": "scaleTween_1",
+                                    "targetGameObject": "countDown_2",
+                                    "x": 1,
+                                    "y": 1,
+                                    "duration": 1000,
+                                    "ease": "Quad.easeOut",
+                                    "list": [
+                                        {
+                                            "prefabId": "21280d98-709c-42bb-a93b-ffcc896ba469",
+                                            "id": "dae92c5b-a85e-48cf-ae5f-6168104f78da",
+                                            "unlock": [
+                                                "targetGameObject",
+                                                "alpha",
+                                                "duration",
+                                                "ease",
+                                                "fromAlpha"
+                                            ],
+                                            "label": "alphaTween_2",
+                                            "targetGameObject": "countDown_1",
+                                            "fromAlpha": 1,
+                                            "alpha": 0,
+                                            "duration": 1000,
+                                            "ease": "Linear"
+                                        },
+                                        {
+                                            "prefabId": "aaadc41f-aaa5-44a6-912d-714e4c9e62d8",
+                                            "id": "dee20543-7eec-495b-abe5-02ffeee5edd9",
+                                            "unlock": [
+                                                "y",
+                                                "x",
+                                                "duration",
+                                                "ease",
+                                                "targetGameObject"
+                                            ],
+                                            "label": "scaleTween_2",
+                                            "targetGameObject": "countDown_1",
+                                            "x": 1,
+                                            "y": 1,
+                                            "duration": 1000,
+                                            "ease": "Quad.easeOut",
+                                            "list": [
+                                                {
+                                                    "prefabId": "21280d98-709c-42bb-a93b-ffcc896ba469",
+                                                    "id": "56959083-0b94-4a18-a75c-2cbf8a8a265b",
+                                                    "unlock": [
+                                                        "targetGameObject",
+                                                        "alpha",
+                                                        "duration",
+                                                        "ease",
+                                                        "fromAlpha"
+                                                    ],
+                                                    "label": "alphaTween_3",
+                                                    "targetGameObject": "countDown",
+                                                    "fromAlpha": 1,
+                                                    "alpha": 0,
+                                                    "duration": 1000,
+                                                    "ease": "Linear"
+                                                },
+                                                {
+                                                    "prefabId": "aaadc41f-aaa5-44a6-912d-714e4c9e62d8",
+                                                    "id": "e840d158-1fa0-4516-8259-3e5542f74688",
+                                                    "unlock": [
+                                                        "y",
+                                                        "x",
+                                                        "duration",
+                                                        "ease",
+                                                        "targetGameObject"
+                                                    ],
+                                                    "label": "scaleTween_3",
+                                                    "targetGameObject": "countDown",
+                                                    "x": 1,
+                                                    "y": 1,
+                                                    "duration": 1000,
+                                                    "ease": "Quad.easeOut"
+                                                },
+                                                {
+                                                    "prefabId": "fde543dc-2fcd-4de9-9c2e-76a1e3d62023",
+                                                    "id": "d4363b26-c88f-41ef-9673-2c79d08ae5e1",
+                                                    "unlock": [
+                                                        "eventName",
+                                                        "eventEmitter"
+                                                    ],
+                                                    "label": "onEventEmit_1",
+                                                    "eventName": "onGameStart",
+                                                    "eventEmitter": "scene.events"
+                                                },
+                                                {
+                                                    "prefabId": "a3707501-e93b-4da9-827a-9329976a6097",
+                                                    "id": "01a80ab1-21dc-4615-a535-e42f9d41f665",
+                                                    "unlock": [
+                                                        "audio",
+                                                        "loop"
+                                                    ],
+                                                    "label": "playAudio",
+                                                    "audio": "Afro Beats Riddim Cut 30",
+                                                    "loop": true
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Container",
+            "id": "87ae68d6-4c38-4cc4-8212-7616fe1de6ad",
+            "label": "EndPanel",
+            "scope": "CLASS",
+            "blendMode": -1,
+            "x": 350,
+            "y": -400,
+            "list": [
+                {
+                    "type": "Rectangle",
+                    "id": "5f9d9d72-19a7-4e7d-80a6-804912fcfa45",
+                    "label": "rectangle_1",
+                    "alpha": 0,
+                    "isFilled": true,
+                    "fillColor": "#000000",
+                    "width": 4000,
+                    "height": 4000
+                },
+                {
+                    "type": "NineSlice",
+                    "id": "adef07fc-9861-4d55-a193-d6756349ae26",
+                    "label": "backing",
+                    "texture": {
+                        "key": "Btn_OtherButton_Square04"
+                    },
+                    "y": 9,
+                    "leftWidth": 24,
+                    "rightWidth": 28,
+                    "topHeight": 26,
+                    "bottomHeight": 37,
+                    "width": 400,
+                    "height": 500
+                },
+                {
+                    "prefabId": "b5b1bf0d-b97b-466c-86be-ceb49dd58872",
+                    "id": "2859d084-2396-4d5c-9b15-8aa967cb0d73",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "scoreManager_1",
+                    "x": 0,
+                    "y": -120
+                },
+                {
+                    "prefabId": "5808bdef-eecc-4f18-8dac-52f3f5da875f",
+                    "id": "6ef4b6d1-40e6-4ef5-8ec3-353f6ac3656c",
+                    "unlock": [
+                        "x",
+                        "y",
+                        "fontSize",
+                        "strokeThickness",
+                        "shadow.offsetX",
+                        "shadow.offsetY",
+                        "text"
+                    ],
+                    "label": "finalScore",
+                    "x": 0,
+                    "y": -180,
+                    "text": "Final Score",
+                    "fontSize": "50px",
+                    "strokeThickness": 5,
+                    "shadow.offsetX": 0,
+                    "shadow.offsetY": 11
+                },
+                {
+                    "type": "NineSlice",
+                    "id": "7b21d8fb-6f4d-41fc-9ec0-f847e97d0607",
+                    "label": "RestartButton",
+                    "hitArea.shape": "RECTANGLE",
+                    "hitArea.width": 200,
+                    "hitArea.height": 100,
+                    "texture": {
+                        "key": "Btn_OtherButton_Square02"
+                    },
+                    "y": 170,
+                    "leftWidth": 16,
+                    "rightWidth": 21,
+                    "topHeight": 20,
+                    "bottomHeight": 26,
+                    "width": 200,
+                    "height": 100,
+                    "list": [
+                        {
+                            "prefabId": "7e57dc4b-3f41-476b-8431-f03ca75083fd",
+                            "id": "cfec3b74-1f30-45de-9f95-88ba893e83ff",
+                            "unlock": [
+                                "eventName",
+                                "eventEmitter",
+                                "once"
+                            ],
+                            "label": "onEvent_1",
+                            "eventName": "pointerdown",
+                            "eventEmitter": "gameObject",
+                            "once": true,
+                            "list": [
+                                {
+                                    "prefabId": "0fcd2c3c-1158-4c96-9288-60720903784b",
+                                    "id": "bd1b97d2-63e2-4c91-93b2-3d8627242553",
+                                    "unlock": [
+                                        "fadeDirection"
+                                    ],
+                                    "label": "cameraFade",
+                                    "fadeDirection": "Out",
+                                    "list": [
+                                        {
+                                            "prefabId": "fde543dc-2fcd-4de9-9c2e-76a1e3d62023",
+                                            "id": "ba7ae6be-1fd9-4b0f-844a-62b37e5007fe",
+                                            "unlock": [
+                                                "eventName",
+                                                "eventEmitter"
+                                            ],
+                                            "label": "onGameRestart",
+                                            "eventName": "onRestart",
+                                            "eventEmitter": "scene.events"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "prefabId": "5808bdef-eecc-4f18-8dac-52f3f5da875f",
+                    "id": "e926c1b6-09f8-4177-9049-54c6db9652d7",
+                    "unlock": [
+                        "x",
+                        "y",
+                        "text",
+                        "fontSize"
+                    ],
+                    "label": "PlayAgain",
+                    "x": 0,
+                    "y": 160,
+                    "text": "Play Again",
+                    "fontSize": "42px"
+                }
+            ]
+        },
+        {
+            "type": "Container",
+            "id": "70cfc240-90ae-44cf-bc4d-05f5c23a0c5a",
+            "label": "OnGameOverGroup",
+            "blendMode": -1,
+            "list": [
+                {
+                    "prefabId": "7e57dc4b-3f41-476b-8431-f03ca75083fd",
+                    "id": "9ad26664-ce2e-4b49-9b8b-9e6ae3fc717a",
+                    "unlock": [
+                        "eventName",
+                        "eventEmitter",
+                        "once"
+                    ],
+                    "label": "onGameOver",
+                    "eventName": "onGameOver",
+                    "eventEmitter": "scene.events",
+                    "once": true,
+                    "list": [
+                        {
+                            "prefabId": "aaadc41f-aaa5-44a6-912d-714e4c9e62d8",
+                            "id": "66a8ee67-b225-4abb-8df8-5c2fe2558ba3",
+                            "unlock": [
+                                "y",
+                                "x",
+                                "duration",
+                                "ease",
+                                "targetGameObject"
+                            ],
+                            "label": "scaleTween_gameover",
+                            "targetGameObject": "gameOverText",
+                            "x": 1,
+                            "y": 1,
+                            "duration": 1000,
+                            "ease": "Quad.easeOut"
+                        },
+                        {
+                            "prefabId": "570ee4ed-f49e-475a-b210-4c0714e07768",
+                            "id": "e676433b-b956-45af-80ee-9f9d1e3dbfb4",
+                            "unlock": [
+                                "delay"
+                            ],
+                            "label": "delay",
+                            "delay": 1000,
+                            "list": [
+                                {
+                                    "prefabId": "21280d98-709c-42bb-a93b-ffcc896ba469",
+                                    "id": "3f1fd3d5-bf6f-4e4d-ae79-77eec86dd152",
+                                    "unlock": [
+                                        "targetGameObject",
+                                        "alpha",
+                                        "duration",
+                                        "ease",
+                                        "fromAlpha"
+                                    ],
+                                    "label": "alphaTween_gameover",
+                                    "targetGameObject": "gameOverText",
+                                    "fromAlpha": 1,
+                                    "alpha": 0,
+                                    "duration": 1000,
+                                    "ease": "Linear",
+                                    "list": [
+                                        {
+                                            "prefabId": "1500c08b-a94b-4283-8e2a-4f79791d6bbd",
+                                            "id": "e0ea7e1d-4ade-4a00-b423-6d9e70457f37",
+                                            "unlock": [
+                                                "targetGameObject",
+                                                "fromX",
+                                                "fromY",
+                                                "x",
+                                                "y",
+                                                "duration",
+                                                "ease"
+                                            ],
+                                            "label": "moveTween_EndPanel",
+                                            "targetGameObject": "endPanel",
+                                            "fromX": 350,
+                                            "fromY": -600,
+                                            "x": 350,
+                                            "y": 630,
+                                            "duration": 1000,
+                                            "ease": "Back.easeOut"
+                                        },
+                                        {
+                                            "prefabId": "21280d98-709c-42bb-a93b-ffcc896ba469",
+                                            "id": "2641f14a-0e7d-47a8-bf56-1d76c8e9e529",
+                                            "unlock": [
+                                                "targetGameObject",
+                                                "alpha",
+                                                "duration",
+                                                "ease"
+                                            ],
+                                            "label": "alphaTween_BlackTransparent",
+                                            "targetGameObject": "rectangle_1",
+                                            "alpha": 0.5,
+                                            "duration": 1000,
+                                            "ease": "Quad.easeOut"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "prefabId": "a3707501-e93b-4da9-827a-9329976a6097",
+                            "id": "a1cfe8f6-879b-4182-9e3a-483b4c728d63",
+                            "unlock": [
+                                "audio"
+                            ],
+                            "label": "playAudio_1",
+                            "audio": "Electronicish Neutral K"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Container",
+            "id": "db4c31cd-1e28-4eaf-bb3e-8c22859b46bf",
+            "label": "PausePanel",
+            "scope": "CLASS",
+            "blendMode": -1,
+            "x": 350,
+            "y": 660,
+            "visible": false,
+            "list": [
+                {
+                    "type": "Rectangle",
+                    "id": "b84bf41a-f530-4937-a030-9a33447cbb36",
+                    "label": "rectangle",
+                    "alpha": 0.52,
+                    "isFilled": true,
+                    "fillColor": "#000000",
+                    "width": 4000,
+                    "height": 4000
+                },
+                {
+                    "type": "NineSlice",
+                    "id": "f305af89-2f59-4b4e-99b2-83ba2e2490fa",
+                    "label": "backing_1",
+                    "texture": {
+                        "key": "Btn_OtherButton_Square04"
+                    },
+                    "y": 9,
+                    "leftWidth": 24,
+                    "rightWidth": 28,
+                    "topHeight": 26,
+                    "bottomHeight": 37,
+                    "width": 400,
+                    "height": 300
+                },
+                {
+                    "type": "Text",
+                    "id": "9dfe83dd-4356-43ea-98dc-38c8b4052e3c",
+                    "label": "PausedText",
+                    "padding": 1,
+                    "y": -70,
+                    "originX": 0.5,
+                    "originY": 0.5,
+                    "text": "Paused",
+                    "fontFamily": "Jersey15-Regular",
+                    "fontSize": "87px",
+                    "color": "#ffffffff",
+                    "stroke": "#000000ff",
+                    "strokeThickness": 10,
+                    "shadow.offsetX": 12,
+                    "shadow.offsetY": 8,
+                    "shadow.stroke": true,
+                    "shadow.fill": true
+                },
+                {
+                    "type": "NineSlice",
+                    "id": "be1303bb-4389-4c05-88f7-63f9c21b503a",
+                    "label": "RestartButton_1",
+                    "hitArea.shape": "RECTANGLE",
+                    "hitArea.width": 200,
+                    "hitArea.height": 100,
+                    "texture": {
+                        "key": "Btn_OtherButton_Square02"
+                    },
+                    "y": 60,
+                    "leftWidth": 16,
+                    "rightWidth": 21,
+                    "topHeight": 20,
+                    "bottomHeight": 26,
+                    "width": 200,
+                    "height": 100,
+                    "list": [
+                        {
+                            "prefabId": "7e57dc4b-3f41-476b-8431-f03ca75083fd",
+                            "id": "6be09971-3e1b-43ce-baa7-cac2f9aeb579",
+                            "unlock": [
+                                "eventName",
+                                "eventEmitter"
+                            ],
+                            "label": "onEvent_3",
+                            "eventName": "pointerdown",
+                            "eventEmitter": "gameObject",
+                            "list": [
+                                {
+                                    "prefabId": "39e579e4-b53a-4b28-8b9b-bd69e69771f4",
+                                    "id": "9d5b2725-d427-4fa3-849e-052a28357e5c",
+                                    "unlock": [
+                                        "pause"
+                                    ],
+                                    "label": "pause_1",
+                                    "pause": false
+                                },
+                                {
+                                    "prefabId": "d5346a74-b394-4a82-9980-896140193b77",
+                                    "id": "5a9ebde1-2006-4888-8344-e44ac1ce682f",
+                                    "unlock": [
+                                        "targetGameObject"
+                                    ],
+                                    "label": "setVisable",
+                                    "targetGameObject": "pausePanel"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Text",
+                    "id": "7996d73c-3d2a-4a30-9ddf-2f5c3c75b810",
+                    "label": "PlayAgain_1",
+                    "padding": 1,
+                    "y": 50,
+                    "originX": 0.5,
+                    "originY": 0.5,
+                    "text": "Resume",
+                    "fontFamily": "Jersey15-Regular",
+                    "fontSize": "46px",
+                    "color": "#ffffffff",
+                    "stroke": "#000000ff",
+                    "strokeThickness": 8,
+                    "shadow.offsetX": 6,
+                    "shadow.offsetY": 6,
+                    "shadow.stroke": true,
+                    "shadow.fill": true
+                }
+            ]
+        }
+    ],
+    "plainObjects": [
+        {
+            "id": "e6ef1dc6-c270-4a5d-9e34-891eb34a959b",
+            "type": "Collider",
+            "label": "Col_Balls_Bricks",
+            "scope": "LOCAL",
+            "object1": "ballLauncher.ballGroup",
+            "object2": "brickSpawner.group",
+            "collideCallback": "this.destroyBrick"
+        },
+        {
+            "id": "992e9582-edc0-4e19-836e-bc72563ba608",
+            "type": "Collider",
+            "label": "Col_Bricks_EndLine",
+            "scope": "LOCAL",
+            "object1": "brickSpawner.group",
+            "object2": "ballLauncher.ballLine",
+            "collideCallback": "this.gameOver",
+            "callbackContext": "this"
+        },
+        {
+            "id": "a60473c5-075b-49ca-9234-036cccd85fa8",
+            "type": "Collider",
+            "label": "Col_Balls_Walls",
+            "scope": "LOCAL",
+            "object1": "ballLauncher.ballGroup",
+            "object2": "wall"
+        }
+    ],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    },
+    "lists": [
+        {
+            "id": "d4724a9b-39f3-4e53-b441-3fc6c113aba0",
+            "label": "walls"
+        }
+    ]
+}

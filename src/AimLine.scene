@@ -1,0 +1,54 @@
+{
+    "id": "ac34e351-384b-4392-94e9-bdbeaddff48c",
+    "sceneType": "PREFAB",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "importFileExtension": true,
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "type": "TileSprite",
+            "id": "c9e03379-508e-4c67-93bb-36187f03a38e",
+            "label": "tilesprite_1",
+            "texture": {
+                "key": "Breaker_Circle"
+            },
+            "scaleY": 4.5,
+            "originY": 1,
+            "alphaTopLeft": 0,
+            "alphaTopRight": 0,
+            "tintTopLeft": "#ff3cd3",
+            "tintTopRight": "#ff59e2",
+            "tintBottomLeft": "#2cb6ff",
+            "tintBottomRight": "#00ccfd",
+            "width": 64,
+            "height": 64,
+            "tilePositionX": -7,
+            "tileScaleY": 0.23,
+            "list": [
+                {
+                    "prefabId": "25cfba66-c5c9-4fc7-82d4-18dade165956",
+                    "id": "fe1a9308-32e3-4c8e-a8f3-1826e2b212c4",
+                    "unlock": [
+                        "speedX"
+                    ],
+                    "label": "tileScroll",
+                    "speedX": 0
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}

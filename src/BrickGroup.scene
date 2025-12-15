@@ -1,0 +1,80 @@
+{
+    "id": "da434c50-26d0-4f7c-b9ef-665e251c9573",
+    "sceneType": "PREFAB",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "importFileExtension": true,
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "type": "Layer",
+            "id": "2e885214-d713-4e21-93c8-aea09992f35a",
+            "label": "layer_1",
+            "blendMode": -1,
+            "list": [
+                {
+                    "prefabId": "c0625a56-ee9d-4d1e-bd39-1293f2a0cadb",
+                    "id": "405ad5cc-9eb8-4ca4-b5d9-be43e1c4d848",
+                    "label": "onAwake",
+                    "list": [
+                        {
+                            "prefabId": "7fc595d2-59ad-4fe7-a40b-43985c22e278",
+                            "id": "80ccc0b5-4e8e-4a5f-87c8-13e5549973ac",
+                            "label": "printMessage"
+                        },
+                        {
+                            "prefabId": "b78eae51-d3ad-4153-8923-c914b6d61ee4",
+                            "id": "6a348c09-61a9-4a8d-a26f-d46385bd4ea7",
+                            "label": "parentMethod"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    },
+    "prefabProperties": [
+        {
+            "name": "bricksPerLine",
+            "label": "Bricks Per Line",
+            "tooltip": "How many brick per line you want. scales with canvas size",
+            "defValue": 10,
+            "customDefinition": false,
+            "type": {
+                "id": "number"
+            }
+        },
+        {
+            "name": "lines",
+            "label": "Lines",
+            "tooltip": "How many lines you want",
+            "defValue": 3,
+            "customDefinition": false,
+            "type": {
+                "id": "number"
+            }
+        },
+        {
+            "name": "brickHeight",
+            "label": "Brick Height",
+            "tooltip": "",
+            "defValue": 1,
+            "customDefinition": false,
+            "type": {
+                "id": "number"
+            }
+        }
+    ]
+}

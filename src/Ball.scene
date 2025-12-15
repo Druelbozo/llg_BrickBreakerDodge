@@ -1,0 +1,80 @@
+{
+    "id": "8c084b7a-35bc-4845-8400-6c2c33e4f436",
+    "sceneType": "PREFAB",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "importFileExtension": true,
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "type": "Container",
+            "id": "6bf9d318-39e9-4e44-bcf2-29e5a04d703c",
+            "label": "container_1",
+            "blendMode": -1,
+            "ArcadeComponent.active": true,
+            "body.friction.x": 0,
+            "allowGravity": false,
+            "body.bounce.x": 1,
+            "body.bounce.y": 1,
+            "collideWorldBounds": true,
+            "allowDrag": false,
+            "angularVelocity": 720,
+            "bodyGeometry": 0,
+            "radius": 25,
+            "body.width": 128,
+            "body.height": 128,
+            "body.offset.x": -25,
+            "body.offset.y": -25,
+            "list": [
+                {
+                    "type": "Container",
+                    "id": "bf25459a-b5b2-4581-8185-e61f54dd1039",
+                    "label": "Visual",
+                    "blendMode": -1,
+                    "scaleX": 0.5,
+                    "scaleY": 0.5,
+                    "list": [
+                        {
+                            "type": "Image",
+                            "id": "b6cc5afa-6792-402c-a57a-75260eb38d5a",
+                            "label": "arcadeimage_1",
+                            "texture": {
+                                "key": "Breaker_DodgeBall"
+                            },
+                            "tintTopLeft": "#fc0845",
+                            "tintTopRight": "#ff1010",
+                            "tintBottomLeft": "#a400fb",
+                            "tintBottomRight": "#a400fb"
+                        },
+                        {
+                            "type": "Ellipse",
+                            "id": "93df0a8c-b091-4774-89e0-1a85f854a00c",
+                            "label": "ellipse_1",
+                            "x": 19,
+                            "y": -13,
+                            "scaleX": 0.11286955681891375,
+                            "scaleY": 0.21747966893027604,
+                            "angle": -30,
+                            "isFilled": true,
+                            "width": 128,
+                            "height": 128
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}

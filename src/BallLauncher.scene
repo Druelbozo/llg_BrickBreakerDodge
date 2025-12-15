@@ -1,0 +1,194 @@
+{
+    "id": "390c4ec9-9695-47e4-96dc-7762fe106066",
+    "sceneType": "PREFAB",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "importFileExtension": true,
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "type": "Container",
+            "id": "fb07fd2c-392f-496e-9316-3cecdba9de01",
+            "label": "container_1",
+            "blendMode": -1,
+            "hitArea.shape": "RECTANGLE",
+            "hitArea.x": -1600,
+            "hitArea.y": -5,
+            "hitArea.width": 3200,
+            "hitArea.height": -1468.3995624404847,
+            "list": [
+                {
+                    "type": "TileSprite",
+                    "id": "701afdc8-9215-4b82-98f8-5f58da05ddb4",
+                    "label": "cautionLine",
+                    "texture": {
+                        "key": "CautionLine"
+                    },
+                    "alpha": 0.27,
+                    "alphaTopLeft": 0.27,
+                    "alphaTopRight": 0.27,
+                    "alphaBottomLeft": 0.27,
+                    "alphaBottomRight": 0.27,
+                    "tintTopLeft": "#f300f5",
+                    "tintTopRight": "#f300f5",
+                    "tintBottomLeft": "#f300f5",
+                    "tintBottomRight": "#f300f5",
+                    "width": 2000,
+                    "height": 24,
+                    "tileScaleY": 0.4,
+                    "list": [
+                        {
+                            "prefabId": "25cfba66-c5c9-4fc7-82d4-18dade165956",
+                            "id": "342b10ab-a195-49dd-8cda-54a9536678c0",
+                            "unlock": [
+                                "speedY",
+                                "tileRestartX"
+                            ],
+                            "label": "tileScroll_1",
+                            "speedY": 0,
+                            "tileRestartX": 1000
+                        }
+                    ]
+                },
+                {
+                    "type": "ArcadeImage",
+                    "id": "19d8daaf-5323-40da-af75-6357c6cb7276",
+                    "label": "ballLine",
+                    "scope": "CLASS",
+                    "texture": {},
+                    "scaleX": 100,
+                    "scaleY": 0.1,
+                    "visible": false,
+                    "moves": false,
+                    "allowGravity": false,
+                    "collideWorldBounds": true,
+                    "onWorldBounds": true,
+                    "allowDrag": false,
+                    "allowRotation": false,
+                    "pushable": false,
+                    "body.width": 1000,
+                    "body.height": 50
+                },
+                {
+                    "type": "Container",
+                    "id": "f6f375cc-7225-4ad9-9cb6-2f3461b42928",
+                    "label": "LaunchPoint",
+                    "scope": "CLASS",
+                    "blendMode": -1,
+                    "list": [
+                        {
+                            "prefabId": "ac34e351-384b-4392-94e9-bdbeaddff48c",
+                            "id": "d214b98a-4c11-4e8a-9118-81b1ccbb0fac",
+                            "unlock": [
+                                "x",
+                                "y"
+                            ],
+                            "label": "aimLine",
+                            "scope": "CLASS",
+                            "x": 0,
+                            "y": 0
+                        },
+                        {
+                            "prefabId": "5808bdef-eecc-4f18-8dac-52f3f5da875f",
+                            "id": "8aa5563d-2ae6-4e85-a04c-094667a0df11",
+                            "unlock": [
+                                "x",
+                                "y",
+                                "text"
+                            ],
+                            "label": "ballAmountText",
+                            "scope": "CLASS",
+                            "x": 0,
+                            "y": 59,
+                            "text": ""
+                        },
+                        {
+                            "type": "Container",
+                            "id": "d61a3a79-0c64-44b4-a13d-42f7b5e48808",
+                            "label": "ballPoint",
+                            "scope": "CLASS",
+                            "blendMode": -1,
+                            "hitArea.shape": "RECTANGLE",
+                            "hitArea.x": -873,
+                            "hitArea.y": -675,
+                            "hitArea.width": 1800,
+                            "hitArea.height": 845,
+                            "list": [
+                                {
+                                    "type": "Container",
+                                    "id": "ea1aafab-9c1b-4e73-81de-1816f127aa61",
+                                    "label": "Visual",
+                                    "blendMode": -1,
+                                    "scaleX": 0.5,
+                                    "scaleY": 0.5,
+                                    "list": [
+                                        {
+                                            "type": "Image",
+                                            "id": "7313e4ac-2b4b-4eb9-8a72-ab8af783054e",
+                                            "label": "arcadeimage",
+                                            "texture": {
+                                                "key": "Breaker_DodgeBall"
+                                            },
+                                            "tintTopLeft": "#fc0845",
+                                            "tintTopRight": "#fc0845",
+                                            "tintBottomLeft": "#a400fb",
+                                            "tintBottomRight": "#a400fb"
+                                        },
+                                        {
+                                            "type": "Ellipse",
+                                            "id": "908a86a3-afe3-4b34-8d66-60555f72a2bb",
+                                            "label": "ellipse",
+                                            "x": 19,
+                                            "y": -13,
+                                            "scaleX": 0.11286955681891375,
+                                            "scaleY": 0.21747966893027604,
+                                            "angle": -30,
+                                            "isFilled": true,
+                                            "width": 128,
+                                            "height": 128
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    },
+    "prefabProperties": [
+        {
+            "name": "ballSpeed",
+            "label": "ballSpeed",
+            "tooltip": "",
+            "defValue": 1000,
+            "customDefinition": false,
+            "type": {
+                "id": "number"
+            }
+        },
+        {
+            "name": "returnSound",
+            "label": "ReturnSound",
+            "tooltip": "",
+            "defValue": "Collect",
+            "customDefinition": false,
+            "type": {
+                "id": "audio-key"
+            }
+        }
+    ]
+}
