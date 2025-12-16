@@ -39,8 +39,15 @@ export default class Brick extends Phaser.GameObjects.Container {
 		nineslice.tint = 0;
 		visualContainer.add(nineslice);
 
-		// White border layer (if enabled in theme)
-		if (themeData && themeData.brickStyles && themeData.brickStyles.showWhiteBorder) {
+		// ColorBlock
+		const colorKey = themeData ? getThemeImageKey(themeData, "brick-color") : "Btn_OtherButton_Square09";
+		const colorBlockOffset = themeData?.brickStyles?.colorBlockOffset || { x: 0, y: 0 };
+		const colorBlockScale = themeData?.brickStyles?.colorBlockScale ?? 0.5;
+		
+		// White border layer (if colorBlockOffset or colorBlockScale are set)
+		const hasOffset = colorBlockOffset.x !== 0 || colorBlockOffset.y !== 0;
+		const hasCustomScale = colorBlockScale !== 0.5;
+		if (hasOffset || hasCustomScale) {
 			const borderNineslice = scene.add.nineslice(0, 0, shadowKey || "Btn_OtherButton_Square08", undefined, 100, 100, 17, 10, 10, 10);
 			borderNineslice.scaleX = 0.5;
 			borderNineslice.scaleY = 0.5;
@@ -48,11 +55,6 @@ export default class Brick extends Phaser.GameObjects.Container {
 			// No tint = white border
 			visualContainer.add(borderNineslice);
 		}
-
-		// ColorBlock
-		const colorKey = themeData ? getThemeImageKey(themeData, "brick-color") : "Btn_OtherButton_Square09";
-		const colorBlockOffset = themeData?.brickStyles?.colorBlockOffset || { x: 0, y: 0 };
-		const colorBlockScale = themeData?.brickStyles?.colorBlockScale ?? 0.5;
 		const colorBlock = scene.add.nineslice(colorBlockOffset.x, colorBlockOffset.y, colorKey || "Btn_OtherButton_Square09", undefined, 100, 100, 17, 18, 17, 20);
 		colorBlock.scaleX = colorBlockScale;
 		colorBlock.scaleY = colorBlockScale;
@@ -121,9 +123,9 @@ export default class Brick extends Phaser.GameObjects.Container {
 
 	getBrickColors() {
 		const themeData = this.scene.themeData;
-		if (themeData && themeData.brickColors && Array.isArray(themeData.brickColors)) {
+		if (themeData && themeData.brickStyles && themeData.brickStyles.brickColors && Array.isArray(themeData.brickStyles.brickColors)) {
 			// Convert hex strings to numbers
-			return themeData.brickColors.map(hex => ColorUtils.hexToNumber(hex));
+			return themeData.brickStyles.brickColors.map(hex => ColorUtils.hexToNumber(hex));
 		}
 		// Return empty array if theme data is missing
 		return [];
@@ -131,9 +133,9 @@ export default class Brick extends Phaser.GameObjects.Container {
 
 	getSkinColors() {
 		const themeData = this.scene.themeData;
-		if (themeData && themeData.skinColors && Array.isArray(themeData.skinColors)) {
+		if (themeData && themeData.brickStyles && themeData.brickStyles.skinColors && Array.isArray(themeData.brickStyles.skinColors)) {
 			// Convert hex strings to numbers
-			return themeData.skinColors.map(hex => ColorUtils.hexToNumber(hex));
+			return themeData.brickStyles.skinColors.map(hex => ColorUtils.hexToNumber(hex));
 		}
 		// Return empty array if theme data is missing
 		return [];

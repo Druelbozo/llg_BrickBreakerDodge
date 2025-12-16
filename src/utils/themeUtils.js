@@ -94,20 +94,21 @@ export function applySingleHexTint(object, themeData, imageName) {
  * @param {Object} themeData - Theme data object
  */
 export function applyBrickTextTheme(textObject, themeData) {
-    if (!textObject || !themeData || !themeData.textStyles || !themeData.textStyles.brick) {
+    if (!textObject || !themeData || !themeData.brickStyles) {
         return; // No theme data, skip
     }
     
-    const brickTextStyles = themeData.textStyles.brick;
+    const brickStyles = themeData.brickStyles;
     const style = {};
     
     // Apply font family
-    if (brickTextStyles.fontFamily) {
-        style.fontFamily = brickTextStyles.fontFamily;
+    if (brickStyles.fontFamily) {
+        style.fontFamily = brickStyles.fontFamily;
     }
     
-    // Apply stroke
-    if (brickTextStyles.stroke) {
+    // Apply stroke (from textStyles.brick if it exists, for backward compatibility)
+    const brickTextStyles = themeData.textStyles?.brick;
+    if (brickTextStyles?.stroke) {
         if (brickTextStyles.stroke.color) {
             style.stroke = brickTextStyles.stroke.color;
         }
@@ -116,8 +117,8 @@ export function applyBrickTextTheme(textObject, themeData) {
         }
     }
     
-    // Apply shadow (Phaser uses nested shadow properties)
-    if (brickTextStyles.shadow) {
+    // Apply shadow (from textStyles.brick if it exists, for backward compatibility)
+    if (brickTextStyles?.shadow) {
         style.shadow = {};
         if (brickTextStyles.shadow.offsetX !== undefined) {
             style.shadow.offsetX = brickTextStyles.shadow.offsetX;
@@ -138,8 +139,8 @@ export function applyBrickTextTheme(textObject, themeData) {
         textObject.setStyle(style);
     }
     
-    // Apply gradient tints (bottomLeft, bottomRight)
-    if (brickTextStyles.tint) {
+    // Apply gradient tints (from textStyles.brick if it exists, for backward compatibility)
+    if (brickTextStyles?.tint) {
         const hexToInt = (hex) => {
             if (!hex) return null;
             const cleanHex = hex.replace('#', '');

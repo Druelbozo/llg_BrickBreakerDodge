@@ -67,11 +67,11 @@
         "stroke": true,
         "fill": true
       }
-    },
-    "brick": {
-      "fontFamily": "Jersey15-Regular"
     }
   },
-  "brickColors": ["#5159ff", "#8c38ff", "#d438ff", "#ff389e", "#ff8338", "#38afff"],
-  "skinColors": ["#834716", "#eca469", "#fac8a0", "#ffffff"]
+  "brickStyles": {
+    "fontFamily": "Jersey15-Regular",
+    "brickColors": ["#5159ff", "#8c38ff", "#d438ff", "#ff389e", "#ff8338", "#38afff"],
+    "skinColors": ["#834716", "#eca469", "#fac8a0", "#ffffff"]
+  }
 }

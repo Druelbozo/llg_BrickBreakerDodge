@@ -57,9 +57,6 @@
         "fill": true
       }
     },
-    "brick": {
-      "fontFamily": "VarsityTeam-Bold"
-    },
     "gameMessages": {
       "fontFamily": "VarsityTeam-Bold",
       "tint": {
@@ -78,9 +75,9 @@
       }
     }
   },
-  "brickColors": ["#f5f5f5", "#e278ff", "#008864", "#45c7ff", "#004f98", "#a50044"],
   "brickStyles": {
-    "showWhiteBorder": true,
+    "fontFamily": "VarsityTeam-Bold",
+    "brickColors": ["#f5f5f5", "#e278ff", "#008864", "#45c7ff", "#004f98", "#a50044"],
     "colorBlockOffset": {
       "x": 2.53,
       "y": 2.5
