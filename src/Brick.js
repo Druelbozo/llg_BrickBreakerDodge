@@ -6,6 +6,7 @@
 import Text from "./ScriptNodes/Basics/Text.js";
 /* START-USER-IMPORTS */
 import { getThemeImageKey } from './utils/themeUtils.js';
+import ColorUtils from './utils/ui/ColorUtils.js';
 /* END-USER-IMPORTS */
 
 export default class Brick extends Phaser.GameObjects.Container {
@@ -100,16 +101,37 @@ export default class Brick extends Phaser.GameObjects.Container {
 
 	/* START-USER-CODE */
 	health = 1;
-	color = [5331455,9189631,13908223,16726174,16745272,3715071]
-	skinColor = [8603414,15508585,16435360,16777215]
 	// Write your code here.
+
+	getBrickColors() {
+		const themeData = this.scene.themeData;
+		if (themeData && themeData.brickColors && Array.isArray(themeData.brickColors)) {
+			// Convert hex strings to numbers
+			return themeData.brickColors.map(hex => ColorUtils.hexToNumber(hex));
+		}
+		// Return empty array if theme data is missing
+		return [];
+	}
+
+	getSkinColors() {
+		const themeData = this.scene.themeData;
+		if (themeData && themeData.skinColors && Array.isArray(themeData.skinColors)) {
+			// Convert hex strings to numbers
+			return themeData.skinColors.map(hex => ColorUtils.hexToNumber(hex));
+		}
+		// Return empty array if theme data is missing
+		return [];
+	}
 
 	initalize(value)
 	{
 		if (this.manBody) {
-			let rand = Phaser.Math.RND.between(0,this.skinColor.length)
-			this.manBody.tintTopLeft = this.skinColor[rand];
-			this.manBody.tintTopRight = this.skinColor[rand];
+			const skinColors = this.getSkinColors();
+			if (skinColors.length > 0) {
+				let rand = Phaser.Math.RND.between(0, skinColors.length - 1);
+				this.manBody.tintTopLeft = skinColors[rand];
+				this.manBody.tintTopRight = skinColors[rand];
+			}
 		}
 		this.setHealth(value);
 
@@ -120,8 +142,11 @@ export default class Brick extends Phaser.GameObjects.Container {
 		this.health = value;
 		this.healthText.text = this.health;
 
-		const colorIndex = ((this.health - 1) % this.color.length) + 1;
-		this.colorBlock.setTint(this.color[colorIndex - 1]);
+		const colors = this.getBrickColors();
+		if (colors.length > 0) {
+			const colorIndex = ((this.health - 1) % colors.length) + 1;
+			this.colorBlock.setTint(colors[colorIndex - 1]);
+		}
 	}
 
 	damage(attacker)
