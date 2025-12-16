@@ -31,11 +31,6 @@
                 "key": "Breaker_SoccerBall"
             },
             {
-                "url": "assets/Images/Brick.png",
-                "type": "image",
-                "key": "Brick"
-            },
-            {
                 "url": "assets/Images/UI-Buttons/Btn_OtherButton_Square02.png",
                 "type": "image",
                 "key": "Btn_OtherButton_Square02"
@@ -54,11 +49,6 @@
                 "url": "assets/Images/UI-Buttons/Btn_OtherButton_Square04.png",
                 "type": "image",
                 "key": "Btn_OtherButton_Square04"
-            },
-            {
-                "url": "assets/Images/UI-Buttons/Btn_OtherButton_Square06.png",
-                "type": "image",
-                "key": "Btn_OtherButton_Square06"
             },
             {
                 "url": "assets/Images/UI-Buttons/Btn_OtherButton_Square08.png",
@@ -90,11 +80,6 @@
                 "key": "Electronicish Neutral K"
             },
             {
-                "url": "assets/Images/gridPattern.png",
-                "type": "image",
-                "key": "gridPattern"
-            },
-            {
                 "url": "assets/Images/UI-Icons/icon_musicOff_128.png",
                 "type": "image",
                 "key": "icon_musicOff_128"
@@ -115,13 +100,6 @@
                 "url": "assets/Images/ManBody.png",
                 "type": "image",
                 "key": "ManBody"
-            },
-            {
-                "url": [
-                    "assets/audio/sfx/Pop Up Open.ogg"
-                ],
-                "type": "audio",
-                "key": "Pop Up Open"
             },
             {
                 "url": "assets/Images/Field/DodgeField.jpg",
