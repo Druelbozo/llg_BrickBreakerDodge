@@ -24,6 +24,7 @@ import ScaleTween from "../ScriptNodes/Utils/ScaleTween.js";
 import PlayAudio from "../ScriptNodes/Utils/PlayAudio.js";
 import Delay from "../ScriptNodes/Utils/Delay.js";
 /* START-USER-IMPORTS */
+import { getThemeImageKey, applyTextTheme } from '../utils/themeUtils.js';
 /* END-USER-IMPORTS */
 
 export default class Level extends Phaser.Scene {
@@ -40,7 +41,8 @@ export default class Level extends Phaser.Scene {
 	editorCreate() {
 
 		// BG
-		const bG = this.add.image(-30, 0, "DodgeField");
+		const fieldKey = this.themeData ? getThemeImageKey(this.themeData, "field") : "DodgeField";
+		const bG = this.add.image(-30, 0, fieldKey || "DodgeField");
 		bG.scaleX = 0.957533067724055;
 		bG.scaleY = 0.957533067724055;
 		bG.angle = 90;
@@ -709,6 +711,8 @@ export default class Level extends Phaser.Scene {
 		this.pointsGainedMessage_Number = pointsGainedMessage_Number;
 		this.bricksMessage_String = bricksMessage_String;
 		this.bricksMessage_Number = bricksMessage_Number;
+		this.finalScore = finalScore;
+		this.playAgain = playAgain;
 		this.endPanel = endPanel;
 		this.pausePanel = pausePanel;
 		this.walls = walls;
@@ -755,19 +759,48 @@ export default class Level extends Phaser.Scene {
 
 	/* START-USER-CODE */
 	gameStart = true;
+	themeData = null;
 	// Write more your code here
+
+	init(data) {
+		// Receive theme data from Preload scene
+		this.themeData = data?.themeData || null;
+	}
 
 	create()
 		 {
 
 		this.editorCreate();
 		this.gameStart = true;
-		this.bG.setDepth(-1000)
+		this.bG.setDepth(-1000);
+		
+		// Apply theme to text elements
+		if (this.themeData) {
+			this.applyThemeToTexts();
+		}
+		
 		this.events.once("onRestart", () => {this.restart()});
 		this.input.keyboard.once("keydown-SPACE", () => {this.events.emit("onGameOver"); this.restart()})
 		//this.events.once("onGameOver", () => {this.active = false})
 
         }
+
+	applyThemeToTexts() {
+		// Apply theme to all text elements
+		if (this.timer) applyTextTheme(this.timer, this.themeData);
+		if (this.startButton) applyTextTheme(this.startButton, this.themeData);
+		if (this.countDown_1) applyTextTheme(this.countDown_1, this.themeData);
+		if (this.countDown_2) applyTextTheme(this.countDown_2, this.themeData);
+		if (this.countDown_3) applyTextTheme(this.countDown_3, this.themeData);
+		if (this.countDown) applyTextTheme(this.countDown, this.themeData);
+		if (this.gameOverText) applyTextTheme(this.gameOverText, this.themeData);
+		if (this.pointsGainsMessage_String) applyTextTheme(this.pointsGainsMessage_String, this.themeData);
+		if (this.pointsGainedMessage_Number) applyTextTheme(this.pointsGainedMessage_Number, this.themeData);
+		if (this.bricksMessage_String) applyTextTheme(this.bricksMessage_String, this.themeData);
+		if (this.bricksMessage_Number) applyTextTheme(this.bricksMessage_Number, this.themeData);
+		if (this.finalScore) applyTextTheme(this.finalScore, this.themeData);
+		if (this.playAgain) applyTextTheme(this.playAgain, this.themeData);
+	}
 
 		destroyBrick(ball, brick)
 		{

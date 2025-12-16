@@ -36,7 +36,7 @@ function getSelectedConfigName() {
 }
 
 const selectedName = getSelectedConfigName();
-const gameConfig = AVAILABLE_CONFIGS[selectedName] || AVAILABLE_CONFIGS['dodge-zone'];
+const gameConfig = AVAILABLE_CONFIGS[selectedName];
 
 export default gameConfig;
 export { selectedName as configName };

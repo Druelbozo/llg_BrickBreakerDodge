@@ -36,25 +36,11 @@
       "imageKey": "Btn_OtherButton_Square03_Purple"
     }
   },
-  "imageTints": {
-    "ball": {
-      "topLeft": "#fc0845",
-      "topRight": "#ff1010",
-      "bottomLeft": "#a400fb",
-      "bottomRight": "#a400fb"
-    },
-    "cautionLine": {
-      "topLeft": "#f300f5",
-      "topRight": "#f300f5",
-      "bottomLeft": "#f300f5",
-      "bottomRight": "#f300f5"
-    }
-  },
   "textStyles": {
     "fontFamily": "Jersey15-Regular",
     "tint": {
-      "bottomLeft": "#e250ff",
-      "bottomRight": "#008bd5"
+      "bottomLeft": "#ffffff",
+      "bottomRight": "#ffffff"
     },
     "stroke": {
       "color": "#000000",

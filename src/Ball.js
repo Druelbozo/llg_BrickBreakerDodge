@@ -4,6 +4,7 @@
 /* START OF COMPILED CODE */
 
 /* START-USER-IMPORTS */
+import { getThemeImageKey, applyImageTint } from './utils/themeUtils.js';
 /* END-USER-IMPORTS */
 
 export default class Ball extends Phaser.GameObjects.Container {
@@ -31,11 +32,18 @@ export default class Ball extends Phaser.GameObjects.Container {
 		this.add(visual);
 
 		// arcadeimage_1
-		const arcadeimage_1 = scene.add.image(0, 0, "Breaker_DodgeBall");
-		arcadeimage_1.tintTopLeft = 16517189;
-		arcadeimage_1.tintTopRight = 16715792;
-		arcadeimage_1.tintBottomLeft = 10748155;
-		arcadeimage_1.tintBottomRight = 10748155;
+		const themeData = scene.themeData;
+		const ballKey = themeData ? getThemeImageKey(themeData, "ball") : "Breaker_DodgeBall";
+		const arcadeimage_1 = scene.add.image(0, 0, ballKey || "Breaker_DodgeBall");
+		// Apply theme tints if available, otherwise use defaults
+		if (themeData) {
+			applyImageTint(arcadeimage_1, themeData, "ball");
+		} else {
+			arcadeimage_1.tintTopLeft = 16517189;
+			arcadeimage_1.tintTopRight = 16715792;
+			arcadeimage_1.tintBottomLeft = 10748155;
+			arcadeimage_1.tintBottomRight = 10748155;
+		}
 		visual.add(arcadeimage_1);
 
 		// ellipse_1

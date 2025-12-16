@@ -5,6 +5,7 @@
 
 import Text from "./ScriptNodes/Basics/Text.js";
 /* START-USER-IMPORTS */
+import { getThemeImageKey } from './utils/themeUtils.js';
 /* END-USER-IMPORTS */
 
 export default class Brick extends Phaser.GameObjects.Container {
@@ -28,7 +29,9 @@ export default class Brick extends Phaser.GameObjects.Container {
 		this.add(visualContainer);
 
 		// nineslice
-		const nineslice = scene.add.nineslice(0, 2, "Btn_OtherButton_Square08", undefined, 100, 100, 17, 10, 10, 10);
+		const themeData = scene.themeData;
+		const shadowKey = themeData ? getThemeImageKey(themeData, "brick-shadow") : "Btn_OtherButton_Square08";
+		const nineslice = scene.add.nineslice(0, 2, shadowKey || "Btn_OtherButton_Square08", undefined, 100, 100, 17, 10, 10, 10);
 		nineslice.scaleX = 0.5;
 		nineslice.scaleY = 0.5;
 		nineslice.setOrigin(0, 0);
@@ -36,7 +39,8 @@ export default class Brick extends Phaser.GameObjects.Container {
 		visualContainer.add(nineslice);
 
 		// ColorBlock
-		const colorBlock = scene.add.nineslice(0, 0, "Btn_OtherButton_Square09", undefined, 100, 100, 17, 18, 17, 20);
+		const colorKey = themeData ? getThemeImageKey(themeData, "brick-color") : "Btn_OtherButton_Square09";
+		const colorBlock = scene.add.nineslice(0, 0, colorKey || "Btn_OtherButton_Square09", undefined, 100, 100, 17, 18, 17, 20);
 		colorBlock.scaleX = 0.5;
 		colorBlock.scaleY = 0.5;
 		colorBlock.setOrigin(0, 0);
@@ -44,14 +48,21 @@ export default class Brick extends Phaser.GameObjects.Container {
 		visualContainer.add(colorBlock);
 
 		// manBody
-		const manBody = scene.add.image(0, -12, "ManBody");
-		manBody.scaleX = 0.5;
-		manBody.scaleY = 0.5;
-		manBody.setOrigin(0, 0);
-		manBody.tintTopLeft = 16119028;
-		manBody.tintBottomLeft = 15376383;
-		manBody.tintBottomRight = 15376383;
-		visualContainer.add(manBody);
+		const manBodyKey = themeData ? getThemeImageKey(themeData, "manBody") : "ManBody";
+		// Only create manBody if imageKey is not empty
+		if (manBodyKey) {
+			const manBody = scene.add.image(0, -12, manBodyKey);
+			manBody.scaleX = 0.5;
+			manBody.scaleY = 0.5;
+			manBody.setOrigin(0, 0);
+			manBody.tintTopLeft = 16119028;
+			manBody.tintBottomLeft = 15376383;
+			manBody.tintBottomRight = 15376383;
+			visualContainer.add(manBody);
+			this.manBody = manBody;
+		} else {
+			this.manBody = null;
+		}
 
 		// healthText
 		const healthText = new Text(scene, 25, 25);
@@ -62,7 +73,6 @@ export default class Brick extends Phaser.GameObjects.Container {
 		visualContainer.add(healthText);
 
 		this.colorBlock = colorBlock;
-		this.manBody = manBody;
 		this.healthText = healthText;
 		this.visualContainer = visualContainer;
 
@@ -96,9 +106,11 @@ export default class Brick extends Phaser.GameObjects.Container {
 
 	initalize(value)
 	{
-		let rand = Phaser.Math.RND.between(0,this.skinColor.length)
-		this.manBody.tintTopLeft = this.skinColor[rand];
-		this.manBody.tintTopRight = this.skinColor[rand];
+		if (this.manBody) {
+			let rand = Phaser.Math.RND.between(0,this.skinColor.length)
+			this.manBody.tintTopLeft = this.skinColor[rand];
+			this.manBody.tintTopRight = this.skinColor[rand];
+		}
 		this.setHealth(value);
 
 	}

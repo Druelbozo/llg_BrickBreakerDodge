@@ -5,6 +5,7 @@
 
 import Text from "./ScriptNodes/Basics/Text.js";
 /* START-USER-IMPORTS */
+import { applyTextTheme } from './utils/themeUtils.js';
 /* END-USER-IMPORTS */
 
 export default class ScoreManager extends Phaser.GameObjects.Container {
@@ -19,6 +20,11 @@ export default class ScoreManager extends Phaser.GameObjects.Container {
 		scoreText.setOrigin(0.5, 0);
 		scoreText.text = "";
 		scoreText.setStyle({ "fontSize": "84px", "strokeThickness": 7 });
+		// Apply theme if available
+		const themeData = scene.themeData;
+		if (themeData) {
+			applyTextTheme(scoreText, themeData);
+		}
 		this.add(scoreText);
 
 		this.scoreText = scoreText;

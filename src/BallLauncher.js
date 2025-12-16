@@ -8,6 +8,7 @@ import AimLine from "./AimLine.js";
 import Text from "./ScriptNodes/Basics/Text.js";
 /* START-USER-IMPORTS */
 import Ball from "./Ball.js";
+import { getThemeImageKey, applyImageTint, applyTextTheme } from './utils/themeUtils.js';
 /* END-USER-IMPORTS */
 
 export default class BallLauncher extends Phaser.GameObjects.Container {
@@ -19,16 +20,22 @@ export default class BallLauncher extends Phaser.GameObjects.Container {
 		this.setInteractive(new Phaser.Geom.Rectangle(-1600, -5, 3200, -1468.3995624404847), Phaser.Geom.Rectangle.Contains);
 
 		// cautionLine
+		const themeData = scene.themeData;
 		const cautionLine = scene.add.tileSprite(0, 0, 2000, 24, "CautionLine");
 		cautionLine.alpha = 0.27;
 		cautionLine.alphaTopLeft = 0.27;
 		cautionLine.alphaTopRight = 0.27;
 		cautionLine.alphaBottomLeft = 0.27;
 		cautionLine.alphaBottomRight = 0.27;
-		cautionLine.tintTopLeft = 15925493;
-		cautionLine.tintTopRight = 15925493;
-		cautionLine.tintBottomLeft = 15925493;
-		cautionLine.tintBottomRight = 15925493;
+		// Apply theme tints if available, otherwise use defaults
+		if (themeData) {
+			applyImageTint(cautionLine, themeData, "cautionLine");
+		} else {
+			cautionLine.tintTopLeft = 15925493;
+			cautionLine.tintTopRight = 15925493;
+			cautionLine.tintBottomLeft = 15925493;
+			cautionLine.tintBottomRight = 15925493;
+		}
 		cautionLine.tileScaleY = 0.4;
 		this.add(cautionLine);
 
@@ -63,6 +70,10 @@ export default class BallLauncher extends Phaser.GameObjects.Container {
 		const ballAmountText = new Text(scene, 0, 59);
 		ballAmountText.text = "";
 		ballAmountText.setStyle({  });
+		// Apply theme if available
+		if (themeData) {
+			applyTextTheme(ballAmountText, themeData);
+		}
 		launchPoint.add(ballAmountText);
 
 		// ballPoint
@@ -79,11 +90,17 @@ export default class BallLauncher extends Phaser.GameObjects.Container {
 		ballPoint.add(visual);
 
 		// arcadeimage
-		const arcadeimage = scene.add.image(0, 0, "Breaker_DodgeBall");
-		arcadeimage.tintTopLeft = 16517189;
-		arcadeimage.tintTopRight = 16517189;
-		arcadeimage.tintBottomLeft = 10748155;
-		arcadeimage.tintBottomRight = 10748155;
+		const ballKey = themeData ? getThemeImageKey(themeData, "ball") : "Breaker_DodgeBall";
+		const arcadeimage = scene.add.image(0, 0, ballKey || "Breaker_DodgeBall");
+		// Apply theme tints if available, otherwise use defaults
+		if (themeData) {
+			applyImageTint(arcadeimage, themeData, "ball");
+		} else {
+			arcadeimage.tintTopLeft = 16517189;
+			arcadeimage.tintTopRight = 16517189;
+			arcadeimage.tintBottomLeft = 10748155;
+			arcadeimage.tintBottomRight = 10748155;
+		}
 		visual.add(arcadeimage);
 
 		// ellipse
