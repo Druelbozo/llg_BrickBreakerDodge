@@ -5,7 +5,7 @@
 
 import Text from "./ScriptNodes/Basics/Text.js";
 /* START-USER-IMPORTS */
-import { getThemeImageKey } from './utils/themeUtils.js';
+import { getThemeImageKey, applyBrickTextTheme } from './utils/themeUtils.js';
 import ColorUtils from './utils/ui/ColorUtils.js';
 /* END-USER-IMPORTS */
 
@@ -71,6 +71,10 @@ export default class Brick extends Phaser.GameObjects.Container {
 		healthText.tintBottomRight = 16777215;
 		healthText.text = "1";
 		healthText.setStyle({ "fontSize": "35px", "strokeThickness": 3, "shadow.offsetX": 0, "shadow.offsetY": 4, "resolution": 2 });
+		// Apply brick text theme if available
+		if (themeData) {
+			applyBrickTextTheme(healthText, themeData);
+		}
 		visualContainer.add(healthText);
 
 		this.colorBlock = colorBlock;

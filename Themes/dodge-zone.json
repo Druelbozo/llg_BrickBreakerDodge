@@ -51,20 +51,25 @@
     }
   },
   "textStyles": {
-    "fontFamily": "Jersey15-Regular",
-    "tint": {
-      "bottomLeft": "#e250ff",
-      "bottomRight": "#008bd5"
+    "default": {
+      "fontFamily": "Jersey15-Regular",
+      "tint": {
+        "bottomLeft": "#e250ff",
+        "bottomRight": "#008bd5"
+      },
+      "stroke": {
+        "color": "#000000",
+        "thickness": 5
+      },
+      "shadow": {
+        "offsetX": 0,
+        "offsetY": 5,
+        "stroke": true,
+        "fill": true
+      }
     },
-    "stroke": {
-      "color": "#000000",
-      "thickness": 5
-    },
-    "shadow": {
-      "offsetX": 0,
-      "offsetY": 5,
-      "stroke": true,
-      "fill": true
+    "brick": {
+      "fontFamily": "Jersey15-Regular"
     }
   },
   "brickColors": ["#5159ff", "#8c38ff", "#d438ff", "#ff389e", "#ff8338", "#38afff"],

@@ -89,16 +89,173 @@ export function applySingleHexTint(object, themeData, imageName) {
 }
 
 /**
+ * Apply brick text theme styles from theme data
+ * @param {Phaser.GameObjects.Text} textObject - Text object to style
+ * @param {Object} themeData - Theme data object
+ */
+export function applyBrickTextTheme(textObject, themeData) {
+    if (!textObject || !themeData || !themeData.textStyles || !themeData.textStyles.brick) {
+        return; // No theme data, skip
+    }
+    
+    const brickTextStyles = themeData.textStyles.brick;
+    const style = {};
+    
+    // Apply font family
+    if (brickTextStyles.fontFamily) {
+        style.fontFamily = brickTextStyles.fontFamily;
+    }
+    
+    // Apply stroke
+    if (brickTextStyles.stroke) {
+        if (brickTextStyles.stroke.color) {
+            style.stroke = brickTextStyles.stroke.color;
+        }
+        if (brickTextStyles.stroke.thickness !== undefined) {
+            style.strokeThickness = brickTextStyles.stroke.thickness;
+        }
+    }
+    
+    // Apply shadow (Phaser uses nested shadow properties)
+    if (brickTextStyles.shadow) {
+        style.shadow = {};
+        if (brickTextStyles.shadow.offsetX !== undefined) {
+            style.shadow.offsetX = brickTextStyles.shadow.offsetX;
+        }
+        if (brickTextStyles.shadow.offsetY !== undefined) {
+            style.shadow.offsetY = brickTextStyles.shadow.offsetY;
+        }
+        if (brickTextStyles.shadow.stroke !== undefined) {
+            style.shadow.stroke = brickTextStyles.shadow.stroke;
+        }
+        if (brickTextStyles.shadow.fill !== undefined) {
+            style.shadow.fill = brickTextStyles.shadow.fill;
+        }
+    }
+    
+    // Apply style
+    if (Object.keys(style).length > 0) {
+        textObject.setStyle(style);
+    }
+    
+    // Apply gradient tints (bottomLeft, bottomRight)
+    if (brickTextStyles.tint) {
+        const hexToInt = (hex) => {
+            if (!hex) return null;
+            const cleanHex = hex.replace('#', '');
+            return parseInt(cleanHex, 16);
+        };
+        
+        if (brickTextStyles.tint.bottomLeft) {
+            textObject.tintBottomLeft = hexToInt(brickTextStyles.tint.bottomLeft);
+        }
+        if (brickTextStyles.tint.bottomRight) {
+            textObject.tintBottomRight = hexToInt(brickTextStyles.tint.bottomRight);
+        }
+    }
+}
+
+/**
+ * Apply game message text theme styles from theme data (falls back to default if not provided)
+ * @param {Phaser.GameObjects.Text} textObject - Text object to style
+ * @param {Object} themeData - Theme data object
+ */
+export function applyGameMessageTextTheme(textObject, themeData) {
+    if (!textObject || !themeData || !themeData.textStyles) {
+        return; // No theme data, skip
+    }
+    
+    // Use gameMessages if available, otherwise fall back to default
+    const textStyles = themeData.textStyles.gameMessages || themeData.textStyles.default;
+    if (!textStyles) {
+        return; // No text styles available
+    }
+    
+    const style = {};
+    
+    // Apply font family
+    if (textStyles.fontFamily) {
+        style.fontFamily = textStyles.fontFamily;
+    }
+    
+    // Apply stroke
+    if (textStyles.stroke) {
+        if (textStyles.stroke.color) {
+            style.stroke = textStyles.stroke.color;
+        }
+        if (textStyles.stroke.thickness !== undefined) {
+            style.strokeThickness = textStyles.stroke.thickness;
+        }
+    }
+    
+    // Apply shadow (Phaser uses nested shadow properties)
+    if (textStyles.shadow) {
+        style.shadow = {};
+        if (textStyles.shadow.offsetX !== undefined) {
+            style.shadow.offsetX = textStyles.shadow.offsetX;
+        }
+        if (textStyles.shadow.offsetY !== undefined) {
+            style.shadow.offsetY = textStyles.shadow.offsetY;
+        }
+        if (textStyles.shadow.stroke !== undefined) {
+            style.shadow.stroke = textStyles.shadow.stroke;
+        }
+        if (textStyles.shadow.fill !== undefined) {
+            style.shadow.fill = textStyles.shadow.fill;
+        }
+    }
+    
+    // Apply style
+    if (Object.keys(style).length > 0) {
+        textObject.setStyle(style);
+    }
+    
+    // Apply gradient tints
+    if (textStyles.tint) {
+        const hexToInt = (hex) => {
+            if (!hex) return null;
+            const cleanHex = hex.replace('#', '');
+            return parseInt(cleanHex, 16);
+        };
+        
+        // Apply top corners if explicitly provided
+        if (textStyles.tint.topLeft) {
+            textObject.tintTopLeft = hexToInt(textStyles.tint.topLeft);
+        }
+        if (textStyles.tint.topRight) {
+            textObject.tintTopRight = hexToInt(textStyles.tint.topRight);
+        }
+        
+        // Apply bottom corners
+        if (textStyles.tint.bottomLeft) {
+            textObject.tintBottomLeft = hexToInt(textStyles.tint.bottomLeft);
+        }
+        if (textStyles.tint.bottomRight) {
+            textObject.tintBottomRight = hexToInt(textStyles.tint.bottomRight);
+        }
+        
+        // If only bottom values are provided and they're the same, apply to top for solid color
+        if (textStyles.tint.bottomLeft && textStyles.tint.bottomRight && 
+            textStyles.tint.bottomLeft === textStyles.tint.bottomRight &&
+            !textStyles.tint.topLeft && !textStyles.tint.topRight) {
+            const bottomColor = hexToInt(textStyles.tint.bottomLeft);
+            textObject.tintTopLeft = bottomColor;
+            textObject.tintTopRight = bottomColor;
+        }
+    }
+}
+
+/**
  * Apply text theme styles from theme data
  * @param {Phaser.GameObjects.Text} textObject - Text object to style
  * @param {Object} themeData - Theme data object
  */
 export function applyTextTheme(textObject, themeData) {
-    if (!textObject || !themeData || !themeData.textStyles) {
+    if (!textObject || !themeData || !themeData.textStyles || !themeData.textStyles.default) {
         return; // No theme data, skip
     }
     
-    const textStyles = themeData.textStyles;
+    const textStyles = themeData.textStyles.default;
     const style = {};
     
     // Apply font family

@@ -24,7 +24,7 @@ import ScaleTween from "../ScriptNodes/Utils/ScaleTween.js";
 import PlayAudio from "../ScriptNodes/Utils/PlayAudio.js";
 import Delay from "../ScriptNodes/Utils/Delay.js";
 /* START-USER-IMPORTS */
-import { getThemeImageKey, applyTextTheme, applySingleHexTint } from '../utils/themeUtils.js';
+import { getThemeImageKey, applyTextTheme, applySingleHexTint, applyGameMessageTextTheme } from '../utils/themeUtils.js';
 /* END-USER-IMPORTS */
 
 export default class Level extends Phaser.Scene {
@@ -793,16 +793,17 @@ export default class Level extends Phaser.Scene {
 	applyThemeToTexts() {
 		// Apply theme to all text elements
 		if (this.timer) applyTextTheme(this.timer, this.themeData);
-		if (this.startButton) applyTextTheme(this.startButton, this.themeData);
-		if (this.countDown_1) applyTextTheme(this.countDown_1, this.themeData);
-		if (this.countDown_2) applyTextTheme(this.countDown_2, this.themeData);
-		if (this.countDown_3) applyTextTheme(this.countDown_3, this.themeData);
-		if (this.countDown) applyTextTheme(this.countDown, this.themeData);
-		if (this.gameOverText) applyTextTheme(this.gameOverText, this.themeData);
-		if (this.pointsGainsMessage_String) applyTextTheme(this.pointsGainsMessage_String, this.themeData);
-		if (this.pointsGainedMessage_Number) applyTextTheme(this.pointsGainedMessage_Number, this.themeData);
-		if (this.bricksMessage_String) applyTextTheme(this.bricksMessage_String, this.themeData);
-		if (this.bricksMessage_Number) applyTextTheme(this.bricksMessage_Number, this.themeData);
+		// Apply game message theme to START, countdown, game over, and goals messages
+		if (this.startButton) applyGameMessageTextTheme(this.startButton, this.themeData);
+		if (this.countDown_1) applyGameMessageTextTheme(this.countDown_1, this.themeData);
+		if (this.countDown_2) applyGameMessageTextTheme(this.countDown_2, this.themeData);
+		if (this.countDown_3) applyGameMessageTextTheme(this.countDown_3, this.themeData);
+		if (this.countDown) applyGameMessageTextTheme(this.countDown, this.themeData);
+		if (this.gameOverText) applyGameMessageTextTheme(this.gameOverText, this.themeData);
+		if (this.pointsGainsMessage_String) applyGameMessageTextTheme(this.pointsGainsMessage_String, this.themeData);
+		if (this.pointsGainedMessage_Number) applyGameMessageTextTheme(this.pointsGainedMessage_Number, this.themeData);
+		if (this.bricksMessage_String) applyGameMessageTextTheme(this.bricksMessage_String, this.themeData);
+		if (this.bricksMessage_Number) applyGameMessageTextTheme(this.bricksMessage_Number, this.themeData);
 		if (this.finalScore) applyTextTheme(this.finalScore, this.themeData);
 		if (this.playAgain) applyTextTheme(this.playAgain, this.themeData);
 	}

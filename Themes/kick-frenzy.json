@@ -40,20 +40,42 @@
     "titleBar": "#8E8E8E"
   },
   "textStyles": {
-    "fontFamily": "VarsityTeam-Bold",
-    "tint": {
-      "bottomLeft": "#ffffff",
-      "bottomRight": "#ffffff"
+    "default": {
+      "fontFamily": "VarsityTeam-Bold",
+      "tint": {
+        "bottomLeft": "#ffffff",
+        "bottomRight": "#ffffff"
+      },
+      "stroke": {
+        "color": "#000000",
+        "thickness": 5
+      },
+      "shadow": {
+        "offsetX": 0,
+        "offsetY": 5,
+        "stroke": true,
+        "fill": true
+      }
     },
-    "stroke": {
-      "color": "#000000",
-      "thickness": 5
+    "brick": {
+      "fontFamily": "VarsityTeam-Bold"
     },
-    "shadow": {
-      "offsetX": 0,
-      "offsetY": 5,
-      "stroke": true,
-      "fill": true
+    "gameMessages": {
+      "fontFamily": "VarsityTeam-Bold",
+      "tint": {
+        "bottomLeft": "#fcab00",
+        "bottomRight": "#fcab00"
+      },
+      "stroke": {
+        "color": "#000000",
+        "thickness": 5
+      },
+      "shadow": {
+        "offsetX": 0,
+        "offsetY": 5,
+        "stroke": true,
+        "fill": true
+      }
     }
   },
   "brickColors": ["#f5f5f5", "#e278ff", "#008864", "#45c7ff", "#004f98", "#a50044"]
