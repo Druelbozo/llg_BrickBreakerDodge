@@ -120,7 +120,7 @@ export default class Preload extends Phaser.Scene {
 			// Map known imageKeys to their paths
 			const imagePathMap = {
 				"DodgeField": "assets/Images/Field/DodgeField.jpg",
-				"SoccerField": "assets/Images/Field/SoccerField.jpg",
+				"SoccerField": "assets/Images/Field/SoccerField.png",
 				"Breaker_DodgeBall": "assets/Images/Ball/Breaker_DodgeBall.png",
 				"Breaker_SoccerBall": "assets/Images/Ball/Breaker_SoccerBall.png",
 				"Btn_OtherButton_Square08": "assets/Images/UI-Buttons/Btn_OtherButton_Square08.png",

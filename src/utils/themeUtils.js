@@ -21,6 +21,13 @@ export function getThemeImageKey(themeData, imageName) {
         return null;
     }
     
+    // If imageKey is empty, undefined, or not provided, return null
+    // This allows themes to disable certain images (e.g., manBody)
+    if (!imageConfig.imageKey || imageConfig.imageKey === "") {
+        console.log(`[ThemeUtils] Image "${imageName}" has empty imageKey, skipping`);
+        return null;
+    }
+    
     return imageConfig.key;
 }
 
