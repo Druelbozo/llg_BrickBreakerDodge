@@ -36,6 +36,9 @@
       "imageKey": "Btn_OtherButton_Square03_Gray"
     }
   },
+  "imageTints": {
+    "titleBar": "#8E8E8E"
+  },
   "textStyles": {
     "fontFamily": "VarsityTeam-Bold",
     "tint": {

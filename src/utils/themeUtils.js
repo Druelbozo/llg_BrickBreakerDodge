@@ -66,6 +66,29 @@ export function applyImageTint(imageObject, themeData, imageName) {
 }
 
 /**
+ * Apply a single hex tint color to an object (for nineslice objects like titleBar)
+ * @param {Phaser.GameObjects.NineSlice|Phaser.GameObjects.Image} object - Object to tint
+ * @param {Object} themeData - Theme data object
+ * @param {string} imageName - Name of the image in theme.imageTints (e.g., "titleBar")
+ */
+export function applySingleHexTint(object, themeData, imageName) {
+    if (!object || !themeData || !themeData.imageTints || !themeData.imageTints[imageName]) {
+        return; // No tint data, skip
+    }
+    
+    const tintValue = themeData.imageTints[imageName];
+    
+    // If it's a string (hex), convert it to integer
+    if (typeof tintValue === 'string') {
+        const cleanHex = tintValue.replace('#', '');
+        object.tint = parseInt(cleanHex, 16);
+    } else if (typeof tintValue === 'number') {
+        // If it's already a number, use it directly
+        object.tint = tintValue;
+    }
+}
+
+/**
  * Apply text theme styles from theme data
  * @param {Phaser.GameObjects.Text} textObject - Text object to style
  * @param {Object} themeData - Theme data object

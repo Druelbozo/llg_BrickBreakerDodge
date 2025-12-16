@@ -24,7 +24,7 @@ import ScaleTween from "../ScriptNodes/Utils/ScaleTween.js";
 import PlayAudio from "../ScriptNodes/Utils/PlayAudio.js";
 import Delay from "../ScriptNodes/Utils/Delay.js";
 /* START-USER-IMPORTS */
-import { getThemeImageKey, applyTextTheme } from '../utils/themeUtils.js';
+import { getThemeImageKey, applyTextTheme, applySingleHexTint } from '../utils/themeUtils.js';
 /* END-USER-IMPORTS */
 
 export default class Level extends Phaser.Scene {
@@ -105,6 +105,10 @@ export default class Level extends Phaser.Scene {
 		const titleBarKey = this.themeData ? getThemeImageKey(this.themeData, "titleBar") : "Btn_OtherButton_Square03_Purple";
 		const nineslice_1 = this.add.nineslice(0, 0, titleBarKey || "Btn_OtherButton_Square03_Purple", undefined, 700, 100, 20, 20, 23, 31);
 		nineslice_1.setOrigin(0, 0);
+		// Apply tint if specified in theme
+		if (this.themeData) {
+			applySingleHexTint(nineslice_1, this.themeData, "titleBar");
+		}
 		uI.add(nineslice_1);
 
 		// scoreManager
