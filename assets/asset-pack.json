@@ -3,20 +3,20 @@
         "files": [
             {
                 "url": [
-                    "assets/Afro Beats Riddim Cut 30.mp3"
+                    "assets/audio/music/Afro Beats Riddim Cut 30.mp3"
                 ],
                 "type": "audio",
                 "key": "Afro Beats Riddim Cut 30"
             },
             {
                 "url": [
-                    "assets/Boop_01.wav"
+                    "assets/audio/sfx/Boop_01.wav"
                 ],
                 "type": "audio",
                 "key": "Boop_01"
             },
             {
-                "url": "assets/Breaker_Circle.png",
+                "url": "assets/Images/Breaker_Circle.png",
                 "type": "image",
                 "key": "Breaker_Circle"
             },
@@ -36,71 +36,71 @@
                 "key": "Brick"
             },
             {
-                "url": "assets/Btn_OtherButton_Square02.png",
+                "url": "assets/Images/UI-Buttons/Btn_OtherButton_Square02.png",
                 "type": "image",
                 "key": "Btn_OtherButton_Square02"
             },
             {
-                "url": "assets/Btn_OtherButton_Square03_Purple.png",
+                "url": "assets/Images/UI-Buttons/Btn_OtherButton_Square03_Purple.png",
                 "type": "image",
                 "key": "Btn_OtherButton_Square03_Purple"
             },
             {
-                "url": "assets/Btn_OtherButton_Square04.png",
+                "url": "assets/Images/UI-Buttons/Btn_OtherButton_Square04.png",
                 "type": "image",
                 "key": "Btn_OtherButton_Square04"
             },
             {
-                "url": "assets/Btn_OtherButton_Square06.png",
+                "url": "assets/Images/UI-Buttons/Btn_OtherButton_Square06.png",
                 "type": "image",
                 "key": "Btn_OtherButton_Square06"
             },
             {
-                "url": "assets/Btn_OtherButton_Square08.png",
+                "url": "assets/Images/UI-Buttons/Btn_OtherButton_Square08.png",
                 "type": "image",
                 "key": "Btn_OtherButton_Square08"
             },
             {
-                "url": "assets/Btn_OtherButton_Square09.png",
+                "url": "assets/Images/UI-Buttons/Btn_OtherButton_Square09.png",
                 "type": "image",
                 "key": "Btn_OtherButton_Square09"
             },
             {
-                "url": "assets/CautionLine.png",
+                "url": "assets/Images/CautionLine.png",
                 "type": "image",
                 "key": "CautionLine"
             },
             {
                 "url": [
-                    "assets/Collect.wav"
+                    "assets/audio/sfx/Collect.wav"
                 ],
                 "type": "audio",
                 "key": "Collect"
             },
             {
                 "url": [
-                    "assets/Electronicish Neutral K.wav"
+                    "assets/audio/sfx/Electronicish Neutral K.wav"
                 ],
                 "type": "audio",
                 "key": "Electronicish Neutral K"
             },
             {
-                "url": "assets/gridPattern.png",
+                "url": "assets/Images/gridPattern.png",
                 "type": "image",
                 "key": "gridPattern"
             },
             {
-                "url": "assets/icon_musicOff_128.png",
+                "url": "assets/Images/UI-Icons/icon_musicOff_128.png",
                 "type": "image",
                 "key": "icon_musicOff_128"
             },
             {
-                "url": "assets/icon_musicOn_128.png",
+                "url": "assets/Images/UI-Icons/icon_musicOn_128.png",
                 "type": "image",
                 "key": "icon_musicOn_128"
             },
             {
-                "url": "assets/Jersey15-Regular.ttf",
+                "url": "assets/Fonts/Jersey15-Regular.ttf",
                 "format": "truetype",
                 "descriptors": {},
                 "type": "font",
@@ -113,7 +113,7 @@
             },
             {
                 "url": [
-                    "assets/Pop Up Open.ogg"
+                    "assets/audio/sfx/Pop Up Open.ogg"
                 ],
                 "type": "audio",
                 "key": "Pop Up Open"
@@ -124,7 +124,7 @@
                 "key": "SoccerField"
             },
             {
-                "url": "assets/VarsityTeam-Bold.otf",
+                "url": "assets/Fonts/VarsityTeam-Bold.otf",
                 "format": "opentype",
                 "descriptors": {},
                 "type": "font",
