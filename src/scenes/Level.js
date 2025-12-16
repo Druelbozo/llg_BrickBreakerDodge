@@ -40,7 +40,7 @@ export default class Level extends Phaser.Scene {
 	editorCreate() {
 
 		// BG
-		const bG = this.add.image(-30, 0, "SoccarField");
+		const bG = this.add.image(-30, 0, "SoccerField");
 		bG.scaleX = 0.957533067724055;
 		bG.scaleY = 0.957533067724055;
 		bG.angle = 90;

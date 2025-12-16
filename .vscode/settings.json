@@ -1,3 +1,5 @@
 {
-    "javascript.preferences.importModuleSpecifierEnding": "js"
+    "javascript.preferences.importModuleSpecifierEnding": "js",
+    "terminal.integrated.copyOnSelection": true,
+    "terminal.integrated.rightClickBehavior": "copyPaste"
 }

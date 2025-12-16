@@ -1,0 +1,122 @@
+{
+  "fontLoader": {
+    "fonts": [
+      "Titan One",
+      "New Amsterdam"
+    ]
+  },
+  "gameOptions": {
+    "iconAmountWidth": 4,
+    "iconAmountHeight": 3,
+    "iconScale": 0.8,
+    "scratchSurfaceOffsetX": 4,
+    "scratchSurfaceOffsetY": 14,
+    "bonusScratchSurfaceOffsetX": 0,
+    "bonusScratchSurfaceOffsetY": 0,
+    "iconAmount": 5,
+    "hasBonus": 1,
+    "showIconValue": 1,
+    "showIconImage": 0
+  },
+  "themeColors": {
+    "buttonColor": "#c30064"
+  },
+  "text": {
+    "scratchText": {
+      "fontFamily": "New Amsterdam",
+      "fontSize": 200,
+      "color": "#89d44d",
+      "strokeColor": "#001421",
+      "strokeThickness": 30,
+      "description": "Text of the scratch Icons",
+      "fx": "none",
+      "fxColor": "#813700",
+      "strength": 2,
+      "distance": 15
+    },
+    "scoreText": {
+      "fontFamily": "New Amsterdam",
+      "fontSize": 120,
+      "color": "#89d44d",
+      "strokeColor": "#001421",
+      "strokeThickness": 20,
+      "description": "Text of the winning score"
+    },
+    "messageText": {
+      "fontFamily": "New Amsterdam",
+      "fontSize": 80,
+      "color": "#89d44d",
+      "strokeColor": "#001421",
+      "strokeThickness": 20,
+      "description": "Text of the display message returned by the server, displayed above scratch cards",
+      "offset": {
+        "x": 0,
+        "y": -575
+      }
+    }
+  },
+  "images": {
+    "scratchCardBackGround": {
+      "type": "image",
+      "key": "ScratchCard",
+      "imageKey": "DI_Cover_cherries",
+      "description": "Visual Card cover"
+    },
+    "scratchSurface": {
+      "type": "image",
+      "key": "ScratchSurface",
+      "imageKey": "DI_ScratchSurface_cherries",
+      "description": "Main scratch surface"
+    },
+    "scratchBacking": {
+      "type": "image",
+      "key": "ScratchBacking",
+      "imageKey": "DI_ScratchBacking_cherries",
+      "description": "Main scratch surface backing"
+    },
+    "bonusScratchBacking": {
+      "type": "image",
+      "key": "BonusScratchBacking",
+      "imageKey": "",
+      "description": "Bonus scratch surface surface"
+    },
+    "background": {
+      "type": "image",
+      "key": "Background",
+      "imageKey": "DI_Background_cherries",
+      "description": "Game Background"
+    },
+    "tileBackground": {
+      "type": "image",
+      "key": "TileBackground",
+      "imageKey": "",
+      "description": "Tilable Game Background"
+    },
+    "cursor": {
+      "type": "image",
+      "key": "Cursor",
+      "imageKey": "DI_Cursor",
+      "description": "Card scratcher"
+    },
+    "winImage": {
+      "type": "image",
+      "key": "WinImage",
+      "imageKey": "DI_Win",
+      "description": "Image that shows during the Win screen"
+    },
+    "loseImage": {
+      "type": "image",
+      "key": "LoseImage",
+      "imageKey": "DI_Lose",
+      "description": "Image that shows during the Lose screen"
+    },
+    "scratchIcons": {
+      "type": "image",
+      "key": "ScartchIcons",
+      "imageKey": "",
+      "description": "Scratch Icons",
+      "imageWidth": 256,
+      "imageHeight": 256
+    }
+  }
+}
