@@ -1,7 +1,7 @@
 {
   "fontLoader": {
     "fonts": [
-      "Jersey15-Regular"
+      "VarsityTeam-Bold"
     ]
   },
   "images": {
@@ -33,11 +33,11 @@
     "titleBar": {
       "type": "image",
       "key": "TitleBar",
-      "imageKey": "Btn_OtherButton_Square03_Purple"
+      "imageKey": "Btn_OtherButton_Square03_Gray"
     }
   },
   "textStyles": {
-    "fontFamily": "Jersey15-Regular",
+    "fontFamily": "VarsityTeam-Bold",
     "tint": {
       "bottomLeft": "#ffffff",
       "bottomRight": "#ffffff"

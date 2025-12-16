@@ -46,6 +46,11 @@
                 "key": "Btn_OtherButton_Square03_Purple"
             },
             {
+                "url": "assets/Images/UI-Buttons/Btn_OtherButton_Square03_Gray.png",
+                "type": "image",
+                "key": "Btn_OtherButton_Square03_Gray"
+            },
+            {
                 "url": "assets/Images/UI-Buttons/Btn_OtherButton_Square04.png",
                 "type": "image",
                 "key": "Btn_OtherButton_Square04"

@@ -126,6 +126,7 @@ export default class Preload extends Phaser.Scene {
 				"Btn_OtherButton_Square08": "assets/Images/UI-Buttons/Btn_OtherButton_Square08.png",
 				"Btn_OtherButton_Square09": "assets/Images/UI-Buttons/Btn_OtherButton_Square09.png",
 				"Btn_OtherButton_Square03_Purple": "assets/Images/UI-Buttons/Btn_OtherButton_Square03_Purple.png",
+				"Btn_OtherButton_Square03_Gray": "assets/Images/UI-Buttons/Btn_OtherButton_Square03_Gray.png",
 				"ManBody": "assets/Images/ManBody.png",
 			};
 

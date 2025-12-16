@@ -102,7 +102,8 @@ export default class Level extends Phaser.Scene {
 		const onEventEmit = new OnEventEmit(flashObject);
 
 		// nineslice_1
-		const nineslice_1 = this.add.nineslice(0, 0, "Btn_OtherButton_Square03_Purple", undefined, 700, 100, 20, 20, 23, 31);
+		const titleBarKey = this.themeData ? getThemeImageKey(this.themeData, "titleBar") : "Btn_OtherButton_Square03_Purple";
+		const nineslice_1 = this.add.nineslice(0, 0, titleBarKey || "Btn_OtherButton_Square03_Purple", undefined, 700, 100, 20, 20, 23, 31);
 		nineslice_1.setOrigin(0, 0);
 		uI.add(nineslice_1);
 
