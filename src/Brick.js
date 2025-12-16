@@ -39,11 +39,23 @@ export default class Brick extends Phaser.GameObjects.Container {
 		nineslice.tint = 0;
 		visualContainer.add(nineslice);
 
+		// White border layer (if enabled in theme)
+		if (themeData && themeData.brickStyles && themeData.brickStyles.showWhiteBorder) {
+			const borderNineslice = scene.add.nineslice(0, 0, shadowKey || "Btn_OtherButton_Square08", undefined, 100, 100, 17, 10, 10, 10);
+			borderNineslice.scaleX = 0.5;
+			borderNineslice.scaleY = 0.5;
+			borderNineslice.setOrigin(0, 0);
+			// No tint = white border
+			visualContainer.add(borderNineslice);
+		}
+
 		// ColorBlock
 		const colorKey = themeData ? getThemeImageKey(themeData, "brick-color") : "Btn_OtherButton_Square09";
-		const colorBlock = scene.add.nineslice(0, 0, colorKey || "Btn_OtherButton_Square09", undefined, 100, 100, 17, 18, 17, 20);
-		colorBlock.scaleX = 0.5;
-		colorBlock.scaleY = 0.5;
+		const colorBlockOffset = themeData?.brickStyles?.colorBlockOffset || { x: 0, y: 0 };
+		const colorBlockScale = themeData?.brickStyles?.colorBlockScale ?? 0.5;
+		const colorBlock = scene.add.nineslice(colorBlockOffset.x, colorBlockOffset.y, colorKey || "Btn_OtherButton_Square09", undefined, 100, 100, 17, 18, 17, 20);
+		colorBlock.scaleX = colorBlockScale;
+		colorBlock.scaleY = colorBlockScale;
 		colorBlock.setOrigin(0, 0);
 		colorBlock.tint = 3715071;
 		visualContainer.add(colorBlock);

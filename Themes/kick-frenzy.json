@@ -68,15 +68,23 @@
       },
       "stroke": {
         "color": "#000000",
-        "thickness": 5
+        "thickness": 25
       },
       "shadow": {
         "offsetX": 0,
-        "offsetY": 5,
+        "offsetY": 21,
         "stroke": true,
         "fill": true
       }
     }
   },
-  "brickColors": ["#f5f5f5", "#e278ff", "#008864", "#45c7ff", "#004f98", "#a50044"]
+  "brickColors": ["#f5f5f5", "#e278ff", "#008864", "#45c7ff", "#004f98", "#a50044"],
+  "brickStyles": {
+    "showWhiteBorder": true,
+    "colorBlockOffset": {
+      "x": 2.53,
+      "y": 2.5
+    },
+    "colorBlockScale": 0.45
+  }
 }
