@@ -21,7 +21,7 @@
             "label": "BG",
             "scope": "CLASS",
             "texture": {
-                "key": "SoccerField"
+                "key": "DodgeField"
             },
             "x": -30,
             "scaleX": 0.957533067724055,

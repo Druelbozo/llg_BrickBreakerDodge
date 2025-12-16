@@ -1,0 +1,70 @@
+{
+  "fontLoader": {
+    "fonts": [
+      "Jersey15-Regular"
+    ]
+  },
+  "images": {
+    "field": {
+      "type": "image",
+      "key": "Field",
+      "imageKey": "SoccerField"
+    },
+    "ball": {
+      "type": "image",
+      "key": "Ball",
+      "imageKey": "Breaker_SoccerBall"
+    },
+    "brick-shadow": {
+      "type": "image",
+      "key": "BrickShadow",
+      "imageKey": "Btn_OtherButton_Square08"
+    },
+    "brick-color": {
+      "type": "image",
+      "key": "BrickColor",
+      "imageKey": "Btn_OtherButton_Square09"
+    },
+    "manBody": {
+      "type": "image",
+      "key": "ManBody",
+      "imageKey": ""
+    },
+    "titleBar": {
+      "type": "image",
+      "key": "TitleBar",
+      "imageKey": "Btn_OtherButton_Square03_Purple"
+    }
+  },
+  "imageTints": {
+    "ball": {
+      "topLeft": "#fc0845",
+      "topRight": "#ff1010",
+      "bottomLeft": "#a400fb",
+      "bottomRight": "#a400fb"
+    },
+    "cautionLine": {
+      "topLeft": "#f300f5",
+      "topRight": "#f300f5",
+      "bottomLeft": "#f300f5",
+      "bottomRight": "#f300f5"
+    }
+  },
+  "textStyles": {
+    "fontFamily": "Jersey15-Regular",
+    "tint": {
+      "bottomLeft": "#e250ff",
+      "bottomRight": "#008bd5"
+    },
+    "stroke": {
+      "color": "#000000",
+      "thickness": 5
+    },
+    "shadow": {
+      "offsetX": 0,
+      "offsetY": 5,
+      "stroke": true,
+      "fill": true
+    }
+  }
+}

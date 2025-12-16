@@ -31,7 +31,7 @@
                 "key": "Breaker_SoccerBall"
             },
             {
-                "url": "assets/Images/Brick/Brick.png",
+                "url": "assets/Images/Brick.png",
                 "type": "image",
                 "key": "Brick"
             },
@@ -107,7 +107,7 @@
                 "key": "Jersey15-Regular"
             },
             {
-                "url": "assets/Images/Brick/ManBody.png",
+                "url": "assets/Images/ManBody.png",
                 "type": "image",
                 "key": "ManBody"
             },
@@ -119,9 +119,9 @@
                 "key": "Pop Up Open"
             },
             {
-                "url": "assets/Images/Background/SoccerField.jpg",
+                "url": "assets/Images/Field/DodgeField.jpg",
                 "type": "image",
-                "key": "SoccerField"
+                "key": "DodgeField"
             },
             {
                 "url": "assets/Fonts/VarsityTeam-Bold.otf",
