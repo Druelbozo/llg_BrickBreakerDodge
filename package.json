@@ -1,0 +1,17 @@
+{
+  "name": "llg-brick-breaker-dodge",
+  "version": "1.0.0",
+  "description": "LLG Brick Breaker Dodge game",
+  "scripts": {
+    "dev": "vite --port 5503",
+    "build": "vite build",
+    "deploy": "node scripts/deploy/deploy.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^6.0.0",
+    "vite-plugin-static-copy": "^2.0.0"
+  }
+}

@@ -29,26 +29,21 @@ import sys
 import os
 import boto3
 from datetime import datetime
-from botocore.exceptions import ClientError, NoCredentialsError
+from botocore.exceptions import ClientError
 from pathlib import Path
 import argparse
 import json
 import hashlib
 import difflib
 
-# Default S3 configuration
-DEFAULT_BUCKET = 'llg-games'
-DEFAULT_S3_PREFIX = 'games/breaker/'
+# Import SSO authentication utility
+_aws_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if _aws_dir not in sys.path:
+    sys.path.insert(0, _aws_dir)
+from sso.aws_sso_auth import ensure_sso_authenticated, get_boto3_session
 
-# Default paths to sync when no arguments provided
-DEFAULT_PATHS = [
-    'assets',
-    'css',
-    'phaserjs_editor_scripts_base',
-    'src',
-    'index.html',
-    'favicon.ico'
-]
+# Import shared AWS configuration
+from aws_config import BUCKET, S3_PREFIX, DEFAULT_PATHS
 
 # Fix Windows console encoding for emoji support
 if sys.platform == 'win32':
@@ -112,16 +107,13 @@ def get_content_type(file_path):
     return mime_types.get(ext, 'application/octet-stream')
 
 def get_s3_client(region='us-east-1'):
-    """Get S3 client."""
-    try:
-        return boto3.client('s3', region_name=region)
-    except NoCredentialsError:
-        print("❌ Error: AWS credentials not found.")
-        print("   Please configure AWS credentials using:")
-        print("   - AWS CLI: aws configure")
-        print("   - Environment variables: AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY")
-        print("   - IAM role (if running on EC2)")
+    """Get S3 client using AWS SSO authentication."""
+    if not ensure_sso_authenticated():
+        print("❌ Error: Failed to authenticate with AWS SSO")
         return None
+    try:
+        session = get_boto3_session()
+        return session.client('s3', region_name=region)
     except Exception as e:
         print(f"❌ Error connecting to S3: {e}")
         return None
@@ -193,7 +185,7 @@ def parse_project_path(project_root, project_path, bucket_override=None, prefix_
     local_path = os.path.normpath(local_path)
     
     # Use overrides if provided
-    bucket_name = bucket_override if bucket_override else DEFAULT_BUCKET
+    bucket_name = bucket_override if bucket_override else BUCKET
     
     if prefix_override:
         s3_prefix = prefix_override
@@ -205,13 +197,13 @@ def parse_project_path(project_root, project_path, bucket_override=None, prefix_
         # Check if path exists and is a directory
         if os.path.exists(local_path) and os.path.isdir(local_path):
             # For directories, append the directory name to the prefix
-            s3_prefix = DEFAULT_S3_PREFIX + project_path.replace('\\', '/')
+            s3_prefix = S3_PREFIX + project_path.replace('\\', '/')
             if not s3_prefix.endswith('/'):
                 s3_prefix += '/'
         elif os.path.exists(local_path) and os.path.isfile(local_path):
             # For files, the prefix is just the base prefix
             # The filename will be added during sync
-            s3_prefix = DEFAULT_S3_PREFIX
+            s3_prefix = S3_PREFIX
         else:
             # Path doesn't exist locally - determine if it's likely a directory or file
             # If it has a file extension and no slashes in the basename, treat as file
@@ -223,10 +215,10 @@ def parse_project_path(project_root, project_path, bucket_override=None, prefix_
             
             if is_likely_file:
                 # Treat as file - prefix is just the base prefix
-                s3_prefix = DEFAULT_S3_PREFIX
+                s3_prefix = S3_PREFIX
             else:
                 # Treat as directory - append the path to the prefix
-                s3_prefix = DEFAULT_S3_PREFIX + project_path_clean
+                s3_prefix = S3_PREFIX + project_path_clean
                 if not s3_prefix.endswith('/'):
                     s3_prefix += '/'
     
@@ -1190,12 +1182,12 @@ Examples:
     parser.add_argument(
         '--bucket',
         default=None,
-        help=f'Override bucket name (default: {DEFAULT_BUCKET})'
+        help=f'Override bucket name (default: {BUCKET})'
     )
     parser.add_argument(
         '--prefix',
         default=None,
-        help=f'Override S3 prefix (default: {DEFAULT_S3_PREFIX})'
+        help=f'Override S3 prefix (default: {S3_PREFIX})'
     )
     parser.add_argument(
         '--region',
@@ -1240,9 +1232,9 @@ Examples:
     print("S3 BUCKET DOWNLOAD SYNC")
     print("=" * 70)
     print(f"Project root: {project_root}")
-    print(f"Bucket: {args.bucket if args.bucket else DEFAULT_BUCKET}")
+    print(f"Bucket: {args.bucket if args.bucket else BUCKET}")
     print(f"Region: {args.region}")
-    print(f"S3 base prefix: {args.prefix if args.prefix else DEFAULT_S3_PREFIX}")
+    print(f"S3 base prefix: {args.prefix if args.prefix else S3_PREFIX}")
     if args.dry_run:
         print(f"Mode: DRY RUN (preview only)")
     else:
@@ -1269,8 +1261,8 @@ Examples:
     total_failed = 0
     
     # Determine bucket and prefix for summary
-    bucket_name = args.bucket if args.bucket else DEFAULT_BUCKET
-    s3_base_prefix = args.prefix if args.prefix else DEFAULT_S3_PREFIX
+    bucket_name = args.bucket if args.bucket else BUCKET
+    s3_base_prefix = args.prefix if args.prefix else S3_PREFIX
     
     # If not --dry-run and not --yes, show all previews first, then ask once, then sync all
     if not args.dry_run and not args.yes:
@@ -1439,8 +1431,8 @@ Examples:
             print(f"⚠️  SYNC COMPLETED WITH {total_failed} FAILURES")
     print("=" * 70)
     print(f"✅ Project root: {project_root}")
-    print(f"✅ S3 bucket: {args.bucket if args.bucket else DEFAULT_BUCKET}")
-    print(f"✅ S3 base prefix: {args.prefix if args.prefix else DEFAULT_S3_PREFIX}")
+    print(f"✅ S3 bucket: {args.bucket if args.bucket else BUCKET}")
+    print(f"✅ S3 base prefix: {args.prefix if args.prefix else S3_PREFIX}")
     print(f"✅ Paths processed: {len(paths_to_sync)}")
     print(f"✅ Files downloaded: {total_downloaded}")
     print(f"✅ Files updated: {total_updated}")

@@ -25,10 +25,16 @@ USAGE:
 import sys
 import os
 import boto3
-from botocore.exceptions import ClientError, NoCredentialsError
+from botocore.exceptions import ClientError
 import argparse
 import time
 from datetime import datetime, timedelta
+
+# Import SSO authentication utility
+_aws_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if _aws_dir not in sys.path:
+    sys.path.insert(0, _aws_dir)
+from sso.aws_sso_auth import ensure_sso_authenticated, get_boto3_session
 
 # Default CloudFront domain
 DEFAULT_CLOUDFRONT_DOMAIN = 'd2dtpxz4sf6hir.cloudfront.net'
@@ -49,18 +55,13 @@ if sys.platform == 'win32':
         pass
 
 def get_cloudfront_client(region='us-east-1'):
-    """Get CloudFront client."""
-    try:
-        # CloudFront is a global service, but boto3 requires a region
-        # We use us-east-1 as default
-        return boto3.client('cloudfront', region_name=region)
-    except NoCredentialsError:
-        print("❌ Error: AWS credentials not found.")
-        print("   Please configure AWS credentials using:")
-        print("   - AWS CLI: aws configure")
-        print("   - Environment variables: AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY")
-        print("   - IAM role (if running on EC2)")
+    """Get CloudFront client using AWS SSO authentication."""
+    if not ensure_sso_authenticated():
+        print("❌ Error: Failed to authenticate with AWS SSO")
         return None
+    try:
+        session = get_boto3_session()
+        return session.client('cloudfront', region_name=region)
     except Exception as e:
         print(f"❌ Error connecting to CloudFront: {e}")
         return None
