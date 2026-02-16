@@ -5,9 +5,9 @@
 The game uses a two-tier configuration system that enables runtime skinning through URL parameters. This system allows a single codebase to support multiple game variants, each with its own visual theme and game settings.
 
 **Key Components:**
-- **Config Files** (`src/config/`): Define game parameters and reference a theme
-- **Theme Files** (`Themes/`): Define visual styling, images, fonts, and layout
-- **Dynamic Selector** (`src/config/game-config.js`): Routes URL parameters to the correct config
+- **Config Files** (`src/config/game/`): Define game parameters and reference a theme
+- **Theme Files** (`src/config/themes/`): Define visual styling, images, fonts, and layout
+- **Dynamic Selector** (`src/config/game/game-config.js`): Routes URL parameters to the correct config
 
 ## System Flow
 
@@ -18,7 +18,7 @@ game-config.js (selects config file)
     ↓
 Config File (e.g., dodge-zone.js) → exports { theme: "dodge-zone" }
     ↓
-Theme File (e.g., Themes/dodge-zone.json)
+Theme File (e.g., src/config/themes/dodge-zone.json)
     ↓
 Preload Scene (loads theme images and fonts)
     ↓
@@ -40,7 +40,7 @@ https://yoursite.com/?config=kick-frenzy
 
 ### Implementation
 
-The query parameter is read in `src/config/game-config.js`:
+The query parameter is read in `src/config/game/game-config.js`:
 
 ```javascript
 function getSelectedConfigName() {
@@ -72,25 +72,25 @@ function getSelectedConfigName() {
 
 ### Config File Structure
 
-Each config file in `src/config/` exports a JavaScript object with game-specific settings:
+Each config file in `src/config/game/` exports a JavaScript object with game-specific settings:
 
-**Example: `src/config/dodge-zone.js`**
+**Example: `src/config/game/dodge-zone.js`**
 ```javascript
 export default {
-    theme: "dodge-zone"  // ← Links to Themes/dodge-zone.json
+    theme: "dodge-zone"  // ← Links to src/config/themes/dodge-zone.json
 };
 ```
 
-**Example: `src/config/kick-frenzy.js`**
+**Example: `src/config/game/kick-frenzy.js`**
 ```javascript
 export default {
-    theme: "kick-frenzy"  // ← Links to Themes/kick-frenzy.json
+    theme: "kick-frenzy"  // ← Links to src/config/themes/kick-frenzy.json
 };
 ```
 
 ### Config Registration
 
-All config files are imported and registered in `src/config/game-config.js`:
+All config files are imported and registered in `src/config/game/game-config.js`:
 
 ```javascript
 import kickFrenzyConfig from './kick-frenzy.js';
@@ -121,10 +121,10 @@ export { selectedName as configName };
 
 ### Theme File Location
 
-Theme files are located in the `Themes/` directory and are named to match the `theme` property from the config:
+Theme files are located in the `src/config/themes/` directory and are named to match the `theme` property from the config:
 
-- Config: `{ theme: "dodge-zone" }` → Theme: `Themes/dodge-zone.json`
-- Config: `{ theme: "kick-frenzy" }` → Theme: `Themes/kick-frenzy.json`
+- Config: `{ theme: "dodge-zone" }` → Theme: `src/config/themes/dodge-zone.json`
+- Config: `{ theme: "kick-frenzy" }` → Theme: `src/config/themes/kick-frenzy.json`
 
 ### Theme File Structure
 
@@ -135,7 +135,7 @@ Each theme JSON file contains:
 3. **Image Tints** (`imageTints`): Optional color tints for specific images (ball, cautionLine)
 4. **Text Styles** (`textStyles`): Global text styling applied to all text elements
 
-**Example: `Themes/dodge-zone.json`**
+**Example: `src/config/themes/dodge-zone.json`**
 ```json
 {
   "fontLoader": {
@@ -211,7 +211,7 @@ The `Preload` scene (`src/scenes/Preload.js`) loads theme assets:
 ```javascript
 async preload() {
     const selectedTheme = gameConfig.theme || 'default';
-    const themeResponse = await fetch(`Themes/${selectedTheme}.json?t=${cacheBuster}`);
+    const themeResponse = await fetch(`src/config/themes/${selectedTheme}.json?t=${cacheBuster}`);
     
     if (themeResponse.ok) {
         const themeData = await themeResponse.json();
@@ -365,14 +365,14 @@ The combination of config files and theme files creates a complete skinning syst
 
 To create a new theme:
 
-1. **Create Config File** (`src/config/my-theme.js`):
+1. **Create Config File** (`src/config/game/my-theme.js`):
    ```javascript
    export default {
        theme: "my-theme"  // Must match theme file name
    };
    ```
 
-2. **Register Config** (`src/config/game-config.js`):
+2. **Register Config** (`src/config/game/game-config.js`):
    ```javascript
    import myThemeConfig from './my-theme.js';
    
@@ -382,7 +382,7 @@ To create a new theme:
    };
    ```
 
-3. **Create Theme File** (`Themes/my-theme.json`):
+3. **Create Theme File** (`src/config/themes/my-theme.json`):
    ```json
    {
      "fontLoader": { "fonts": ["Your Font"] },

@@ -1,7 +1,7 @@
 /**
  * Dynamic Game Configuration Selector
  *
- * Selects a configuration module from /src/config at runtime based on:
+ * Selects a configuration module from /src/config/game at runtime based on:
  * 1) URL query parameter: ?config=piggy
  * 2) Fallback: default
  *

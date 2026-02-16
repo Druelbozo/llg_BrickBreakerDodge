@@ -5,7 +5,7 @@
 
 /* START-USER-IMPORTS */
 import WebFontFile from '../Helpers/WebFontFile.js';
-import gameConfig from '../config/game-config.js';
+import gameConfig from '../config/game/game-config.js';
 /* END-USER-IMPORTS */
 
 export default class Preload extends Phaser.Scene {
@@ -203,14 +203,14 @@ export default class Preload extends Phaser.Scene {
 		// We do this AFTER queuing common assets, but BEFORE loader starts
 		// The loader won't start until preload() completes, so we have time
 		let selectedTheme = gameConfig.theme || 'dodge-zone';
-		console.log(`Loading theme: Themes/${selectedTheme}.json`);
+		console.log(`Loading theme: src/config/themes/${selectedTheme}.json`);
 
 		// Add cache-busting parameter to ensure we get the latest theme file
 		const cacheBuster = Date.now();
 		try {
-			const themeResponse = await fetch(`Themes/${selectedTheme}.json?t=${cacheBuster}`);
+			const themeResponse = await fetch(`src/config/themes/${selectedTheme}.json?t=${cacheBuster}`);
 			if (themeResponse.ok) {
-				console.log(`Theme loaded: Themes/${selectedTheme}.json`);
+				console.log(`Theme loaded: src/config/themes/${selectedTheme}.json`);
 
 				const themeData = await themeResponse.json();
 				this.themeData = themeData;
@@ -238,12 +238,12 @@ export default class Preload extends Phaser.Scene {
 					console.log(`[Preload] No theme images found in theme data`);
 				}
 			} else {
-				console.warn(`[Preload] Failed to load theme: Themes/${selectedTheme}.json (status: ${themeResponse.status})`);
+				console.warn(`[Preload] Failed to load theme: src/config/themes/${selectedTheme}.json (status: ${themeResponse.status})`);
 				// Continue without theme - game will use defaults
 				this._themeImagesQueued = true; // Mark as done even if failed
 			}
 		} catch (error) {
-			console.error(`[Preload] Error loading theme: Themes/${selectedTheme}.json`, error);
+			console.error(`[Preload] Error loading theme: src/config/themes/${selectedTheme}.json`, error);
 			// Continue without theme - game will use defaults
 			this._themeImagesQueued = true; // Mark as done even if failed
 		}

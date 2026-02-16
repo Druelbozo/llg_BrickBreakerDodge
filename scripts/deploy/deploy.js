@@ -6,10 +6,10 @@
  * invalidation for the same paths (or /* when no paths were provided).
  *
  * Usage examples:
- *   node scripts/deploy/deploy.js /Themes
+ *   node scripts/deploy/deploy.js /src/config/themes
  *   node scripts/deploy/deploy.js /index.html
- *   node scripts/deploy/deploy.js /Themes /css --yes
- *   node scripts/deploy/deploy.js /Themes --preview-paths
+ *   node scripts/deploy/deploy.js /src/config/themes /css --yes
+ *   node scripts/deploy/deploy.js /src/config/themes --preview-paths
  *   node scripts/deploy/deploy.js --dry-run
  *
  * Behavior:

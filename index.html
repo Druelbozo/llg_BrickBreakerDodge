@@ -26,7 +26,7 @@
 			
 			try {
 				// Import the config name from game-config.js
-				const { configName } = await import('./src/config/game-config.js');
+				const { configName } = await import('./src/config/game/game-config.js');
 				const title = formatConfigTitle(configName);
 				document.title = title;
 			} catch (error) {
