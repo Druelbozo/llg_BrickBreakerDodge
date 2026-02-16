@@ -16,6 +16,8 @@ const AVAILABLE_CONFIGS = {
     'dodge-zone': dodgeZoneConfig,
 };
 
+export { AVAILABLE_CONFIGS };
+
 function getSelectedConfigName() {
     try {
         // Read from current window, then parent/top (Phaser Editor external runner may iframe the game)

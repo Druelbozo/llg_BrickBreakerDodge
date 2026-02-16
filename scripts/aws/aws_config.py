@@ -20,6 +20,7 @@ DEFAULT_PATHS = [
     'phaserjs_editor_scripts_base',
     'src',
     'index.html',
+    'test.html',
     'favicon.ico',
 ]
 
@@ -27,6 +28,7 @@ DEFAULT_PATHS = [
 # Used with --from-dir dist when deploying production build
 PRODUCTION_PATHS = [
     'index.html',
+    'test.html',
     'assets',
     'js',
     'src/config/themes',

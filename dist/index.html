@@ -6,7 +6,15 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="icon" type="image/x-icon" href="https://play.luckyladygames.com/favicon.ico">
 	
-	<title>Lucky Lady Games</title>
+	<title>Lucky Lady Games</title>
+	
+	<!-- Redirect to test.html when no URL params (config, etc.) -->
+	<script>
+		if ((location.pathname === '/' || location.pathname === '/index.html') && !location.search) {
+			location.replace('test.html');
+		}
+	</script>
+	
 
     <script src="https://cdn.jsdelivr.net/npm/phaser@v3.87.0/dist/phaser.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
@@ -19,7 +27,9 @@
 		}
 	</style>
 
-  <script type="module" crossorigin src="./js/game-DGjk-8Mm.js"></script>
+  <script type="module" crossorigin src="./js/game-B4Sbeg2o.js"></script>
+  <link rel="modulepreload" crossorigin href="./js/preload-helper-mg6Z-sIv.js">
+  <link rel="modulepreload" crossorigin href="./js/game-config-DhyOcBpq.js">
 </head>
 
 <body>

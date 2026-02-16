@@ -7,6 +7,14 @@
 	<link rel="icon" type="image/x-icon" href="https://play.luckyladygames.com/favicon.ico">
 	
 	<title>Lucky Lady Games</title>
+	
+	<!-- Redirect to test.html when no URL params (config, etc.) -->
+	<script>
+		if ((location.pathname === '/' || location.pathname === '/index.html') && !location.search) {
+			location.replace('test.html');
+		}
+	</script>
+	
 	<script type="module">
 		// Set dynamic page title based on config file name from game-config.js
 		(async function() {

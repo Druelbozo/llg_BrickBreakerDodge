@@ -15,6 +15,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: 'index.html',
+        test: 'test.html',
       },
       output: {
         entryFileNames: 'js/game-[hash].js',
