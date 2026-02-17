@@ -13,6 +13,9 @@ BUCKET = 'llg-games'
 # All files will be synced to: s3://{BUCKET}/{S3_PREFIX}/{path}/
 S3_PREFIX = 'games/breaker/'
 
+# Category for DynamoDB GameCatalog (used by sync_game_catalog.py)
+CATEGORY = 'breaker'
+
 # Default paths to sync when no arguments provided (raw source for editor)
 DEFAULT_PATHS = [
     'assets',
