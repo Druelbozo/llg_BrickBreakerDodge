@@ -196,7 +196,7 @@ export default class Preload extends Phaser.Scene {
 
 		// Queue common assets first (logo, asset-pack)
 		// Load the logo image early in the preload queue
-		this.load.image('logo', 'assets/Images/Logos/llg-newlogo-lite.png');
+		this.load.image('logo', 'assets/images/Logos/llg-newlogo-lite.png');
 		this.editorPreload();
 
 		// CRITICAL: Fetch theme JSON and queue theme images
@@ -338,15 +338,15 @@ export default class Preload extends Phaser.Scene {
 			
 			// Map known imageKeys to their paths (based on actual file structure)
 			const imagePathMap = {
-				"DodgeField": "assets/Images/Field/DodgeField.jpg",
-				"SoccerField": "assets/Images/Field/SoccerField.png",
-				"Breaker_DodgeBall": "assets/Images/Ball/Breaker_DodgeBall.png",
-				"Breaker_SoccerBall": "assets/Images/Ball/Breaker_SoccerBall.png",
-				"Btn_OtherButton_Square08": "assets/Images/UI-Buttons/Btn_OtherButton_Square08.png",
-				"Btn_OtherButton_Square09": "assets/Images/UI-Buttons/Btn_OtherButton_Square09.png",
-				"Btn_OtherButton_Square03_Purple": "assets/Images/UI-Buttons/Btn_OtherButton_Square03_Purple.png",
-				"Btn_OtherButton_Square03_Gray": "assets/Images/UI-Buttons/Btn_OtherButton_Square03_Gray.png",
-				"ManBody": "assets/Images/ManBody.png",
+				"DodgeField": "assets/images/Field/DodgeField.jpg",
+				"SoccerField": "assets/images/Field/SoccerField.png",
+				"Breaker_DodgeBall": "assets/images/Ball/Breaker_DodgeBall.png",
+				"Breaker_SoccerBall": "assets/images/Ball/Breaker_SoccerBall.png",
+				"Btn_OtherButton_Square08": "assets/images/UI-Buttons/Btn_OtherButton_Square08.png",
+				"Btn_OtherButton_Square09": "assets/images/UI-Buttons/Btn_OtherButton_Square09.png",
+				"Btn_OtherButton_Square03_Purple": "assets/images/UI-Buttons/Btn_OtherButton_Square03_Purple.png",
+				"Btn_OtherButton_Square03_Gray": "assets/images/UI-Buttons/Btn_OtherButton_Square03_Gray.png",
+				"ManBody": "assets/images/ManBody.png",
 			};
 
 			imageKey = imagePathMap[value.imageKey];
@@ -355,19 +355,19 @@ export default class Preload extends Phaser.Scene {
 			if (!imageKey) {
 				// Determine extension and directory based on imageKey patterns
 				let extension = '.png';
-				let directory = 'assets/Images';
+				let directory = 'assets/images';
 				
 				if (value.imageKey.includes("Field")) {
-					directory = "assets/Images/Field";
+					directory = "assets/images/Field";
 					extension = value.imageKey === "DodgeField" ? '.jpg' : '.png';
 				} else if (value.imageKey.includes("Ball") || value.imageKey.startsWith("Breaker_")) {
-					directory = "assets/Images/Ball";
+					directory = "assets/images/Ball";
 					extension = '.png';
 				} else if (value.imageKey.includes("Btn_")) {
-					directory = "assets/Images/UI-Buttons";
+					directory = "assets/images/UI-Buttons";
 					extension = '.png';
 				} else if (value.imageKey.includes("icon_")) {
-					directory = "assets/Images/UI-Icons";
+					directory = "assets/images/UI-Icons";
 					extension = '.png';
 				}
 				

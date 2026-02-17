@@ -16,52 +16,52 @@
                 "key": "Boop_01"
             },
             {
-                "url": "assets/Images/Breaker_Circle.png",
+                "url": "assets/images/Breaker_Circle.png",
                 "type": "image",
                 "key": "Breaker_Circle"
             },
             {
-                "url": "assets/Images/Ball/Breaker_DodgeBall.png",
+                "url": "assets/images/Ball/Breaker_DodgeBall.png",
                 "type": "image",
                 "key": "Breaker_DodgeBall"
             },
             {
-                "url": "assets/Images/Ball/Breaker_SoccerBall.png",
+                "url": "assets/images/Ball/Breaker_SoccerBall.png",
                 "type": "image",
                 "key": "Breaker_SoccerBall"
             },
             {
-                "url": "assets/Images/UI-Buttons/Btn_OtherButton_Square02.png",
+                "url": "assets/images/UI-Buttons/Btn_OtherButton_Square02.png",
                 "type": "image",
                 "key": "Btn_OtherButton_Square02"
             },
             {
-                "url": "assets/Images/UI-Buttons/Btn_OtherButton_Square03_Purple.png",
+                "url": "assets/images/UI-Buttons/Btn_OtherButton_Square03_Purple.png",
                 "type": "image",
                 "key": "Btn_OtherButton_Square03_Purple"
             },
             {
-                "url": "assets/Images/UI-Buttons/Btn_OtherButton_Square03_Gray.png",
+                "url": "assets/images/UI-Buttons/Btn_OtherButton_Square03_Gray.png",
                 "type": "image",
                 "key": "Btn_OtherButton_Square03_Gray"
             },
             {
-                "url": "assets/Images/UI-Buttons/Btn_OtherButton_Square04.png",
+                "url": "assets/images/UI-Buttons/Btn_OtherButton_Square04.png",
                 "type": "image",
                 "key": "Btn_OtherButton_Square04"
             },
             {
-                "url": "assets/Images/UI-Buttons/Btn_OtherButton_Square08.png",
+                "url": "assets/images/UI-Buttons/Btn_OtherButton_Square08.png",
                 "type": "image",
                 "key": "Btn_OtherButton_Square08"
             },
             {
-                "url": "assets/Images/UI-Buttons/Btn_OtherButton_Square09.png",
+                "url": "assets/images/UI-Buttons/Btn_OtherButton_Square09.png",
                 "type": "image",
                 "key": "Btn_OtherButton_Square09"
             },
             {
-                "url": "assets/Images/CautionLine.png",
+                "url": "assets/images/CautionLine.png",
                 "type": "image",
                 "key": "CautionLine"
             },
@@ -80,12 +80,12 @@
                 "key": "Electronicish Neutral K"
             },
             {
-                "url": "assets/Images/UI-Icons/icon_musicOff_128.png",
+                "url": "assets/images/UI-Icons/icon_musicOff_128.png",
                 "type": "image",
                 "key": "icon_musicOff_128"
             },
             {
-                "url": "assets/Images/UI-Icons/icon_musicOn_128.png",
+                "url": "assets/images/UI-Icons/icon_musicOn_128.png",
                 "type": "image",
                 "key": "icon_musicOn_128"
             },
@@ -97,12 +97,12 @@
                 "key": "Jersey15-Regular"
             },
             {
-                "url": "assets/Images/ManBody.png",
+                "url": "assets/images/ManBody.png",
                 "type": "image",
                 "key": "ManBody"
             },
             {
-                "url": "assets/Images/Field/DodgeField.jpg",
+                "url": "assets/images/Field/DodgeField.jpg",
                 "type": "image",
                 "key": "DodgeField"
             },
