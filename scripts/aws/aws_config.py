@@ -32,6 +32,7 @@ PRODUCTION_PATHS = [
     'assets',
     'js',
     'src/config/themes',
+    'src/config/game',
 ]
 
 # File extensions to skip (never sync or delete from S3)

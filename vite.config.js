@@ -37,6 +37,11 @@ export default defineConfig({
           dest: 'src/config/themes',
           structured: true,
         },
+        {
+          src: 'src/config/game/**/*',
+          dest: 'src/config/game',
+          structured: true,
+        },
       ],
     }),
   ],
