@@ -1,1 +1,0 @@
-const c={theme:"kick-frenzy"},r={theme:"dodge-zone"},o={"kick-frenzy":c,"dodge-zone":r};function a(){try{const e=t=>{try{return new URLSearchParams(t.location.search).get("config")}catch{return null}},n=e(window)||e(window.parent)||e(window.top);if(n&&o[n])return n}catch{}return"dodge-zone"}const d=a(),g=o[d];export{o as AVAILABLE_CONFIGS,d as configName,g as default};

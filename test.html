@@ -148,12 +148,18 @@
 <body>
     <div class="container">
         <div class="logo-container">
-            <img src="assets/images/common/logo/llg-newlogo-lite.png" alt="Lucky Lady Games" class="logo" onerror="this.style.display='none'">
+            <img data-src="assets/images/common/logo/llg-newlogo-lite.png" alt="Lucky Lady Games" class="logo" onerror="this.style.display='none'">
         </div>
         <div id="links-container" class="loading">Loading configs...</div>
     </div>
 
     <script type="module">
+        // Set logo src at runtime so Vite doesn't process and create hashed duplicate
+        (function() {
+            var logo = document.querySelector('.logo');
+            if (logo && logo.dataset.src) logo.src = logo.dataset.src;
+        })();
+
         function formatConfigTitle(configName) {
             if (!configName) return 'Unknown';
             
