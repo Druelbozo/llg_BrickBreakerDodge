@@ -5,15 +5,19 @@
  * This script runs the S3 upload sync script first, then triggers a CloudFront
  * invalidation for the same paths (or /* when no paths were provided).
  *
+ * Default: Runs Vite build pipeline (npm run build), then syncs dist/ to S3.
+ *
  * Usage examples:
- *   node scripts/deploy/deploy.js /src/config/themes
- *   node scripts/deploy/deploy.js /index.html
+ *   node scripts/deploy/deploy.js
+ *   node scripts/deploy/deploy.js --dry-run
+ *   node scripts/deploy/deploy.js --no-build
+ *   node scripts/deploy/deploy.js --raw
  *   node scripts/deploy/deploy.js /src/config/themes /css --yes
  *   node scripts/deploy/deploy.js /src/config/themes --preview-paths
- *   node scripts/deploy/deploy.js --dry-run
  *
  * Behavior:
- *   - Runs sync_to_s3.py with the provided paths (or defaults when none).
+ *   - Default: Runs build, then sync_to_s3.py with --production (dist/ output).
+ *   - With --raw: Syncs raw source (no build, DEFAULT_PATHS from project root).
  *   - Afterwards runs invalidate_cloudfront.py with the same paths (uses default domain).
  *     When no paths were provided it invalidates /*.
  *   - If index.html or /index.html is included in the paths, it always invalidates both / and /index.html.
@@ -29,8 +33,9 @@
  *   --invalidate-all        Invalidate everything in the S3 prefix folder (e.g., /games/breaker/*)
  *                           instead of using the same paths as sync phase
  *   --preview-paths         Show detailed preview for each path before summary (forwarded to sync script)
- *   --production            Deploy production build (bundled/obfuscated): runs build, then syncs dist/
- *   --no-build              Skip build step when used with --production (sync existing dist/ only)
+ *   --raw                   Sync raw source (no build, no Vite). Uses DEFAULT_PATHS from project root.
+ *   --no-build              Skip build step when using default Vite deploy (sync existing dist/ only).
+ *                           Ignored when --raw is used.
  */
 
 const { spawnSync } = require('child_process');
@@ -77,13 +82,13 @@ function getS3Prefix() {
 
 const DEFAULT_S3_PREFIX = getS3Prefix();
 
-const BOOLEAN_FLAGS = new Set(['--dry-run', '--force', '--yes', '--preview-paths', '--production']);
+const BOOLEAN_FLAGS = new Set(['--dry-run', '--force', '--yes', '--preview-paths']);
 const VALUE_FLAGS = new Set(['--bucket', '--prefix', '--region', '--python-path']);
 
 const INVALIDATION_BOOLEAN_FLAGS = new Set(['--skip-watch']);
 const INVALIDATION_VALUE_FLAGS = new Set(['--interval']);
 
-const HELPER_BOOLEAN_FLAGS = new Set(['--invalidate-all', '--no-build']);
+const HELPER_BOOLEAN_FLAGS = new Set(['--invalidate-all', '--no-build', '--raw']);
 
 function parseArgs(rawArgs) {
   const paths = [];
@@ -92,6 +97,7 @@ function parseArgs(rawArgs) {
   let pythonPath = process.env.PYTHON || 'python';
   let invalidateAll = false;
   let noBuild = false;
+  let raw = false;
   let s3Prefix = DEFAULT_S3_PREFIX;
 
   for (let i = 0; i < rawArgs.length; i += 1) {
@@ -103,6 +109,8 @@ function parseArgs(rawArgs) {
           invalidateAll = true;
         } else if (arg === '--no-build') {
           noBuild = true;
+        } else if (arg === '--raw') {
+          raw = true;
         }
       } else if (BOOLEAN_FLAGS.has(arg)) {
         uploadArgs.push(arg);
@@ -140,7 +148,7 @@ function parseArgs(rawArgs) {
     }
   }
 
-  return { paths, uploadArgs, invalidationArgs, pythonPath, invalidateAll, noBuild, s3Prefix };
+  return { paths, uploadArgs, invalidationArgs, pythonPath, invalidateAll, noBuild, raw, s3Prefix };
 }
 
 function normalizeInvalidationPaths(paths, s3Prefix) {
@@ -229,9 +237,9 @@ function getInvalidateAllPath(s3Prefix) {
 
 function main() {
   const rawArgs = process.argv.slice(2);
-  const { paths, uploadArgs, invalidationArgs, pythonPath, invalidateAll, noBuild, s3Prefix } = parseArgs(rawArgs);
+  const { paths, uploadArgs, invalidationArgs, pythonPath, invalidateAll, noBuild, raw, s3Prefix } = parseArgs(rawArgs);
   console.log(`\n📦 Using S3_PREFIX: ${s3Prefix}`);
-  const isProduction = uploadArgs.includes('--production');
+  const isProduction = !raw;
   const invalidationPaths = invalidateAll ? [getInvalidateAllPath(s3Prefix)] : normalizeInvalidationPaths(paths, s3Prefix);
   console.log(`🔄 CloudFront invalidation paths: ${invalidationPaths.join(', ')}`);
   const yesFlagProvided = uploadArgs.includes('--yes');
@@ -253,7 +261,11 @@ function main() {
   }
 
   // Step 1: run the upload script
-  const uploadCommandArgs = [UPLOAD_SCRIPT, ...paths, ...uploadArgs];
+  const syncArgs = [...uploadArgs];
+  if (isProduction) {
+    syncArgs.push('--production');
+  }
+  const uploadCommandArgs = [UPLOAD_SCRIPT, ...paths, ...syncArgs];
   console.log(`\n▶️  S3 Upload Sync: ${pythonPath} ${uploadCommandArgs.join(' ')}`);
   runCommand(pythonPath, uploadCommandArgs, 'S3 Upload Sync', false);
 
