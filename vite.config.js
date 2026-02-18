@@ -1,6 +1,9 @@
 import { defineConfig } from 'vite';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 
+/** Include base pattern but exclude any path under a directory named 'archive' */
+const excludeArchive = (base) => [base, '!**/archive/**'];
+
 export default defineConfig({
   base: './',
   server: {
@@ -28,17 +31,17 @@ export default defineConfig({
     viteStaticCopy({
       targets: [
         {
-          src: 'assets/**/*',
+          src: excludeArchive('assets/**/*'),
           dest: 'assets',
           structured: true,
         },
         {
-          src: 'src/config/themes/**/*',
+          src: excludeArchive('src/config/themes/**/*'),
           dest: 'src/config/themes',
           structured: true,
         },
         {
-          src: 'src/config/game/**/*',
+          src: excludeArchive('src/config/game/**/*'),
           dest: 'src/config/game',
           structured: true,
         },
