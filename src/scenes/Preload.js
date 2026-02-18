@@ -196,7 +196,7 @@ export default class Preload extends Phaser.Scene {
 
 		// Queue common assets first (logo, asset-pack)
 		// Load the logo image early in the preload queue
-		this.load.image('logo', 'assets/images/Logos/llg-newlogo-lite.png');
+		this.load.image('logo', 'assets/images/common/logo/llg-newlogo-lite.png');
 		this.editorPreload();
 
 		// CRITICAL: Fetch theme JSON and queue theme images
@@ -338,15 +338,17 @@ export default class Preload extends Phaser.Scene {
 			
 			// Map known imageKeys to their paths (based on actual file structure)
 			const imagePathMap = {
-				"DodgeField": "assets/images/Field/DodgeField.jpg",
-				"SoccerField": "assets/images/Field/SoccerField.png",
-				"Breaker_DodgeBall": "assets/images/Ball/Breaker_DodgeBall.png",
-				"Breaker_SoccerBall": "assets/images/Ball/Breaker_SoccerBall.png",
-				"Btn_OtherButton_Square08": "assets/images/UI-Buttons/Btn_OtherButton_Square08.png",
-				"Btn_OtherButton_Square09": "assets/images/UI-Buttons/Btn_OtherButton_Square09.png",
-				"Btn_OtherButton_Square03_Purple": "assets/images/UI-Buttons/Btn_OtherButton_Square03_Purple.png",
-				"Btn_OtherButton_Square03_Gray": "assets/images/UI-Buttons/Btn_OtherButton_Square03_Gray.png",
-				"ManBody": "assets/images/ManBody.png",
+				"DodgeField": "assets/images/theme/field/DodgeField.jpg",
+				"SoccerField": "assets/images/theme/field/SoccerField.png",
+				"Breaker_DodgeBall": "assets/images/theme/ball/Breaker_DodgeBall.png",
+				"Breaker_SoccerBall": "assets/images/theme/ball/Breaker_SoccerBall.png",
+				"Btn_OtherButton_Square08": "assets/images/common/ui-buttons/Btn_OtherButton_Square08.png",
+				"Btn_OtherButton_Square09": "assets/images/common/ui-buttons/Btn_OtherButton_Square09.png",
+				"Btn_OtherButton_Square03_Purple": "assets/images/common/ui-buttons/Btn_OtherButton_Square03_Purple.png",
+				"Btn_OtherButton_Square03_Gray": "assets/images/common/ui-buttons/Btn_OtherButton_Square03_Gray.png",
+				"ManBody": "assets/images/common/ManBody.png",
+				"Breaker_Circle": "assets/images/common/Breaker_Circle.png",
+				"CautionLine": "assets/images/common/CautionLine.png",
 			};
 
 			imageKey = imagePathMap[value.imageKey];
@@ -358,16 +360,16 @@ export default class Preload extends Phaser.Scene {
 				let directory = 'assets/images';
 				
 				if (value.imageKey.includes("Field")) {
-					directory = "assets/images/Field";
+					directory = "assets/images/theme/field";
 					extension = value.imageKey === "DodgeField" ? '.jpg' : '.png';
 				} else if (value.imageKey.includes("Ball") || value.imageKey.startsWith("Breaker_")) {
-					directory = "assets/images/Ball";
+					directory = "assets/images/theme/ball";
 					extension = '.png';
 				} else if (value.imageKey.includes("Btn_")) {
-					directory = "assets/images/UI-Buttons";
+					directory = "assets/images/common/ui-buttons";
 					extension = '.png';
 				} else if (value.imageKey.includes("icon_")) {
-					directory = "assets/images/UI-Icons";
+					directory = "assets/images/common/icons";
 					extension = '.png';
 				}
 				

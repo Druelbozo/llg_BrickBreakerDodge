@@ -16,52 +16,52 @@
                 "key": "Boop_01"
             },
             {
-                "url": "assets/images/Breaker_Circle.png",
+                "url": "assets/images/common/Breaker_Circle.png",
                 "type": "image",
                 "key": "Breaker_Circle"
             },
             {
-                "url": "assets/images/Ball/Breaker_DodgeBall.png",
+                "url": "assets/images/theme/ball/Breaker_DodgeBall.png",
                 "type": "image",
                 "key": "Breaker_DodgeBall"
             },
             {
-                "url": "assets/images/Ball/Breaker_SoccerBall.png",
+                "url": "assets/images/theme/ball/Breaker_SoccerBall.png",
                 "type": "image",
                 "key": "Breaker_SoccerBall"
             },
             {
-                "url": "assets/images/UI-Buttons/Btn_OtherButton_Square02.png",
+                "url": "assets/images/common/ui-buttons/Btn_OtherButton_Square02.png",
                 "type": "image",
                 "key": "Btn_OtherButton_Square02"
             },
             {
-                "url": "assets/images/UI-Buttons/Btn_OtherButton_Square03_Purple.png",
+                "url": "assets/images/common/ui-buttons/Btn_OtherButton_Square03_Purple.png",
                 "type": "image",
                 "key": "Btn_OtherButton_Square03_Purple"
             },
             {
-                "url": "assets/images/UI-Buttons/Btn_OtherButton_Square03_Gray.png",
+                "url": "assets/images/common/ui-buttons/Btn_OtherButton_Square03_Gray.png",
                 "type": "image",
                 "key": "Btn_OtherButton_Square03_Gray"
             },
             {
-                "url": "assets/images/UI-Buttons/Btn_OtherButton_Square04.png",
+                "url": "assets/images/common/ui-buttons/Btn_OtherButton_Square04.png",
                 "type": "image",
                 "key": "Btn_OtherButton_Square04"
             },
             {
-                "url": "assets/images/UI-Buttons/Btn_OtherButton_Square08.png",
+                "url": "assets/images/common/ui-buttons/Btn_OtherButton_Square08.png",
                 "type": "image",
                 "key": "Btn_OtherButton_Square08"
             },
             {
-                "url": "assets/images/UI-Buttons/Btn_OtherButton_Square09.png",
+                "url": "assets/images/common/ui-buttons/Btn_OtherButton_Square09.png",
                 "type": "image",
                 "key": "Btn_OtherButton_Square09"
             },
             {
-                "url": "assets/images/CautionLine.png",
+                "url": "assets/images/common/CautionLine.png",
                 "type": "image",
                 "key": "CautionLine"
             },
@@ -80,34 +80,34 @@
                 "key": "Electronicish Neutral K"
             },
             {
-                "url": "assets/images/UI-Icons/icon_musicOff_128.png",
+                "url": "assets/images/common/icons/icon_musicOff_128.png",
                 "type": "image",
                 "key": "icon_musicOff_128"
             },
             {
-                "url": "assets/images/UI-Icons/icon_musicOn_128.png",
+                "url": "assets/images/common/icons/icon_musicOn_128.png",
                 "type": "image",
                 "key": "icon_musicOn_128"
             },
             {
-                "url": "assets/Fonts/Jersey15-Regular.ttf",
+                "url": "assets/fonts/Jersey15-Regular.ttf",
                 "format": "truetype",
                 "descriptors": {},
                 "type": "font",
                 "key": "Jersey15-Regular"
             },
             {
-                "url": "assets/images/ManBody.png",
+                "url": "assets/images/common/ManBody.png",
                 "type": "image",
                 "key": "ManBody"
             },
             {
-                "url": "assets/images/Field/DodgeField.jpg",
+                "url": "assets/images/theme/field/DodgeField.jpg",
                 "type": "image",
                 "key": "DodgeField"
             },
             {
-                "url": "assets/Fonts/VarsityTeam-Bold.otf",
+                "url": "assets/fonts/VarsityTeam-Bold.otf",
                 "format": "opentype",
                 "descriptors": {},
                 "type": "font",
