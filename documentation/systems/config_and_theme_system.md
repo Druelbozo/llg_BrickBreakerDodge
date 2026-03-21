@@ -7,16 +7,18 @@ The game uses a two-tier configuration system that enables runtime skinning thro
 **Key Components:**
 - **Config Files** (`src/config/game/`): Define game parameters and reference a theme
 - **Theme Files** (`src/config/themes/`): Define visual styling, images, fonts, and layout
-- **Dynamic Selector** (`src/config/game/game-config.js`): Routes URL parameters to the correct config
+- **Dynamic Selector** (`src/config/game/game-config.js`): Uses `import.meta.glob` lazy loading, `CONFIG_REGISTRY`, `loadSelectedConfig()`, and a Proxy default export to `window.__selectedGameConfig` (see [`documentation/reference/GAME_FLOW_BRICK_BREAKER.md`](../reference/GAME_FLOW_BRICK_BREAKER.md) for bootstrap, session mode, and registry keys).
 
 ## System Flow
 
 ```
-URL Query Param (?config=dodge-zone)
+URL Query Param (?config=dodge-zone) or sessionId (session mode)
     ↓
-game-config.js (selects config file)
+main.js sets window.__selectedGameConfig; Boot sets registry preloadGameConfig
     ↓
-Config File (e.g., dodge-zone.js) → exports { theme: "dodge-zone" }
+game-config.js loadSelectedConfig() (config mode) or gameMetadata (session mode)
+    ↓
+Config merge → theme name (e.g. dodge-zone)
     ↓
 Theme File (e.g., src/config/themes/dodge-zone.json)
     ↓
@@ -84,38 +86,23 @@ export default {
 **Example: `src/config/game/kick-frenzy.js`**
 ```javascript
 export default {
-    theme: "kick-frenzy"  // ← Links to src/config/themes/kick-frenzy.json
+    theme: "kick-frenzy",  // ← Links to src/config/themes/kick-frenzy.json
+    creditValueMinor: 100,
+    paytableId: "R8326_Tx300",
+    match: 3
 };
 ```
 
-### Config Registration
+### Config registration
 
-All config files are imported and registered in `src/config/game/game-config.js`:
+Valid config stems are listed in `CONFIG_REGISTRY` inside `game-config.js`. Modules are loaded lazily via `import.meta.glob('./*.js')` and `loadSelectedConfig()` (called from `main.js` before Phaser starts). The default export is a **Proxy** to `window.__selectedGameConfig`; `configName` is still exported for `index.html` title.
 
-```javascript
-import kickFrenzyConfig from './kick-frenzy.js';
-import dodgeZoneConfig from './dodge-zone.js';
+### Config selection process
 
-const AVAILABLE_CONFIGS = {
-    'kick-frenzy': kickFrenzyConfig,
-    'dodge-zone': dodgeZoneConfig,
-};
-```
-
-### Config Selection Process
-
-1. **URL Parameter Read**: `getSelectedConfigName()` extracts the `config` parameter
-2. **Config Lookup**: The parameter is used as a key in `AVAILABLE_CONFIGS`
-3. **Config Export**: The selected config object is exported as the default export
-4. **Theme Reference**: The config's `theme` property specifies which theme JSON to load
-
-```javascript
-const selectedName = getSelectedConfigName();
-const gameConfig = AVAILABLE_CONFIGS[selectedName] || AVAILABLE_CONFIGS['dodge-zone'];
-
-export default gameConfig;
-export { selectedName as configName };
-```
+1. **URL parameter read**: `getSelectedConfigName()` extracts the `config` parameter (window / parent / top).
+2. **Load**: `loadConfig(name)` loads `./{name}.js`; on failure, `loadSelectedConfig()` falls back to `DEFAULT_CONFIG`.
+3. **Runtime object**: Merged config (including session `gameMetadata` when applicable) lives on `window.__selectedGameConfig` and in the Phaser registry as `preloadGameConfig`.
+4. **Theme reference**: The merged `theme` property selects `src/config/themes/{theme}.json` in Preload.
 
 ## 3. Theme File Association
 

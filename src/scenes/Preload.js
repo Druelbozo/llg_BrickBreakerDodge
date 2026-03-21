@@ -5,7 +5,6 @@
 
 /* START-USER-IMPORTS */
 import WebFontFile from '../Helpers/WebFontFile.js';
-import gameConfig from '../config/game/game-config.js';
 /* END-USER-IMPORTS */
 
 export default class Preload extends Phaser.Scene {
@@ -202,7 +201,8 @@ export default class Preload extends Phaser.Scene {
 		// CRITICAL: Fetch theme JSON and queue theme images
 		// We do this AFTER queuing common assets, but BEFORE loader starts
 		// The loader won't start until preload() completes, so we have time
-		let selectedTheme = gameConfig.theme || 'dodge-zone';
+		const cfg = this.registry.get('preloadGameConfig') || (typeof window !== 'undefined' && window.__selectedGameConfig) || {};
+		let selectedTheme = cfg.theme || 'dodge-zone';
 		console.log(`Loading theme: src/config/themes/${selectedTheme}.json`);
 
 		// Add cache-busting parameter to ensure we get the latest theme file

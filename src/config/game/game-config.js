@@ -2,25 +2,30 @@
  * Dynamic Game Configuration Selector
  *
  * Selects a configuration module from /src/config/game at runtime based on:
- * 1) URL query parameter: ?config=piggy
- * 2) Fallback: default
+ * 1) URL query parameter: ?config=kick-frenzy
+ * 2) Fallback: DEFAULT_CONFIG
  *
- * All config files must share the same schema.
+ * Uses import.meta.glob so Vite bundles configs as proper chunks with hashed URLs.
+ * Default export is a Proxy to window.__selectedGameConfig (set in main.js before Phaser starts).
  */
 
-import kickFrenzyConfig from './kick-frenzy.js';
-import dodgeZoneConfig from './dodge-zone.js';
+export const DEFAULT_CONFIG = 'dodge-zone';
 
-const AVAILABLE_CONFIGS = {
-    'kick-frenzy': kickFrenzyConfig,
-    'dodge-zone': dodgeZoneConfig,
-};
+export const CONFIG_REGISTRY = [
+    'dodge-zone',
+    'kick-frenzy',
+];
 
-export { AVAILABLE_CONFIGS };
+const configModules = (typeof import.meta.glob === 'function')
+    ? import.meta.glob('./*.js', { eager: false })
+    : {};
 
-function getSelectedConfigName() {
+export function getAvailableConfigNames() {
+    return [...CONFIG_REGISTRY];
+}
+
+export function getSelectedConfigName() {
     try {
-        // Read from current window, then parent/top (Phaser Editor external runner may iframe the game)
         const readParam = (win) => {
             try {
                 return new URLSearchParams(win.location.search).get('config');
@@ -28,18 +33,54 @@ function getSelectedConfigName() {
         };
 
         const fromQuery = readParam(window) || readParam(window.parent) || readParam(window.top);
-        if (fromQuery && AVAILABLE_CONFIGS[fromQuery]) {
-            return fromQuery;
+        if (fromQuery) {
+            const baseName = fromQuery.split(/[:;]/)[0];
+            if (baseName) return baseName;
         }
     } catch (_) {
         // In non-browser contexts, fall through to default
     }
-    return 'dodge-zone';
+    return DEFAULT_CONFIG;
 }
 
-const selectedName = getSelectedConfigName();
-const gameConfig = AVAILABLE_CONFIGS[selectedName];
+export async function loadConfig(name) {
+    if (name === 'game-config') return null;
 
-export default gameConfig;
-export { selectedName as configName };
+    const key = `./${name}.js`;
+    const loader = configModules[key];
+    if (loader) {
+        try {
+            const m = await loader();
+            return m.default;
+        } catch (_) {
+            /* fall through */
+        }
+    }
 
+    try {
+        if (typeof window !== 'undefined' && window.location) {
+            const url = new URL(`src/config/game/${name}.js`, window.location.href).href;
+            const m = await import(/* @vite-ignore */ url);
+            return m.default;
+        }
+    } catch (_) {
+        /* ignore */
+    }
+    return null;
+}
+
+export async function loadSelectedConfig() {
+    const name = getSelectedConfigName();
+    const config = await loadConfig(name);
+    return config ?? await loadConfig(DEFAULT_CONFIG);
+}
+
+export const AVAILABLE_CONFIGS = Object.fromEntries(CONFIG_REGISTRY.map((n) => [n, null]));
+
+export const configName = getSelectedConfigName();
+
+export default new Proxy({}, {
+    get(_, prop) {
+        return window.__selectedGameConfig?.[prop];
+    }
+});

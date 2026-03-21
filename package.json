@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "LLG Brick Breaker Dodge game",
   "scripts": {
-    "dev": "vite --port 5503",
+    "dev": "vite",
     "build": "vite build",
     "deploy": "node scripts/deploy/deploy.js"
   },

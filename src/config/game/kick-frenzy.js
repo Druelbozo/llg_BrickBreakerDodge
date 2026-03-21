@@ -4,6 +4,9 @@
  */
 
 export default {
-    theme: "kick-frenzy"
+    theme: "kick-frenzy",
+    creditValueMinor: 100,
+    paytableId: "R8326_Tx300",
+    match: 3
 };
 

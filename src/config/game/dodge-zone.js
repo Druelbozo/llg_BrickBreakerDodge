@@ -4,6 +4,9 @@
  */
 
 export default {
-    theme: "dodge-zone"
+    theme: "dodge-zone",
+    creditValueMinor: 100,
+    paytableId: "R8326_Tx300",
+    match: 3
 };
 

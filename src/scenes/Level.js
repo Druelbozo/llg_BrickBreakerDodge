@@ -24,6 +24,7 @@ import ScaleTween from "../ScriptNodes/Utils/ScaleTween.js";
 import PlayAudio from "../ScriptNodes/Utils/PlayAudio.js";
 import Delay from "../ScriptNodes/Utils/Delay.js";
 /* START-USER-IMPORTS */
+import { GameConfig } from '../config/Global.js';
 import { getThemeImageKey, applyTextTheme, applySingleHexTint, applyGameMessageTextTheme } from '../utils/themeUtils.js';
 /* END-USER-IMPORTS */
 
@@ -765,6 +766,8 @@ export default class Level extends Phaser.Scene {
 	/* START-USER-CODE */
 	gameStart = true;
 	themeData = null;
+	/** Balance in minor units when session/test registry is used (optional UI hook) */
+	balancePennies = 0;
 	// Write more your code here
 
 	init(data) {
@@ -774,6 +777,13 @@ export default class Level extends Phaser.Scene {
 
 	create()
 		 {
+		const useSession = this.registry.get('preloadUseSessionConfig');
+		const minor = this.registry.get('preloadOperatorBalance');
+		if (useSession && minor != null) {
+			this.balancePennies = minor;
+		} else {
+			this.balancePennies = GameConfig.game.TEST_BALANCE_MINOR;
+		}
 
 		this.editorCreate();
 		this.gameStart = true;
