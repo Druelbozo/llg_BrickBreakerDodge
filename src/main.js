@@ -2,6 +2,7 @@ import Level from "./scenes/Level.js";
 import Preload from "./scenes/Preload.js";
 import ProviderAPIService from "./services/api/ProviderAPIService.js";
 import { GameConfig } from "./config/Global.js";
+import { initNovalinkTournamentSdk } from "./services/novalink/tournamentSdk.js";
 
 const BREAKER_RUNTIME_DEFAULTS = {
 	theme: 'dodge-zone',
@@ -17,6 +18,7 @@ function mergeBreakerRuntimeConfig(fileConfig = {}, meta = {}) {
 		creditValueMinor: meta.creditValueMinor ?? base.creditValueMinor ?? 100,
 		paytableId: meta.paytableId ?? base.paytableId,
 		match: meta.match ?? base.match ?? 3,
+		gameId: meta.gameId ?? base.gameId,
 		subcategory: scratchType === 'poker' ? 'poker' : (base.subcategory ?? 'card'),
 		pokerType: meta.pokerType ?? base.pokerType,
 		scheduleCode: meta.scheduleCode ?? base.scheduleCode,
@@ -133,6 +135,7 @@ class Boot extends Phaser.Scene {
 		}
 
 		this.registry.set('preloadGameConfig', config);
+		initNovalinkTournamentSdk(config);
 		this.scene.start("Preload");
 	}
 }

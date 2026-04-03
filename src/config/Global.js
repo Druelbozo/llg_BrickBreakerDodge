@@ -10,5 +10,14 @@ export const GameConfig = {
     game: {
         TEST_BALANCE_MINOR: 300000,
         SESSION_DEMO_BALANCE_MINOR: 10000
+    },
+    /** Defaults for Novalink Tournament SDK; per-game `gameId` lives in config modules. */
+    novalink: {
+        providerId: 'llgdev',
+        brandId: 'brand-123',
+        currency: 'USD',
+        env: 'prod',
+        style: { themeColor: '#ff9900', overlayPosition: 'center' },
+        defaultPlayerId: 'player-123'
     }
 };

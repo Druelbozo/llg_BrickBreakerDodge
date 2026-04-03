@@ -1,0 +1,77 @@
+# Novalink Tournament SDK integration
+
+This document summarizes how [Novalink’s Tournament SDK](https://stage.novalink.gg/sdk/example.html) is wired into Brick Breaker Dodge: configuration, runtime bootstrap, gameplay hooks, and local development (CORS proxy + `fetch` rewrite).
+
+## Overview
+
+- The SDK script is loaded globally from `https://novalink.gg/sdk/tournament-sdk-v1.js` in [`index.html`](../../index.html).
+- **`gameId`** is defined per game variant in [`src/config/game/*.js`](../../src/config/game/) and merged into runtime config (including session `gameMetadata.gameId`). Shared defaults live in [`src/config/Global.js`](../../src/config/Global.js) under `GameConfig.novalink`.
+- The SDK is **constructed** after the final merged config is known in **`Boot.create()`**, then the **tournament UI** is shown when **`Level`** finishes `create()`. **Score submission** is called on **`onGameOver`** when the deployed SDK exposes `submitScore` (not present on the bundle we verified; the wrapper is forward-compatible).
+
+## Source files
+
+| Area | File |
+|------|------|
+| Defaults (`providerId`, `brandId`, `currency`, `env`, `style`, …) | [`src/config/Global.js`](../../src/config/Global.js) → `GameConfig.novalink` |
+| Per-variant `gameId` | [`src/config/game/dodge-zone.js`](../../src/config/game/dodge-zone.js), [`src/config/game/kick-frenzy.js`](../../src/config/game/kick-frenzy.js) |
+| Merge `gameId` from file + session metadata | [`src/main.js`](../../src/main.js) → `mergeBreakerRuntimeConfig` |
+| Init SDK instance | [`src/main.js`](../../src/main.js) → `Boot.create()` calls `initNovalinkTournamentSdk(config)` |
+| Show overlay + submit score | [`src/scenes/Level.js`](../../src/scenes/Level.js) → `showNovalinkTournamentOverlay()`, `submitNovalinkTournamentScore()` |
+| Integration helpers | [`src/services/novalink/tournamentSdk.js`](../../src/services/novalink/tournamentSdk.js) |
+| Local Novalink forwarding | [`scripts/local-testing/cors-proxy.js`](../../scripts/local-testing/cors-proxy.js) |
+
+## Runtime behavior
+
+### SDK API vs example page
+
+The public script’s entry for showing the UI is **`init()`** (authenticate, then `loadAvailableTournaments()`, which mounts the overlay). The stage **example** sometimes documents **`showOverlay()`**; our helper calls **`showOverlay()`** if it exists, otherwise **`init()`**. See [`tournamentSdk.js`](../../src/services/novalink/tournamentSdk.js).
+
+### Bootstrap order
+
+1. **`window.__selectedGameConfig`** is set (file config and/or session metadata) per [`GAME_FLOW_BRICK_BREAKER.md`](../reference/GAME_FLOW_BRICK_BREAKER.md).
+2. **`Boot.create()`** sets `preloadGameConfig`, calls **`initNovalinkTournamentSdk(config)`**, then starts **Preload**.
+3. **`Level.create()`** runs **`showNovalinkTournamentOverlay()`** and registers a **once** listener on **`onGameOver`** to **`submitNovalinkTournamentScore(score)`** using the HUD [`ScoreManager`](../../src/ScoreManager.js) (`this.scoreManager.score`).
+
+### URL parameters (optional overrides)
+
+Read from `window`, `parent`, and `top` (same idea as `sessionId` elsewhere):  
+`playerId`, `brandId`, `currency`, `providerId`, `username`, **`novalinkEnv`** (`stage` | `prod`), `sessionId`.
+
+`sessionId` for the SDK also uses **`window.__sessionId`** when set (session mode).
+
+### Environment defaults
+
+- On **`localhost` / `127.0.0.1`**, **`novalinkEnv`** defaults to **`stage`** if not set in URL or `GameConfig.novalink` (aligned with local testing against stage APIs). Production builds still default to **`prod`** unless configured.
+
+## Local development: CORS proxy and `fetch`
+
+The SDK issues browser `fetch` calls to **`https://api.novalink.gg`** and **`https://stageapi.novalink.gg`**, which are not CORS-open to `http://localhost:*`.
+
+1. **CORS proxy** ([`scripts/local-testing/cors-proxy.js`](../../scripts/local-testing/cors-proxy.js)) routes:
+   - **`/__novalink-prod__/*`** → `https://api.novalink.gg/*`
+   - **`/__novalink-stage__/*`** → `https://stageapi.novalink.gg/*`
+   - All other paths keep forwarding to the existing LLG API base (`TARGET_API_BASE_URL`).
+
+2. **Browser shim** ([`tournamentSdk.js`](../../src/services/novalink/tournamentSdk.js) → `installNovalinkFetchProxyForLocalDev()`): on localhost, wraps **`fetch`** so Novalink URLs are rewritten to **`http://127.0.0.1:<__CORS_PROXY_PORT__>/__novalink-prod__`…** (or **`__novalink-stage__`…**). The port matches [`vite.config.js`](../../vite.config.js) `define.__CORS_PROXY_PORT__` and [`scripts/local-testing/ports.config.js`](../../scripts/local-testing/ports.config.js).
+
+3. Run **`scripts/local-testing/start-servers.js`** so both the proxy and Vite are up; restart the proxy after changing `cors-proxy.js`.
+
+**Limitation:** The shim only runs when the page hostname is **`localhost`** or **`127.0.0.1`**. Loading the game from a LAN IP (e.g. phone) does not apply the rewrite unless extended later.
+
+## Embedding (aggregator / iframe)
+
+When the game runs in a **cross-origin** iframe (e.g. `play.luckyladygames.com` inside `stage.novalink.gg`), scripts must not read **`parent`** or **`top`** `location` without a **`try/catch`**: the browser throws **`SecurityError`**. Optional chaining like `win?.location` still throws because the getter itself is forbidden.
+
+[`getUrlParam`](../../src/utils/browser/UrlUtils.js) is safe for any `Window`: failed reads return `null`, so URL overrides are taken from the **game frame’s** `location` only when parent/top are inaccessible.
+
+## Operator checklist
+
+1. Set a real **`gameId`** in each [`src/config/game/{variant}.js`](../../src/config/game/) (or supply it via session **`gameMetadata`**).
+2. Align **`GameConfig.novalink`** with Novalink (provider, brand, currency, `env`, styling).
+3. Ensure production hosting serves [`index.html`](../../index.html) with the Novalink `<script>` before the game bundle.
+4. **`submitScore`:** when Novalink ships it on the public SDK, end-of-run submission should start working without changing call sites; until then it is a no-op.
+
+## Related docs
+
+- [Config and theme system](config_and_theme_system.md)
+- [Game flow (config vs session)](../reference/GAME_FLOW_BRICK_BREAKER.md)

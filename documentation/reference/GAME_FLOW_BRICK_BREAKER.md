@@ -43,6 +43,10 @@
 
 `Level` sets `balancePennies` from the session registry or `TEST_BALANCE_MINOR` for future wallet UI. Arcade score gameplay does not use it yet.
 
+## Novalink tournaments
+
+Session metadata may include **`gameId`** for the Novalink SDK; it is merged in `main.js` like other `gameMetadata` fields. Full flow, local CORS proxy, and `fetch` shim: [`documentation/systems/novalink_tournament_integration.md`](../systems/novalink_tournament_integration.md).
+
 ## Wallet / buy API
 
 Wiring authenticated buy endpoints and on-screen balance is a follow-up when backend routes are ready.

@@ -19,14 +19,49 @@ const API_BASE_URL = process.env.API_BASE_URL || 'https://kmz1ixsmv6.execute-api
 
 const TARGET_API_BASE_URL = API_BASE_URL;
 
+/** Path prefixes → forward to Novalink (SDK uses hardcoded https origins; local client rewrites to these paths). */
+const NOVALINK_PROD_PREFIX = '/__novalink-prod__';
+const NOVALINK_STAGE_PREFIX = '/__novalink-stage__';
+const NOVALINK_PROD_ORIGIN = 'https://api.novalink.gg';
+const NOVALINK_STAGE_ORIGIN = 'https://stageapi.novalink.gg';
+
 console.log('📋 API Base URL: ' + TARGET_API_BASE_URL);
+console.log('💡 Novalink: ' + NOVALINK_PROD_PREFIX + ' → ' + NOVALINK_PROD_ORIGIN + ', ' + NOVALINK_STAGE_PREFIX + ' → ' + NOVALINK_STAGE_ORIGIN);
 console.log('💡 To update: Edit config.js or set API_BASE_URL environment variable\n');
+
+function mergeCorsHeaders(upstreamHeaders) {
+    const out = { ...upstreamHeaders };
+    out['access-control-allow-origin'] = '*';
+    out['access-control-allow-methods'] = 'GET, POST, PUT, DELETE, PATCH, OPTIONS';
+    out['access-control-allow-headers'] =
+        upstreamHeaders['access-control-allow-headers'] ||
+        'Content-Type, Authorization, X-Requested-With, Accept';
+    return out;
+}
+
+function resolveTargetUrl(reqUrl) {
+    const q = reqUrl.indexOf('?');
+    const pathname = q >= 0 ? reqUrl.slice(0, q) : reqUrl;
+    const search = q >= 0 ? reqUrl.slice(q) : '';
+
+    if (pathname.startsWith(NOVALINK_PROD_PREFIX)) {
+        const rest = pathname.slice(NOVALINK_PROD_PREFIX.length) || '/';
+        return NOVALINK_PROD_ORIGIN + rest + search;
+    }
+    if (pathname.startsWith(NOVALINK_STAGE_PREFIX)) {
+        const rest = pathname.slice(NOVALINK_STAGE_PREFIX.length) || '/';
+        return NOVALINK_STAGE_ORIGIN + rest + search;
+    }
+
+    const targetPath = reqUrl.startsWith('/') ? reqUrl.slice(1) : reqUrl;
+    return `${TARGET_API_BASE_URL}/${targetPath}`;
+}
 
 const server = http.createServer((req, res) => {
     // Enable CORS for all requests
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept');
 
     // Handle preflight OPTIONS requests
     if (req.method === 'OPTIONS') {
@@ -35,9 +70,7 @@ const server = http.createServer((req, res) => {
         return;
     }
 
-    // Get the target URL from the request path
-    const targetPath = req.url.startsWith('/') ? req.url.slice(1) : req.url;
-    const targetUrl = `${TARGET_API_BASE_URL}/${targetPath}`;
+    const targetUrl = resolveTargetUrl(req.url);
 
     console.log(`[CORS Proxy] ${req.method} ${targetUrl}`);
 
@@ -59,8 +92,8 @@ const server = http.createServer((req, res) => {
 
     // Forward the request
     const proxyReq = httpModule.request(options, (proxyRes) => {
-        // Copy response headers
-        res.writeHead(proxyRes.statusCode, proxyRes.headers);
+        const headers = mergeCorsHeaders(proxyRes.headers);
+        res.writeHead(proxyRes.statusCode, headers);
         proxyRes.pipe(res);
     });
 
@@ -71,7 +104,7 @@ const server = http.createServer((req, res) => {
     });
 
     // Forward the request body if present
-    if (req.method === 'POST' || req.method === 'PUT') {
+    if (req.method === 'POST' || req.method === 'PUT' || req.method === 'PATCH') {
         req.pipe(proxyReq);
     } else {
         proxyReq.end();

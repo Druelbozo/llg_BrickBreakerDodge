@@ -25,6 +25,7 @@ import PlayAudio from "../ScriptNodes/Utils/PlayAudio.js";
 import Delay from "../ScriptNodes/Utils/Delay.js";
 /* START-USER-IMPORTS */
 import { GameConfig } from '../config/Global.js';
+import { showNovalinkTournamentOverlay, submitNovalinkTournamentScore } from '../services/novalink/tournamentSdk.js';
 import { getThemeImageKey, applyTextTheme, applySingleHexTint, applyGameMessageTextTheme } from '../utils/themeUtils.js';
 /* END-USER-IMPORTS */
 
@@ -703,6 +704,7 @@ export default class Level extends Phaser.Scene {
 		setVisable.targetGameObject = pausePanel;
 
 		this.bG = bG;
+		this.scoreManager = scoreManager;
 		this.wallsContainer = wallsContainer;
 		this.ballLauncher = ballLauncher;
 		this.startButton = startButton;
@@ -730,6 +732,8 @@ export default class Level extends Phaser.Scene {
 	bG;
 	/** @type {Phaser.GameObjects.Container} */
 	wallsContainer;
+	/** @type {ScoreManager} */
+	scoreManager;
 	/** @type {BallLauncher} */
 	ballLauncher;
 	/** @type {Text} */
@@ -797,6 +801,11 @@ export default class Level extends Phaser.Scene {
 		this.events.once("onRestart", () => {this.restart()});
 		this.input.keyboard.once("keydown-SPACE", () => {this.events.emit("onGameOver"); this.restart()})
 		//this.events.once("onGameOver", () => {this.active = false})
+
+		void showNovalinkTournamentOverlay();
+		this.events.once('onGameOver', () => {
+			void submitNovalinkTournamentScore(this.scoreManager?.score ?? 0);
+		});
 
         }
 
