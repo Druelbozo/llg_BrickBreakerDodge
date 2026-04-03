@@ -18,6 +18,12 @@ export const GameConfig = {
         currency: 'USD',
         env: 'prod',
         style: { themeColor: '#ff9900', overlayPosition: 'center' },
-        defaultPlayerId: 'player-123'
+        defaultPlayerId: 'player-123',
+        /**
+         * Optional. When the game runs on a host where Novalink does not send CORS (e.g. play.luckyladygames.com),
+         * non-auth SDK requests can be sent through this origin + /__novalink-prod__ or /__novalink-stage__
+         * (same behavior as scripts/local-testing/cors-proxy.js). If unset, play.luckyladygames.com uses api.BASE_URL_LIVE.
+         */
+        fetchProxyBaseUrl: ''
     }
 };

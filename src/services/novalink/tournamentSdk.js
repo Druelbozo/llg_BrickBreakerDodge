@@ -7,39 +7,82 @@ function getUrlParamAny(name) {
 		|| (window.top !== window ? getUrlParam(name, window.top) : null);
 }
 
+function trimSlash(s) {
+	return String(s).replace(/\/$/, '');
+}
+
 /**
- * The Novalink SDK calls `https://api.novalink.gg` / `https://stageapi.novalink.gg` directly,
- * which hits CORS in the browser on localhost. Rewrite those requests through our local CORS proxy.
+ * Base URL for rewriting Novalink fetches: local Node cors-proxy, or LLG API (production).
+ * @returns {{ base: string, rewriteAuth: boolean }|null}
  */
-function installNovalinkFetchProxyForLocalDev() {
+function getNovalinkFetchProxyConfig() {
+	const host = typeof location !== 'undefined' ? location.hostname : '';
+	const isLocal = host === 'localhost' || host === '127.0.0.1';
+	const n = GameConfig.novalink || {};
+
+	if (isLocal) {
+		const port = typeof __CORS_PROXY_PORT__ !== 'undefined' ? __CORS_PROXY_PORT__ : '3003';
+		return { base: `http://127.0.0.1:${port}`, rewriteAuth: true };
+	}
+
+	let base = typeof n.fetchProxyBaseUrl === 'string' ? n.fetchProxyBaseUrl.trim() : '';
+	if (!base && host === 'play.luckyladygames.com') {
+		base = GameConfig.api.BASE_URL_LIVE || '';
+	}
+	if (!base) {
+		return null;
+	}
+	// Auth token/refresh already allow CORS from our game origin; keep them direct so API Gateway
+	// only needs to forward non-auth paths (see documentation).
+	return { base: trimSlash(base), rewriteAuth: false };
+}
+
+/**
+ * The Novalink SDK calls `https://api.novalink.gg` / `https://stageapi.novalink.gg` directly.
+ * Browsers block some of those responses (CORS) when the game runs off novalink.gg — e.g. on play.luckyladygames.com.
+ * Rewrite through our CORS proxy (local) or LLG API + __novalink-* paths (production).
+ */
+function installNovalinkFetchProxy() {
 	if (globalThis.__novalinkFetchProxyInstalled) {
 		return;
 	}
-	const host = typeof location !== 'undefined' ? location.hostname : '';
-	const isLocal = host === 'localhost' || host === '127.0.0.1';
-	if (!isLocal) {
+	const cfg = getNovalinkFetchProxyConfig();
+	if (!cfg) {
 		return;
 	}
 
-	const port = typeof __CORS_PROXY_PORT__ !== 'undefined' ? __CORS_PROXY_PORT__ : '3003';
-	const base = `http://127.0.0.1:${port}`;
+	const { base, rewriteAuth } = cfg;
 	const origFetch = globalThis.fetch.bind(globalThis);
 
 	globalThis.fetch = function novalinkPatchedFetch(input, init) {
 		const rewrite = (urlStr) => {
 			const prod = 'https://api.novalink.gg';
 			const stage = 'https://stageapi.novalink.gg';
+			let targetPrefix = null;
+			let restStart = 0;
 			if (urlStr.startsWith(prod + '/') || urlStr === prod) {
-				const rest = urlStr.length > prod.length ? urlStr.slice(prod.length) : '/';
-				const path = rest.startsWith('/') ? rest : `/${rest}`;
-				return `${base}/__novalink-prod__${path}`;
+				targetPrefix = '__novalink-prod__';
+				restStart = urlStr === prod ? prod.length : prod.length;
+			} else if (urlStr.startsWith(stage + '/') || urlStr === stage) {
+				targetPrefix = '__novalink-stage__';
+				restStart = urlStr === stage ? stage.length : stage.length;
 			}
-			if (urlStr.startsWith(stage + '/') || urlStr === stage) {
-				const rest = urlStr.length > stage.length ? urlStr.slice(stage.length) : '/';
-				const path = rest.startsWith('/') ? rest : `/${rest}`;
-				return `${base}/__novalink-stage__${path}`;
+			if (!targetPrefix) {
+				return null;
 			}
-			return null;
+			let rest = urlStr.length > restStart ? urlStr.slice(restStart) : '/';
+			const path = rest.startsWith('/') ? rest : `/${rest}`;
+			if (!rewriteAuth) {
+				try {
+					const u = new URL(urlStr);
+					if (u.pathname.startsWith('/api/v1/auth/')) {
+						return null;
+					}
+				} catch (_) {
+					return null;
+				}
+			}
+			return `${base}/${targetPrefix}${path}`;
 		};
 
 		if (typeof input === 'string') {
@@ -67,7 +110,7 @@ function installNovalinkFetchProxyForLocalDev() {
  * @param {Record<string, unknown>} [runtimeConfig]
  */
 export function initNovalinkTournamentSdk(runtimeConfig) {
-	installNovalinkFetchProxyForLocalDev();
+	installNovalinkFetchProxy();
 
 	const cfg = runtimeConfig && typeof runtimeConfig === 'object' ? runtimeConfig : {};
 	if (!cfg.gameId) {
