@@ -15,7 +15,7 @@ This document summarizes how [Novalink’s Tournament SDK](https://stage.novalin
 | Defaults (`providerId`, `brandId`, `currency`, `env`, `style`, …) | [`src/config/Global.js`](../../src/config/Global.js) → `GameConfig.novalink` |
 | Per-variant `gameId` | [`src/config/game/dodge-zone.js`](../../src/config/game/dodge-zone.js), [`src/config/game/kick-frenzy.js`](../../src/config/game/kick-frenzy.js) |
 | Merge `gameId` from file + session metadata | [`src/main.js`](../../src/main.js) → `mergeBreakerRuntimeConfig` |
-| Init SDK instance | [`src/main.js`](../../src/main.js) → `Boot.create()` calls `initNovalinkTournamentSdk(config)` |
+| Init SDK instance | [`src/main.js`](../../src/main.js) → `Boot.create()` calls `initNovalinkTournamentSdk(config, providerSession?)` |
 | Show overlay + submit score | [`src/scenes/Level.js`](../../src/scenes/Level.js) → `showNovalinkTournamentOverlay()`, `submitNovalinkTournamentScore()` |
 | Integration helpers | [`src/services/novalink/tournamentSdk.js`](../../src/services/novalink/tournamentSdk.js) |
 | Local Novalink forwarding | [`scripts/local-testing/cors-proxy.js`](../../scripts/local-testing/cors-proxy.js) |
@@ -29,19 +29,36 @@ The public script’s entry for showing the UI is **`init()`** (authenticate, th
 ### Bootstrap order
 
 1. **`window.__selectedGameConfig`** is set (file config and/or session metadata) per [`GAME_FLOW_BRICK_BREAKER.md`](../reference/GAME_FLOW_BRICK_BREAKER.md).
-2. **`Boot.create()`** sets `preloadGameConfig`, calls **`initNovalinkTournamentSdk(config)`**, then starts **Preload**.
+2. **`Boot.create()`** sets `preloadGameConfig`, calls **`initNovalinkTournamentSdk(config, providerSession)`** (second arg is the `/provider/session` payload when session mode succeeds), then starts **Preload**.
 3. **`Level.create()`** runs **`showNovalinkTournamentOverlay()`** and registers a **once** listener on **`onGameOver`** to **`submitNovalinkTournamentScore(score)`** using the HUD [`ScoreManager`](../../src/ScoreManager.js) (`this.scoreManager.score`).
+
+### Session mode (Novalink / `startGame`)
+
+Aggregator **`POST /provider/startGame`** persists player and operator context; the game loads with **`?sessionId=<LLG session id>`** and **`POST /provider/session`** returns the stored row. **`initNovalinkTournamentSdk`** uses that response so the tournament SDK matches Novalink’s expected identity fields.
+
+| `/provider/session` field | `NovalinkTournamentSDK` option | Notes |
+|---------------------------|--------------------------------|--------|
+| `userId` | `playerId` | `player_id` from startGame |
+| `brandId` | `brandId` | `brand_id` from startGame |
+| `currency` | `currency` | Fallback: `gameMetadata.currencyCode` |
+| `userName` | `username` (optional) | Display name |
+| `casinoSessionId` or `operatorSessionId` | `sessionId` (optional) | Operator / Novalink **`session_id`** — **not** the LLG `sessionId` in the game URL |
+
+The query param **`sessionId`** on the launch URL is the **LLG** session id used only to call **`/provider/session`**. It must **not** be passed to Novalink as `sessionId` when **`casinoSessionId`** (or **`operatorSessionId`**) is present on the session object.
+
+`gameId` still comes from merged runtime config (per-game config file + **`gameMetadata`**); if missing, **`gameUuid`** from the session is used as a fallback.
 
 ### URL parameters (optional overrides)
 
-Read from `window`, `parent`, and `top` (same idea as `sessionId` elsewhere):  
-`playerId`, `brandId`, `currency`, `providerId`, `username`, **`novalinkEnv`** (`stage` | `prod`), `sessionId`.
+Read from `window`, `parent`, and `top`:  
+`playerId`, `brandId`, `currency`, `providerId`, `username`, **`novalinkEnv`** (`stage` | `prod`), **`sessionId`** (only when **not** using a full provider session object — e.g. local testing without `/provider/session`).
 
-`sessionId` for the SDK also uses **`window.__sessionId`** when set (session mode).
+Precedence: **URL** overrides **provider session** overrides **runtime config / `GameConfig.novalink`**.
 
 ### Environment defaults
 
-- On **`localhost` / `127.0.0.1`**, **`novalinkEnv`** defaults to **`stage`** if not set in URL or `GameConfig.novalink` (aligned with local testing against stage APIs). Production builds still default to **`prod`** unless configured.
+- **`GameConfig.novalink.env`** defaults to **`stage`** for Novalink staging; override with **`?novalinkEnv=prod`** when moving to production APIs.
+- On **`localhost` / `127.0.0.1`**, if `env` is still unset after URL/config, **`stage`** is used for local SDK behavior.
 
 ## Local development: CORS proxy and `fetch`
 

@@ -16,7 +16,7 @@ export const GameConfig = {
         providerId: 'llgdev',
         brandId: 'brand-123',
         currency: 'USD',
-        env: 'prod',
+        env: 'stage',
         style: { themeColor: '#ff9900', overlayPosition: 'center' },
         defaultPlayerId: 'player-123',
         /**

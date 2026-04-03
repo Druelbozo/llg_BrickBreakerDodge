@@ -108,12 +108,17 @@ function installNovalinkFetchProxy() {
 
 /**
  * @param {Record<string, unknown>} [runtimeConfig]
+ * @param {Record<string, unknown>|null|undefined} [providerSession] Full `/provider/session` response (startGame-backed fields).
  */
-export function initNovalinkTournamentSdk(runtimeConfig) {
+export function initNovalinkTournamentSdk(runtimeConfig, providerSession) {
 	installNovalinkFetchProxy();
 
 	const cfg = runtimeConfig && typeof runtimeConfig === 'object' ? runtimeConfig : {};
-	if (!cfg.gameId) {
+	const ps = providerSession && typeof providerSession === 'object' ? providerSession : null;
+	const meta = ps?.gameMetadata && typeof ps.gameMetadata === 'object' ? ps.gameMetadata : null;
+
+	const gameId = cfg.gameId || (ps?.gameUuid != null ? String(ps.gameUuid) : null);
+	if (!gameId) {
 		return null;
 	}
 	if (typeof globalThis.NovalinkTournamentSDK === 'undefined') {
@@ -125,27 +130,48 @@ export function initNovalinkTournamentSdk(runtimeConfig) {
 	}
 
 	const n = GameConfig.novalink || {};
-	const currency = getUrlParamAny('currency') || cfg.currencyCode || n.currency || 'USD';
 	const isLocalHost = typeof location !== 'undefined'
 		&& (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
+
+	const currency = getUrlParamAny('currency')
+		|| (ps?.currency != null ? String(ps.currency) : null)
+		|| (meta?.currencyCode != null ? String(meta.currencyCode) : null)
+		|| cfg.currencyCode
+		|| n.currency
+		|| 'USD';
+
 	const opts = {
-		gameId: String(cfg.gameId),
+		gameId: String(gameId),
 		providerId: getUrlParamAny('providerId') || cfg.novalinkProviderId || n.providerId,
-		playerId: getUrlParamAny('playerId') || cfg.playerId || n.defaultPlayerId || 'player-123',
-		brandId: getUrlParamAny('brandId') || cfg.novalinkBrandId || n.brandId,
+		playerId: getUrlParamAny('playerId')
+			|| (ps?.userId != null ? String(ps.userId) : null)
+			|| cfg.playerId
+			|| n.defaultPlayerId
+			|| 'player-123',
+		brandId: getUrlParamAny('brandId')
+			|| (ps?.brandId != null ? String(ps.brandId) : null)
+			|| cfg.novalinkBrandId
+			|| n.brandId,
 		currency,
 		env: getUrlParamAny('novalinkEnv') || cfg.novalinkEnv || n.env || (isLocalHost ? 'stage' : 'prod'),
 		style: { ...n.style, ...(cfg.novalinkStyle && typeof cfg.novalinkStyle === 'object' ? cfg.novalinkStyle : {}) }
 	};
-	const username = getUrlParamAny('username') || cfg.username;
+
+	const username = getUrlParamAny('username')
+		|| (ps?.userName != null ? String(ps.userName) : null)
+		|| (cfg.username != null ? String(cfg.username) : null);
 	if (username) {
 		opts.username = username;
 	}
-	const sessionId = typeof window.__sessionId === 'string' && window.__sessionId
-		? window.__sessionId
-		: getUrlParamAny('sessionId');
-	if (sessionId) {
-		opts.sessionId = sessionId;
+
+	let sdkSessionId = null;
+	if (ps && (ps.casinoSessionId != null || ps.operatorSessionId != null)) {
+		sdkSessionId = ps.casinoSessionId != null ? String(ps.casinoSessionId) : String(ps.operatorSessionId);
+	} else if (!ps) {
+		sdkSessionId = getUrlParamAny('sessionId');
+	}
+	if (sdkSessionId) {
+		opts.sessionId = sdkSessionId;
 	}
 
 	const sdk = new globalThis.NovalinkTournamentSDK(opts);

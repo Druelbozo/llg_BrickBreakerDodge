@@ -93,6 +93,7 @@ class Boot extends Phaser.Scene {
 
 		let config = window.__selectedGameConfig || {};
 		this.registry.set('preloadUseSessionConfig', false);
+		let providerSessionForNovalink = null;
 
 		if (window.__sessionId) {
 			const providerAPI = new ProviderAPIService();
@@ -102,6 +103,7 @@ class Boot extends Phaser.Scene {
 			}
 			try {
 				const sessionInfo = await providerAPI.getSessionInfo();
+				providerSessionForNovalink = sessionInfo;
 				const meta = sessionInfo.gameMetadata || {};
 				config = mergeBreakerRuntimeConfig({}, meta);
 				window.__selectedGameConfig = config;
@@ -135,7 +137,7 @@ class Boot extends Phaser.Scene {
 		}
 
 		this.registry.set('preloadGameConfig', config);
-		initNovalinkTournamentSdk(config);
+		initNovalinkTournamentSdk(config, providerSessionForNovalink);
 		this.scene.start("Preload");
 	}
 }
