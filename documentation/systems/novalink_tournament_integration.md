@@ -6,7 +6,7 @@ This document summarizes how [Novalink’s Tournament SDK](https://stage.novalin
 
 - The SDK script is loaded globally from `https://novalink.gg/sdk/tournament-sdk-v1.js` in [`index.html`](../../index.html).
 - **`gameId`** is defined per game variant in [`src/config/game/*.js`](../../src/config/game/) and merged into runtime config (including session `gameMetadata.gameId`). Shared defaults live in [`src/config/Global.js`](../../src/config/Global.js) under `GameConfig.novalink`.
-- The SDK is **constructed** after the final merged config is known in **`Boot.create()`**, then the **tournament UI** is shown when **`Level`** finishes `create()`. **Score submission** is called on **`onGameOver`** when the deployed SDK exposes `submitScore` (not present on the bundle we verified; the wrapper is forward-compatible).
+- The SDK is **constructed** after the final merged config is known in **`Boot.create()`**, then the **tournament UI** is shown when **`Level`** finishes `create()`. **`submitScore(finalScore)`** runs as soon as the round ends (**`onGameOver`**, when the SDK exposes **`submitScore`** — see [`submitNovalinkTournamentScore`](../../src/services/novalink/tournamentSdk.js)).
 
 ## Source files
 
@@ -30,7 +30,7 @@ The public script’s entry for showing the UI is **`init()`** (authenticate, th
 
 1. **`window.__selectedGameConfig`** is set (file config and/or session metadata) per [`GAME_FLOW_BRICK_BREAKER.md`](../reference/GAME_FLOW_BRICK_BREAKER.md).
 2. **`Boot.create()`** sets `preloadGameConfig`, calls **`initNovalinkTournamentSdk(config, providerSession)`** (second arg is the `/provider/session` payload when session mode succeeds), then starts **Preload**.
-3. **`Level.create()`** runs **`showNovalinkTournamentOverlay()`** and registers a **once** listener on **`onGameOver`** to **`submitNovalinkTournamentScore(score)`** using the HUD [`ScoreManager`](../../src/ScoreManager.js) (`this.scoreManager.score`).
+3. **`Level.create()`** runs **`showNovalinkTournamentOverlay()`** ( **`showOverlay()`** if present, else **`init()`** ) and registers **`onGameOver`** once to **`submitNovalinkTournamentScore(score)`** immediately with the HUD [`ScoreManager`](../../src/ScoreManager.js) score (`this.scoreManager.score`).
 
 ### Session mode (Novalink / `startGame`)
 
@@ -105,7 +105,7 @@ When the game runs in a **cross-origin** iframe (e.g. `play.luckyladygames.com` 
 1. Set a real **`gameId`** in each [`src/config/game/{variant}.js`](../../src/config/game/) (or supply it via session **`gameMetadata`**).
 2. Align **`GameConfig.novalink`** with Novalink (provider, brand, currency, `env`, styling).
 3. Ensure production hosting serves [`index.html`](../../index.html) with the Novalink `<script>` before the game bundle.
-4. **`submitScore`:** when Novalink ships it on the public SDK, end-of-run submission should start working without changing call sites; until then it is a no-op.
+4. **`submitScore`:** implemented via **`submitNovalinkTournamentScore`** on **`onGameOver`** (round end); if the loaded SDK bundle has no **`submitScore`** method, the helper returns without error.
 5. **Production CORS:** ensure the LLG API forwards **`__novalink-prod__` / `__novalink-stage__`** as documented above (or confirm Novalink CORS for your origin).
 
 ## Related docs

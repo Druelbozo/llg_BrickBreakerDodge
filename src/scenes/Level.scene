@@ -436,7 +436,7 @@
                                         "timerLength"
                                     ],
                                     "label": "timer_1",
-                                    "timerLength": 360,
+                                    "timerLength": 30,
                                     "list": [
                                         {
                                             "prefabId": "fde543dc-2fcd-4de9-9c2e-76a1e3d62023",

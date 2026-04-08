@@ -221,13 +221,20 @@ export async function showNovalinkTournamentOverlay() {
 
 export async function submitNovalinkTournamentScore(finalScore) {
 	const sdk = globalThis.__novalinkTournamentSDK;
-	if (!sdk || typeof sdk.submitScore !== 'function') {
+	if (!sdk) {
+		console.log('[Novalink] submitScore skipped: SDK not initialized');
+		return;
+	}
+	if (typeof sdk.submitScore !== 'function') {
+		console.log('[Novalink] submitScore skipped: SDK has no submitScore() (bundle may not expose it yet)');
 		return;
 	}
 	const n = Number(finalScore);
 	const score = Number.isFinite(n) ? n : 0;
+	console.log('[Novalink] submitScore calling', { score });
 	try {
 		await sdk.submitScore(score);
+		console.log('[Novalink] submitScore completed successfully', { score });
 	} catch (e) {
 		console.warn('[Novalink] submitScore failed:', e);
 	}

@@ -479,7 +479,7 @@ export default class Level extends Phaser.Scene {
 		onGameStartTimer.once = true;
 
 		// timer_1 (prefab fields)
-		timer_1.timerLength = 360;
+		timer_1.timerLength = 30;
 
 		// onGameOverTimerEvent (prefab fields)
 		onGameOverTimerEvent.eventName = "onGameOver";
