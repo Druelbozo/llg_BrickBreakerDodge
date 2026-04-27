@@ -54,22 +54,25 @@ function getS3Prefix() {
 
   if (!fs.existsSync(AWS_CONFIG)) {
     console.error(`❌ Config file not found: ${AWS_CONFIG}`);
-    console.error(`   This script requires aws_config.py to define S3_PREFIX.`);
+    console.error(`   This script requires aws_config.py to define CATEGORY or S3_PREFIX.`);
     process.exit(1);
   }
 
   try {
     const configContent = fs.readFileSync(AWS_CONFIG, 'utf8');
-    const match = configContent.match(/S3_PREFIX\s*=\s*['"]([^'"]+)['"]/);
+    const categoryMatch = configContent.match(/CATEGORY\s*=\s*['"]([^'"]+)['"]/);
+    const legacyMatch = configContent.match(/S3_PREFIX\s*=\s*['"]([^'"]+)['"]/);
 
-    if (!match || !match[1]) {
-      console.error(`❌ S3_PREFIX not found in ${AWS_CONFIG}`);
-      console.error(`   Config file must contain: S3_PREFIX = 'games/your-game/'`);
+    let prefix;
+    if (categoryMatch && categoryMatch[1]) {
+      prefix = `games/${categoryMatch[1].trim()}/`;
+    } else if (legacyMatch && legacyMatch[1]) {
+      prefix = legacyMatch[1].trim();
+    } else {
+      console.error(`❌ CATEGORY (or legacy quoted S3_PREFIX) not found in ${AWS_CONFIG}`);
       console.error(`   Config file content preview: ${configContent.substring(0, 300)}...`);
       process.exit(1);
     }
-
-    let prefix = match[1].trim();
     if (!prefix.endsWith('/')) {
       prefix += '/';
     }
@@ -77,7 +80,7 @@ function getS3Prefix() {
     console.log(`✅ Read S3_PREFIX from config: ${prefix}`);
     return prefix;
   } catch (error) {
-    console.error(`❌ Failed to read S3_PREFIX from ${AWS_CONFIG}: ${error.message}`);
+    console.error(`❌ Failed to read deploy prefix from ${AWS_CONFIG}: ${error.message}`);
     process.exit(1);
   }
 }
